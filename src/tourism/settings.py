@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     #'rest_framework.authtoken',
+    "rest_framework_simplejwt.token_blacklist",
     'djoser',
+    "social_django",
     
     # pingoway apps
     'app_auth'
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 ROOT_URLCONF = 'tourism.urls'
@@ -67,6 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -127,11 +132,14 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
+    'LOGIN_FIELD':'email',
     #'SEND_ACTIVATION_EMAIL': True,
     #'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',
-    } 
+    },
+    "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
+    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://127.0.0.1:3000"],
 }
 
 
@@ -166,3 +174,18 @@ EMAIL_HOST_PASSWORD= os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS= os.getenv('EMAIL_USE_TLS')
 EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL= os.getenv('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_CLIENT_ID")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_SECRET")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name", "last_name"]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
