@@ -133,8 +133,8 @@ REST_FRAMEWORK = {
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'LOGIN_FIELD':'email',
-    #'SEND_ACTIVATION_EMAIL': True,
-    #'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    "ACTIVATION_URL": 'auth/activation/{uid}/{token}',
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',
     },
