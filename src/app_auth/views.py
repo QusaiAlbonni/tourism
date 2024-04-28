@@ -11,10 +11,7 @@ class WebLoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         serializer = pwAdminLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        try:
-            user = User.objects.get(email=request.data['email'])
-        except User.DoesNotExist:
-            return Response({'error': 'email not correct'}, status=status.HTTP_404_NOT_FOUND)
+        user = User.objects.get(email=request.data['email'])
         if user.is_admin:
             return super().post(request, *args, **kwargs)
         else:
