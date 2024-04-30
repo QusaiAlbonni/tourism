@@ -31,5 +31,7 @@ class pwUserAdmin(UserAdmin):
             },
         ),
     )
+    list_display = ("username", "email", "first_name", "last_name", "is_staff", "is_admin")
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups", "is_admin")
 
 admin.site.register(User, pwUserAdmin)

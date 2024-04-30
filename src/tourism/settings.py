@@ -1,6 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
-import os
+from os import getenv
 from dotenv import load_dotenv
 
 
@@ -15,14 +15,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+SITE_NAME = 'Pingoway'
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000']
 
 
 # Application definition
@@ -37,10 +40,10 @@ INSTALLED_APPS = [
     
     # 3rd party
     'rest_framework',
-    #'rest_framework.authtoken',
-    "rest_framework_simplejwt.token_blacklist",
+    'rest_framework_simplejwt.token_blacklist',
     'djoser',
-    "social_django",
+    'social_django',
+    'corsheaders',
     
     # pingoway apps
     'app_auth'
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,7 +66,7 @@ ROOT_URLCONF = 'tourism.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,12 +89,12 @@ WSGI_APPLICATION = 'tourism.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_DATABASE'),
-        'NAME': os.getenv('DB_NAME'),
-        "USER": os.getenv('DB_USER'),
-        "HOST": os.getenv('DB_HOST'),
-        "PORT": os.getenv('DB_PORT'),
-        "PASSWORD": os.getenv('DB_PASSWORD')
+        'ENGINE': getenv('DB_DATABASE'),
+        'NAME': getenv('DB_NAME'),
+        "USER": getenv('DB_USER'),
+        "HOST": getenv('DB_HOST'),
+        "PORT": getenv('DB_PORT'),
+        "PASSWORD": getenv('DB_PASSWORD')
     }
 }
 
@@ -150,7 +154,7 @@ DJOSER = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = os.getenv('TIME_ZONE')
+TIME_ZONE = getenv('TIME_ZONE')
 
 USE_I18N = True
 
@@ -167,16 +171,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST= os.getenv('EMAIL_HOST')
-EMAIL_PORT= os.getenv('EMAIL_PORT')
-EMAIL_HOST_USER= os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD= os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS= os.getenv('EMAIL_USE_TLS')
+EMAIL_HOST= getenv('EMAIL_HOST')
+EMAIL_PORT= getenv('EMAIL_PORT')
+EMAIL_HOST_USER= getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD= getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS= getenv('EMAIL_USE_TLS')
 EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL= os.getenv('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
+DEFAULT_FROM_EMAIL= getenv('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_CLIENT_ID")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_SECRET")
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv("GOOGLE_CLIENT_ID")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv("GOOGLE_SECRET")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",

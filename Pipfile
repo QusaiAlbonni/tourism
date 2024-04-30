@@ -12,7 +12,7 @@ colorama = "==0.4.6"
 cryptography = "==42.0.5"
 defusedxml = "==0.8.0rc2"
 django = "==5.0.3"
-django-cors-headers = "==4.3.1"
+django-cors-headers = "*"
 django-templated-mail = "==1.1.1"
 djangorestframework = "==3.15.0"
 djangorestframework-simplejwt = "*"
@@ -43,6 +43,7 @@ urllib3 = "==2.2.1"
 mssql-django = "*"
 mysqlclient = "*"
 rest-framework-simplejwt = "*"
+faker = "*"
 
 [dev-packages]
 
