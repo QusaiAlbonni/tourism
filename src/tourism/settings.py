@@ -143,6 +143,9 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',
     },
+    'EMAIL': {
+       'activation': 'app_auth.email.ActivationEmail',
+    },
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://127.0.0.1:3000"],
 }
