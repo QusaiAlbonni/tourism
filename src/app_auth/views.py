@@ -5,8 +5,9 @@ from rest_framework import status
 from .models import User
 from rest_framework.views import APIView
 import requests
-from django.core.exceptions import ObjectDoesNotExist
 from .serializers import pwAdminLoginSerializer
+
+
 class WebLoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         serializer = pwAdminLoginSerializer(data=request.data)
