@@ -23,10 +23,14 @@ SECRET_KEY = getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv('DEBUG')
 
-ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1"]
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000']
+ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost"]
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
 
+STATIC_URL = "static/"
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static/",
+]
 
 
 # Application definition
