@@ -23,9 +23,10 @@ SECRET_KEY = getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv('DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1"]
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000']
+
+
 
 
 # Application definition
@@ -142,6 +143,9 @@ DJOSER = {
     "ACTIVATION_URL": 'auth/activation/{uid}/{token}',
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',
+    },
+    'EMAIL': {
+       'activation': 'app_auth.email.ActivationEmail',
     },
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://127.0.0.1:3000"],
