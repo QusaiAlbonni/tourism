@@ -44,6 +44,7 @@ mssql-django = "*"
 mysqlclient = "*"
 rest-framework-simplejwt = "*"
 faker = "*"
+django-address = "*"
 
 [dev-packages]
 

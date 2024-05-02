@@ -1,5 +1,8 @@
 from djoser.serializers import UserCreatePasswordRetypeSerializer ,TokenCreateSerializer
-from .models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class pwUserCreateSerializer(UserCreatePasswordRetypeSerializer):
     class Meta(UserCreatePasswordRetypeSerializer.Meta):
         model = User

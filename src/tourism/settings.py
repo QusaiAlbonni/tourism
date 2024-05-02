@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
     
     # pingoway apps
-    'app_auth'
+    'app_auth',
+    'profiles'
 ]
 
 MIDDLEWARE = [
