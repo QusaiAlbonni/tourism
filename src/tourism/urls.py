@@ -27,4 +27,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('app_auth.urls')),
     re_path(r'^auth/', include('djoser.social.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('profiles/', include('profiles.urls'))
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
