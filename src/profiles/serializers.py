@@ -40,6 +40,7 @@ class ProfileAddressCreateSerializer(serializers.ModelSerializer):
         
         address = validated_data
         profile.address = address
+        profile.address.save()
         profile.save()
         address = profile.address
         
