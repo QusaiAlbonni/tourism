@@ -1,13 +1,13 @@
 from django.db import models
+from datetime import  timedelta
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
-from datetime import  timedelta
 from djmoney.contrib.exchange.models import convert_money
 from djmoney.money import Money
 from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from django.core.validators import MaxValueValidator, MinValueValidator
-from address.models import AddressField, Address
+from address.models import AddressField
 from app_media.models import AvatarField
 
 User = get_user_model()

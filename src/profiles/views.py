@@ -1,30 +1,24 @@
 from django.shortcuts import render
-from rest_framework .generics import CreateAPIView,RetrieveAPIView,DestroyAPIView
-from .serializers import CreditCardSerializer,PointsWalletSerializer
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import  status
-from rest_framework.response import Response
-from .models import CreditCard,PointsWallet
 from django.http import Http404
-from .serializers import ProfileSerializer, ProfileAddressCreateSerializer
+from .serializers import ProfileSerializer, ProfileAddressCreateSerializer, CreditCardSerializer,PointsWalletSerializer
 from rest_framework import generics, status, viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError, MethodNotAllowed, NotFound
-from .models import Profile
+from .models import Profile, CreditCard,PointsWallet
 from address.models import Address
 
 
 
-class CreditCardCreateView(CreateAPIView):
+class CreditCardCreateView(generics.CreateAPIView):
     serializer_class = CreditCardSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class CreditCardRetrieveAPIView(RetrieveAPIView):
+class CreditCardRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = CreditCardSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'user'
@@ -43,7 +37,7 @@ class CreditCardRetrieveAPIView(RetrieveAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-class CreditCardDeleteView(DestroyAPIView):
+class CreditCardDeleteView(generics.DestroyAPIView):
     serializer_class = CreditCardSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'user'
@@ -61,7 +55,7 @@ class CreditCardDeleteView(DestroyAPIView):
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-class PointsWalletRetrieveAPIView(RetrieveAPIView):
+class PointsWalletRetrieveAPIView(generics.RetrieveAPIView):
 
     serializer_class = PointsWalletSerializer
     permission_classes = [IsAuthenticated]

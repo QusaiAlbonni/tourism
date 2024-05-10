@@ -3,7 +3,3 @@ from django.dispatch import receiver
 from .models import User
 from profiles.models import Profile
 
-@receiver(post_save, sender=User)
-def my_handler(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user= instance)

@@ -45,6 +45,8 @@ mysqlclient = "*"
 rest-framework-simplejwt = "*"
 faker = "*"
 django-address = "*"
+django-money = "*"
+django-extensions = "*"
 
 [dev-packages]
 
