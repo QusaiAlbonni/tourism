@@ -20,3 +20,5 @@ class User(AbstractUser):
     objects = pwUserManager()
     USERNAME_FIELD= 'email'
     REQUIRED_FIELDS=['username']
+
+    
