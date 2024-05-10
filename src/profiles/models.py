@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from djmoney.models.fields import MoneyField
+from datetime import  timedelta
+from djmoney.contrib.exchange.models import convert_money
+from djmoney.money import Money
+from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from django.core.validators import MaxValueValidator, MinValueValidator
 from address.models import AddressField, Address
 from app_media.models import AvatarField
@@ -27,8 +32,54 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return super().__str__()
 
-class CreditCard():
-    pass
+class CreditCard(models.Model):
+    CARD_TYPES = (
+        ('Visa', 'Visa'),
+        ('Mastercard', 'Mastercard'),
+        ('American Express', 'American Express'),     
+    )
+    card_number = models.CharField(max_length=16, unique=True)
+    holder_name = models.CharField(max_length=100)
+    expiration_date = models.DateField()
+    ccv = models.CharField(max_length=4)
+    balance = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',default=5000)
+    card_type = models.CharField(max_length=20, choices=CARD_TYPES)
 
-class PointsWallet():
-    pass
+    user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE, editable= False)
+    
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+
+    def decrease_balance(self, amount, currency):
+        OpenExchangeRatesBackend().update_rates()
+        converted_amount = convert_money(Money(amount, currency),self.balance.currency)
+        self.balance -= converted_amount
+        self.save()
+    
+class PointsWallet(models.Model):
+
+    num_points = models.IntegerField(default=10)
+
+    user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE, editable= False)
+    
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False) 
+
+    @property
+    def expiration_date(self):
+        return self.modified + timedelta(days=90)  
+    
+    def increase_point(self,pay,extra_point=0):
+        #extra point to backage
+        amount=pay*0.0
+        self.num_points+=(amount+extra_point)
+        self.save()
+
+    def decrease_point(self,amount):
+        if amount>self.num_points:
+            raise ValueError("Insufficient points")
+        self.num_points-=amount
+        self.save()
+    # user should have at lest three reserv to can pay by point
+    def user_can(self):
+        ...

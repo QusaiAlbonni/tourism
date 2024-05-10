@@ -26,6 +26,7 @@ admin.site.site_title = f'{SITE_NAME} site admin'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('app_auth.urls')),
+    path('profile/',include('profiles.urls')),
     re_path(r'^auth/', include('djoser.social.urls')),
     path('profiles/', include('profiles.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

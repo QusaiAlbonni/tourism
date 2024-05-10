@@ -1,4 +1,11 @@
 from django.shortcuts import render
+from rest_framework .generics import CreateAPIView,RetrieveAPIView,DestroyAPIView
+from .serializers import CreditCardSerializer,PointsWalletSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import  status
+from rest_framework.response import Response
+from .models import CreditCard,PointsWallet
+from django.http import Http404
 from .serializers import ProfileSerializer, ProfileAddressCreateSerializer
 from rest_framework import generics, status, viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
@@ -7,7 +14,69 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError, MethodNotAllowed, NotFound
 from .models import Profile
 from address.models import Address
-# Create your views here.
+
+
+
+class CreditCardCreateView(CreateAPIView):
+    serializer_class = CreditCardSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class CreditCardRetrieveAPIView(RetrieveAPIView):
+    serializer_class = CreditCardSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'user'
+
+    def get_object(self):
+        user = self.request.user
+        try:
+            return CreditCard.objects.get(user=user)
+        except CreditCard.DoesNotExist:
+            return None
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance is None:
+            return Response({'detail': 'This user does not have any credit card.'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+class CreditCardDeleteView(DestroyAPIView):
+    serializer_class = CreditCardSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'user'
+    def get_object(self):
+        user = self.request.user
+        try:
+            return CreditCard.objects.get(user=user)
+        except CreditCard.DoesNotExist:
+            return None
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance is None:
+            return Response({'detail': 'This user does not have any credit card.'}, status=status.HTTP_404_NOT_FOUND)
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class PointsWalletRetrieveAPIView(RetrieveAPIView):
+
+    serializer_class = PointsWalletSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'user'
+
+    def get_object(self):
+        user = self.request.user
+        return PointsWallet.objects.get(user=user)
+    def get_object(self):
+        user = self.request.user
+        try:
+            return PointsWallet.objects.get(user=user)
+        except PointsWallet.DoesNotExist:
+            raise Http404("PointsWallet does not exist for this user.")
+ 
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -74,4 +143,3 @@ class ProfileAddressView(mixins.RetrieveModelMixin,
     def patch(self, request, *args, **kwargs):
         self.get_object = self.get_instance
         return self.partial_update(request, *args, **kwargs)
-

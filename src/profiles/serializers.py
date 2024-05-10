@@ -1,6 +1,43 @@
 from rest_framework import serializers
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+from .models import CreditCard,PointsWallet
+from django.core.validators import MinLengthValidator
+from datetime import  timedelta
 from address.models import Address
 from .models import Profile
+
+User = get_user_model()
+
+
+class CreditCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CreditCard
+        exclude = ('created', 'modified','id','user')
+        read_only_fields = ('is_expired',)
+    # we need it for check and notification 
+    def get_is_expired(self, obj):
+        return obj.expiration_date < timezone.now().date()
+    # we need it for check when pay
+    def get_balance(self,obj):
+        return obj.balance
+    def validate_ccv(self, value):
+        validators = [MinLengthValidator(4)]
+        for validator in validators:
+            validator(value)
+        return value
+
+    
+    
+class PointsWalletSerializer(serializers.ModelSerializer):
+    expiration_date = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PointsWallet
+        fields = ['num_points', 'expiration_date']
+
+    def get_expiration_date(self, obj):
+        return obj.modified + timedelta(days=90)
 
 class ProfileAddressCreateSerializer(serializers.ModelSerializer):
     

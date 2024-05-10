@@ -49,12 +49,16 @@ INSTALLED_APPS = [
     'djoser',
     'social_django',
     'corsheaders',
+    'djmoney',
+    'djmoney.contrib.exchange',
     'address',
     
     # pingoway apps
     'app_auth',
     'profiles'
 ]
+EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
+OPEN_EXCHANGE_RATES_APP_ID=getenv('OPEN_EXCHANGE_key')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
