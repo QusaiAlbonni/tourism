@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'djoser',
     'social_django',
     'corsheaders',
@@ -150,6 +152,7 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'LOGIN_FIELD':'email',
     'SEND_ACTIVATION_EMAIL': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/password/reset/confirm/{uid}/{token}',
     "ACTIVATION_URL": 'auth/activation/{uid}/{token}',
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',

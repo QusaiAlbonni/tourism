@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager
 from django.db.models import Q
+# from profiles.models import PointsWallet
+
 # Create your models here.
 
 # pw for pingoway
@@ -21,4 +23,6 @@ class User(AbstractUser):
     USERNAME_FIELD= 'email'
     REQUIRED_FIELDS=['username']
 
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
     

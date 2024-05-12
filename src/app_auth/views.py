@@ -27,3 +27,34 @@ class UserActivationView(APIView):
         result = requests.post(post_url, data=post_data)
         content = result.text
         return Response(content)
+    
+class UserResetPasswordView(APIView):
+    def get(self,request,uid,token):
+        return render(request, 'reset_password.html')
+    
+    def post(self, request, uid, token):  
+        new_password = request.POST.get('new_password')
+        re_new_password = request.POST.get('re_new_password')
+
+        if new_password != re_new_password:
+            context = {'error_message': 'Passwords do not match'}
+            return render(request, 'reset_password.html', context)
+
+        protocol = 'https://' if request.is_secure() else 'http://'
+        web_url = protocol + request.get_host()
+        post_url = web_url + "/auth/users/reset_password_confirm/"
+
+        data = {
+            'uid': uid,
+            'token': token,
+            'new_password': new_password,
+            're_new_password': re_new_password
+        }
+
+        response = requests.post(post_url, data=data)
+        
+        if response.status_code == 204:  # Assuming 200 indicates success
+             return render(request, 'reset_good.html')
+
+        context = {'error_message': 'Password reset failed'}
+        return render(request, 'reset_password.html', context)
