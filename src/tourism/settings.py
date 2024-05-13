@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'rest_framework.authtoken',
+    #'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'djoser',
     'social_django',
@@ -159,6 +159,7 @@ DJOSER = {
     },
     'EMAIL': {
        'activation': 'app_auth.email.ActivationEmail',
+       'password_reset': 'app_auth.email.PasswordResetEmail',
     },
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://127.0.0.1:3000"],
