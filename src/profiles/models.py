@@ -20,7 +20,7 @@ class Profile(models.Model):
     birth_date     = models.DateField(blank=True, null=True,auto_now=False, auto_now_add=False, verbose_name=_("Birth Date"))
     num_kids       = models.IntegerField(default= 0, verbose_name=_("Number of Children"), validators=[MaxValueValidator(30), MinValueValidator(0)])
     
-    avatar  = AvatarField(_("Avatar"), upload_to="uploads/profiles/avatars", max_length=1024, null=True)
+    avatar  = AvatarField(_("Avatar"), upload_to="uploads/profiles/avatars", max_length=1024,max_size= (256,256), null=True)
     
     address = AddressField(related_name='+', blank=True, null=True)
     
