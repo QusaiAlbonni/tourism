@@ -1,5 +1,5 @@
 from django.urls import path
-from django.urls import path, re_path, include
+from django.urls import re_path, include
 from .views import CreditCardCreateView,CreditCardRetrieveAPIView,CreditCardDeleteView,PointsWalletRetrieveAPIView,ProfileAddressView, ProfileViewSet
 from rest_framework.routers import DefaultRouter
 
