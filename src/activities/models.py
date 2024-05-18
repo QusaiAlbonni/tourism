@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from app_media.models import AvatarField
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 from address.models import Country
 # Create your models here.
 User = get_user_model()
@@ -28,7 +29,7 @@ class Guide(models.Model):
     def likes(self):
         return self.likers.count()
     
-    def toggle_like(self, user):
+    def toggle_like(self, user : AbstractUser) -> bool:
         if user is None:
             raise User.DoesNotExist
         if self.likers.filter(pk=user.pk).exists():
@@ -37,3 +38,5 @@ class Guide(models.Model):
         else:
             self.likers.add(user)
             return True
+    def is_liked_by_user(self, user : AbstractUser) -> bool:
+        return self.likers.filter(pk=user.pk).exists()

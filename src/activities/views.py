@@ -7,7 +7,6 @@ from rest_framework.exceptions import ValidationError, MethodNotAllowed, NotFoun
 from app_auth.permissions import isAdminOrReadOnly
 from .models import Guide
 from .serializers import GuideSerializer
-# Create your views here.
 
 class GuideViewSet(viewsets.ModelViewSet):
     serializer_class = GuideSerializer

@@ -23,21 +23,7 @@ class GuideViewSetTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], 'Test Guide')
 
-    def test_toggle_like(self):
-        url = reverse('guides-toggle-like', kwargs={'pk': self.guide.pk})
-        self.client.force_authenticate(user=self.user)
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertTrue(response.data['liked'])
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertFalse(response.data['liked'])
 
-    def test_toggle_like_unauthenticated(self):
-        url = reverse('guides-toggle-like', kwargs={'pk': self.guide.pk})
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertIn('Authentication credentials were not provided.', response.data['detail'])
         
     def test_create_guide(self):
         url = reverse('guides-list')
@@ -76,4 +62,49 @@ class GuideViewSetTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Guide.objects.count(), 0)
 
+class GuideLikeViewSetTestCase(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='test_user', email='test_user@example.com', password='testpass123')
+        self.guide = Guide.objects.create(name='Test Guide', bio='Test Bio', email='test@example.com')
+        self.client.force_authenticate(user=self.user)
+        
+    def test_guide_liked_by_user_field(self):
+        toggle_url = reverse('guides-toggle-like', kwargs={'pk': self.guide.pk})
+        self.client.post(toggle_url)
+        detail_url = reverse('guides-detail', kwargs={'pk': self.guide.pk})
+        response = self.client.get(detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['liked'])
+        self.client.post(toggle_url)
+        response = self.client.get(detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data['liked'])
 
+    def test_guide_liked_by_user_field_unauthenticated(self):
+        self.client.force_authenticate(user=None)
+        detail_url = reverse('guides-detail', kwargs={'pk': self.guide.pk})
+        response = self.client.get(detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data['liked'])
+
+    def test_toggle_like_unauthenticated(self):
+        self.client.force_authenticate(user=None)
+        toggle_url = reverse('guides-toggle-like', kwargs={'pk': self.guide.pk})
+        response = self.client.post(toggle_url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_toggle_like(self):
+        url = reverse('guides-toggle-like', kwargs={'pk': self.guide.pk})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['liked'])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data['liked'])
+
+    def test_toggle_like_unauthenticated(self):
+        url = reverse('guides-toggle-like', kwargs={'pk': self.guide.pk})
+        self.client.force_authenticate(user=None)
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn('Authentication credentials were not provided.', response.data['detail'])
