@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     # pingoway apps
     'app_auth',
     'profiles',
-    'activities'
+    'activities',
+    'tags'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=getenv('OPEN_EXCHANGE_KEY')

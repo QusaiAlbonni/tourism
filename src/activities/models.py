@@ -40,3 +40,10 @@ class Guide(models.Model):
             return True
     def is_liked_by_user(self, user : AbstractUser) -> bool:
         return self.likers.filter(pk=user.pk).exists()
+
+from tags.models import SupTag
+
+class activitestag(SupTag):
+    # activites_id
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

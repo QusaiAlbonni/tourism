@@ -1,6 +1,14 @@
 from rest_framework import serializers
 from .models import Guide
 
+from .models import activitestag
+
+class activitetagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = activitestag
+        fields = ('id', 'tag', 'name', 'created', 'modified')
+
+
 class GuideSerializer(serializers.ModelSerializer):
     liked = serializers.SerializerMethodField()
     class Meta:

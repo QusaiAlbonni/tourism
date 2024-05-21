@@ -8,6 +8,14 @@ from app_auth.permissions import isAdminOrReadOnly
 from .models import Guide
 from .serializers import GuideSerializer
 
+from .models import activitestag
+from .serializers import activitetagSerializer
+
+class activitetagViewSet(viewsets.ModelViewSet):
+    queryset = activitestag.objects.all()
+    serializer_class = activitetagSerializer
+
+
 class GuideViewSet(viewsets.ModelViewSet):
     serializer_class = GuideSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]

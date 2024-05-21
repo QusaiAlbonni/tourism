@@ -28,5 +28,6 @@ urlpatterns = [
     re_path(r'^auth/', include('djoser.social.urls')),
     path('auth/', include('app_auth.urls')),
     path('profiles/', include('profiles.urls')),
-    path('activities/', include('activities.urls'))
+    path('activities/', include('activities.urls')),
+    path('tags/', include('tags.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

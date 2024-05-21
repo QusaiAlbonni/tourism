@@ -9,6 +9,8 @@ from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from django.core.validators import MaxValueValidator, MinValueValidator
 from address.models import AddressField
 from app_media.models import AvatarField
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 User = get_user_model()
 
@@ -83,3 +85,38 @@ class PointsWallet(models.Model):
     # user should have at lest three reserv to can pay by point
     def user_can(self):
         ...
+
+class Favorite(models.Model):
+    user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE, editable= False)
+
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False) 
+    
+    @classmethod
+    def add_favorite(cls, user, obj):
+        content_type = ContentType.objects.get_for_model(obj)
+        cls.objects.get_or_create(
+            user=user,
+            content_type=content_type,
+            object_id=obj.id
+        )
+
+    @classmethod
+    def remove_favorite(cls, user, obj):
+        content_type = ContentType.objects.get_for_model(obj)
+        cls.objects.filter(
+            user=user,
+            content_type=content_type,
+            object_id=obj.id
+        ).delete()
+
+    @classmethod
+    def get_favorites(cls, user, model=None):
+        if model:
+            content_type = ContentType.objects.get_for_model(model)
+            return cls.objects.filter(user=user, content_type=content_type)
+        return cls.objects.filter(user=user)
