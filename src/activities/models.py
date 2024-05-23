@@ -43,7 +43,7 @@ class Guide(models.Model):
 
 from tags.models import SupTag
 
-class activitestag(SupTag):
+class ActivityTag(SupTag):
     # activites_id
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

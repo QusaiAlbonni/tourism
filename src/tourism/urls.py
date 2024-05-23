@@ -25,7 +25,6 @@ admin.site.site_title = f'{SITE_NAME} site admin'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^auth/', include('djoser.social.urls')),
     path('auth/', include('app_auth.urls')),
     path('profiles/', include('profiles.urls')),
     path('activities/', include('activities.urls')),

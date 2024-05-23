@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from .models import Guide
 
-from .models import activitestag
+from .models import ActivityTag
 
-class activitetagSerializer(serializers.ModelSerializer):
+class ActivityTagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = activitestag
+        model = ActivityTag
         fields = ('id', 'tag', 'name', 'created', 'modified')
 
 

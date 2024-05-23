@@ -1,10 +1,5 @@
 from rest_framework import serializers
-from .models import TagsCategory,Tag,TagsCategoryPermission
-
-class TagsCategoryPermissionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TagsCategoryPermission
-        fields = ['id','name','created','modified']
+from .models import TagsCategory, Tag
 
 class TagsCategorySerializer(serializers.ModelSerializer):
     class Meta:
