@@ -47,6 +47,7 @@ faker = "*"
 django-address = "*"
 django-money = "*"
 django-extensions = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
