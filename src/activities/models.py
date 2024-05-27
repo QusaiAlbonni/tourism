@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from address.models import Country
 from django.utils.timezone import timedelta, now
+from tags.models import Tag
 # Create your models here.
 User = get_user_model()
 
@@ -74,5 +75,34 @@ class Guide(models.Model):
 class GuideLiker(models.Model):
     guide = models.ForeignKey(Guide, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    
+    
+class Activity(models.Model):
+    service = models.OneToOneField("services.Service", verbose_name=_("Service"), on_delete=models.CASCADE)
+    tags    = models.ManyToManyField(
+        Tag,
+        verbose_name=_("Tags"),
+        through="ActivityTag",
+        through_fields=("activity", "tag")
+        )
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    
+class Tour(Activity):
+    pass
+
+class Site(Activity):
+    pass
+
+class Ticket(models.Model):
+    activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+
+class ActivityTag(models.Model):
+    activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, verbose_name=_("Tag"), on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

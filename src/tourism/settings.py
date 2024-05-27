@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'app_auth',
     'profiles',
     'activities',
-    'tags'
+    'tags',
+    'services'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=getenv('OPEN_EXCHANGE_KEY')
