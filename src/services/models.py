@@ -75,6 +75,7 @@ class ServiceReview(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)],
         null=True
     )
+    comment = models.TextField(_("Review Comment"))
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
 
@@ -87,9 +88,3 @@ class ServiceReview(models.Model):
         constraints = [
             UniqueConstraint(fields=['service', 'user'], name='unique_service_review')
         ]
-
-class ReviewComment(models.Model):
-    review = models.ForeignKey(ServiceReview, on_delete=models.CASCADE, related_name='comments')
-    content = models.TextField()
-    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
-    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

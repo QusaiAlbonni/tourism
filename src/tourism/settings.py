@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'djmoney.contrib.exchange',
     'address',
     'django_extensions',
-    'debug_toolbar',
+    #'debug_toolbar',
     
     # pingoway apps
     'app_auth',

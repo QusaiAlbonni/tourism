@@ -38,9 +38,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         for photo in existing_photos:
             if photo.image not in [p['image'] for p in photos_data]:
                 photo.delete()
-        
-        
-        existing_image_urls = [photo.image for photo in existing_photos]
+                
         for photo_data in photos_data:
             photo = existing_photos.filter(image=photo_data['image']).first()
             if photo:
@@ -74,27 +72,17 @@ class ServiceFavoriteSerializer(serializers.ModelSerializer):
         instance.delete()
         return instance
     
-class ReviewCommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ReviewComment
-        fields = ['content']
-    def create(self, validated_data):
-        review = self.context['review']
-        comment = ReviewComment.objects.create(review=review, **validated_data)
-        return comment
+
     
 class ServiceReviewSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    comments = ReviewCommentSerializer(many=True)
     class Meta:
         model = ServiceReview
-        fields = ['id', 'rating', 'user', 'service','comments']
+        fields = ['id', 'rating', 'user', 'service', 'comment']
         read_only_fields = ['created_at', 'updated_at']
+        
+    
+    
+    
 
-    def create(self, validated_data):
-        commetn_datas = validated_data.pop('comments')
-        review = ServiceReview.objects.create(**validated_data)
-        for commetn_data in commetn_datas:
-            ReviewCommentSerializer(context={'review': review}).create(commetn_data)
-        return review
-    # update 
+    
