@@ -9,7 +9,7 @@ from django.db.models.constraints import UniqueConstraint
 User = get_user_model()
 
 class Service(models.Model):
-   
+    name = models.CharField(_("Name"), max_length=50)
     favorited_by = models.ManyToManyField(
         User,
         verbose_name= "Favorited by Users",

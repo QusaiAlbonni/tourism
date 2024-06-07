@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from .models import Service, ServicePhoto,ServiceFavorite,ServiceReview,ReviewComment
+from .models import Service, ServicePhoto,ServiceFavorite,ServiceReview
 
 class ServicePhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServicePhoto
-        fields = ['image']
+        fields = ['id','image']
 
     def create(self, validated_data):
         service = self.context['service']
@@ -13,18 +13,18 @@ class ServicePhotoSerializer(serializers.ModelSerializer):
         return service_photo
 
 class ServiceSerializer(serializers.ModelSerializer):
-    photos = ServicePhotoSerializer(many=True, write_only=True)
+    photos = ServicePhotoSerializer(many=True)
 
     class Meta:
         model = Service
-        fields = ['id', 'description', 'refund_rate', 'upfront_rate', 'allow_points', 'photos']
+        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate', 'allow_points', 'photos']
     def validate(self, data):
         if len(data['photos']) < 2:
             raise serializers.ValidationError("At least two photos are required.")
         return data
     def create(self, validated_data):
         photos_data = validated_data.pop('photos')
-        service = Service.objects.create(**validated_data)
+        service = self.Meta.model.objects.create(**validated_data)
 
         for photo_data in photos_data:
             ServicePhotoSerializer(context={'service': service}).create(photo_data)
@@ -78,7 +78,7 @@ class ServiceReviewSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = ServiceReview
-        fields = ['id', 'rating', 'user', 'service', 'comment']
+        fields = ['id', 'rating', 'user', 'comment']
         read_only_fields = ['created_at', 'updated_at']
         
     

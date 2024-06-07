@@ -1,12 +1,20 @@
+import datetime
+from datetime import datetime as dt
+from decimal import Decimal
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from app_media.models import AvatarField
 from django.contrib.auth import get_user_model
+from djmoney.models.fields import MoneyField
 from django.contrib.auth.models import AbstractUser
 from address.models import Country
 from django.utils.timezone import timedelta, now
 from tags.models import Tag
-# Create your models here.
+from djmoney.models.validators import MaxMoneyValidator, MinMoneyValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
+from address.models import AddressField
+from services.models import Service
+from .validators import DateLessThanToday
 User = get_user_model()
 
 
@@ -79,25 +87,54 @@ class GuideLiker(models.Model):
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     
     
-class Activity(models.Model):
-    service = models.OneToOneField("services.Service", verbose_name=_("Service"), on_delete=models.CASCADE)
+class Activity(Service):
     tags    = models.ManyToManyField(
         Tag,
         verbose_name=_("Tags"),
         through="ActivityTag",
         through_fields=("activity", "tag")
         )
-    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
-    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     
 class Tour(Activity):
-    pass
+    takeoff_date = models.DateTimeField(_(""), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(now())])
+    duration     = models.DurationField(_("Tour Duration"))
+    guide        = models.ForeignKey(Guide, verbose_name=_("Guide"), on_delete=models.SET_NULL, null=True)
+    
+    @property
+    def end_date(self):
+        return self.takeoff_date + self.duration
 
 class Site(Activity):
-    pass
+    address = AddressField(related_name='+')
+    opens_at = models.TimeField(_(""), auto_now=False, auto_now_add=False)
+    work_hours = models.DecimalField(max_digits=4, decimal_places=2)
+    @property
+    def closes_at(self):
+        opening_datetime = dt.combine(dt.today(), self.opens_at)
+        closing_datetime = opening_datetime + timedelta(hours=float(self.work_hours))
+        return closing_datetime.time()
+    
 
 class Ticket(models.Model):
-    activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
+    activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE, related_name='tickets')
+    name    = models.CharField(_("Name of the ticket"), max_length=50, null=False, blank=False)
+    description = models.TextField(_("Description"), null=True, blank=True)
+    price   = MoneyField(max_digits=14,
+                        decimal_places=2,
+                        default_currency='USD',
+                        validators=[
+                            MinMoneyValidator(0),
+                        ])
+    price_in_points= models.IntegerField(validators=[MinValueValidator(int('0'))])
+    points_rate  = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        validators=[
+            MinValueValidator(Decimal('0.0')),
+            MaxValueValidator(Decimal('100.0'))
+        ]
+    )
+    valid_until = models.DateField(validators=[DateLessThanToday(now())])
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
 
@@ -106,3 +143,19 @@ class ActivityTag(models.Model):
     tag = models.ForeignKey(Tag, verbose_name=_("Tag"), on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    
+    
+class Attraction(models.Model):
+    tour    = models.ForeignKey(Tour, verbose_name=_(""), on_delete=models.CASCADE, max_length=2, related_name='attractions')
+    photo   = AvatarField(_("Photo"), max_size=(1024, 1024),upload_to="uploads/attractions")
+    address = AddressField(null=True)
+    name    = models.CharField(_("Name"), max_length=50)
+    order   = models.PositiveIntegerField(_("Order"))
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    
+    class Meta:
+        ordering = ['order']
+        constraints = [
+            models.UniqueConstraint(fields=['tour', 'order'], name='unique_tour_order')
+        ]
