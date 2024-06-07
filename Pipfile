@@ -49,6 +49,7 @@ django-money = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
 drf-nested-routers = "*"
+environs = "*"
 
 [dev-packages]
 

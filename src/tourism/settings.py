@@ -1,11 +1,11 @@
 from datetime import timedelta
 from pathlib import Path
-from os import getenv
-from dotenv import load_dotenv
+from environs import Env
 
 
 # Load environment variables from .env file
-load_dotenv()
+env = Env()
+env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -18,10 +18,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SITE_NAME = 'Pingoway'
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG')
+DEBUG = env.bool('DEBUG', False)
 
 ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost"]
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'services'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
-OPEN_EXCHANGE_RATES_APP_ID=getenv('OPEN_EXCHANGE_KEY')
+OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -108,12 +108,12 @@ WSGI_APPLICATION = 'tourism.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': getenv('DB_DATABASE'),
-        'NAME': getenv('DB_NAME'),
-        "USER": getenv('DB_USER'),
-        "HOST": getenv('DB_HOST'),
-        "PORT": getenv('DB_PORT'),
-        "PASSWORD": getenv('DB_PASSWORD')
+        'ENGINE': env('DB_DATABASE'),
+        'NAME': env('DB_NAME'),
+        "USER": env('DB_USER'),
+        "HOST": env('DB_HOST'),
+        "PORT": env('DB_PORT'),
+        "PASSWORD": env('DB_PASSWORD')
     }
 }
 
@@ -178,7 +178,7 @@ DJOSER = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = getenv('TIME_ZONE')
+TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
 
@@ -197,16 +197,16 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST= getenv('EMAIL_HOST')
-EMAIL_PORT= getenv('EMAIL_PORT')
-EMAIL_HOST_USER= getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD= getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS= getenv('EMAIL_USE_TLS')
+EMAIL_HOST= env('EMAIL_HOST')
+EMAIL_PORT= env('EMAIL_PORT')
+EMAIL_HOST_USER= env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD= env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS= env('EMAIL_USE_TLS')
 EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL= getenv('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
+DEFAULT_FROM_EMAIL= env('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv("GOOGLE_CLIENT_ID")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv("GOOGLE_SECRET")
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("GOOGLE_CLIENT_ID")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("GOOGLE_SECRET")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
