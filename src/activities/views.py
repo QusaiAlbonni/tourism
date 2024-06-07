@@ -61,7 +61,7 @@ class AttractionViewSet(viewsets.ModelViewSet):
         context['tour_pk'] = self.kwargs['tour_pk']
         return context
     @action(['post'], False)
-    def swap(self, request, *args, **kwargs):
+    def swap_order(self, request, *args, **kwargs):
         first_attraction_id = request.data.get('first_attraction_id')
         second_attraction_id = request.data.get('second_attraction_id')
         if not first_attraction_id or not second_attraction_id:
