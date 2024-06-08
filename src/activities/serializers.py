@@ -1,8 +1,10 @@
 from rest_framework import serializers
-from .models import Guide, Activity, Site, Ticket, Tour, Attraction
+from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from services.serializers import ServicePhotoSerializer
 from services.serializers import ServiceSerializer, ServiceReviewSerializer
 from address.models import Address
+from django.db import IntegrityError
+from rest_framework.exceptions import ValidationError
 
 
 class GuideSerializer(serializers.ModelSerializer):
@@ -59,19 +61,17 @@ class TicketSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
-class SiteSerializer(ServiceSerializer):
-    address = AddressSerializer(required=True)
-    tickets = TicketSerializer(read_only=True, many=True)
+class SiteSerializer(serializers.ModelSerializer):
+    address = AddressSerializer(required=True, allow_null= False)
     class Meta:
         model = Site
-        fields = ['id','name', 'description', 'refund_rate', 'allow_points', 'photos', 'address', 
-                'opens_at', 'work_hours', 'closes_at','created', 'modified', 'review_by', 'tickets', ]
-        read_only_fields = ['created', 'modified', 'tickets']
+        fields = ['id','name', 'description', 'photo', 'address', 
+        'created', 'modified']
+        read_only_fields = ['created', 'modified']
         
     def create(self, validated_data):
-        validated_data['upfront_rate'] = 100
+        address = validated_data.pop('address')
         site = super().create(validated_data)
-        address = validated_data['address']
         site.address = address
         site.save()
         return site
@@ -88,35 +88,31 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields= '__all__'
         
 
-class AttractionSerializer(serializers.ModelSerializer):
-    address = AddressSerializer(required=True)
+class TourSiteSerializer(serializers.ModelSerializer):
+    site_id = serializers.PrimaryKeyRelatedField(queryset=Site.objects.all(), write_only=True, source='site', allow_null=False)
+    site    = SiteSerializer(read_only= True)
     class Meta:
-        model = Attraction
-        fields = ['address', 'name', 'order', 'photo']
-        read_only_fields = ['created', 'modified', 'order']
+        model = TourSite
+        fields = ['id', 'order', 'site_id', 'site', 'tour']
+        read_only_fields = ['created', 'modified', 'order', 'site', 'tour']
     def create(self, validated_data):
-        address = validated_data.pop('address')
         
         validated_data['tour_id'] = self.context['tour_pk']
         
         validated_data['order'] = self.get_order()
-        attraction = super().create(validated_data)
-        
-        attraction.address = address
-        attraction.save()
-        
+        try:
+            attraction = super().create(validated_data)
+        except IntegrityError as e:
+            raise ValidationError({"detail":"duplicate entry for the site"})
         return attraction
     def update(self, instance, validated_data):
-        address = validated_data.pop('address')
-        
-        instance= super().update(instance, validated_data)
-        
-        instance.address = address
-        instance.save()
-        
+        try:
+            instance= super().update(instance, validated_data)
+        except IntegrityError as e:
+            raise ValidationError({"detail":"duplicate entry for the site"})
         return instance
     def get_order(self):
-        last_order =Attraction.objects.filter(tour= self.context['tour_pk']).order_by('order').first()
+        last_order =TourSite.objects.filter(tour= self.context['tour_pk']).order_by('order').first()
         if last_order == None:
             order = 1
         else:
@@ -124,11 +120,25 @@ class AttractionSerializer(serializers.ModelSerializer):
         return order
     
 class TourSerializer(ServiceSerializer):
-    attractions = AttractionSerializer(many=True, read_only=True)
+    sites   = TourSiteSerializer(many=True, read_only=True, source= 'tour_sites')
     guide       = GuideSerializer(read_only=True)
     guide_id    = serializers.PrimaryKeyRelatedField(queryset=Guide.objects.all(), write_only=True, source='guide', allow_null=False)
     tickets     = TicketSerializer(read_only= True, many=True)
     class Meta:
         model = Tour
-        fields = ServiceSerializer.Meta.fields + ['tickets','guide_id','guide','takeoff_date','end_date', 'end_date', 'attractions', 'duration']
+        fields = ServiceSerializer.Meta.fields + ['sites','tickets','guide_id','guide','takeoff_date','end_date', 'end_date', 'duration']
         read_only_fields = ['created', 'modified', 'tickets', 'guide']
+
+class ListingSerializer(ServiceSerializer):
+    tickets = TicketSerializer(read_only=True, many=True)
+    site    = SiteSerializer(read_only=True)
+    site_id = serializers.PrimaryKeyRelatedField(queryset=Site.objects.all(), write_only=True, source='site', allow_null=False)
+    class Meta:
+        model = Listing
+        fields = ['id','name', 'description', 'refund_rate', 'allow_points', 'photos', 'site', 
+                'opens_at', 'work_hours', 'closes_at','created', 'modified', 'review_by', 'tickets', 'site_id', 'website']
+        read_only_fields = ['created', 'modified', 'tickets']
+    def create(self, validated_data):
+        validated_data['upfront_rate'] = 100
+        return super().create(validated_data)
+        

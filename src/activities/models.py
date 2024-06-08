@@ -81,8 +81,8 @@ class Guide(models.Model):
 
 
 class GuideLiker(models.Model):
-    guide = models.ForeignKey(Guide, on_delete=models.CASCADE)
-    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    guide   = models.ForeignKey(Guide, on_delete=models.CASCADE)
+    user    = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     
@@ -99,15 +99,24 @@ class Tour(Activity):
     takeoff_date = models.DateTimeField(_(""), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(now())])
     duration     = models.DurationField(_("Tour Duration"))
     guide        = models.ForeignKey(Guide, verbose_name=_("Guide"), on_delete=models.SET_NULL, null=True)
+    sites        = models.ManyToManyField(
+        "Site",
+        through="TourSite",
+        verbose_name=_("Sites"),
+        through_fields=("tour","site"),
+        related_name='tours'
+    )
     
     @property
     def end_date(self):
         return self.takeoff_date + self.duration
+    
 
-class Site(Activity):
-    address = AddressField(related_name='+')
-    opens_at = models.TimeField(_(""), auto_now=False, auto_now_add=False)
+class Listing(Activity):
+    opens_at   = models.TimeField(_(""), auto_now=False, auto_now_add=False)
     work_hours = models.DecimalField(max_digits=4, decimal_places=2)
+    site       = models.ForeignKey('Site', verbose_name=_(""), on_delete=models.CASCADE, related_name='listings')
+    website    = models.URLField(_("Link"), max_length=200, null=True, blank=True)
     @property
     def closes_at(self):
         opening_datetime = dt.combine(dt.today(), self.opens_at)
@@ -119,14 +128,14 @@ class Ticket(models.Model):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE, related_name='tickets')
     name    = models.CharField(_("Name of the ticket"), max_length=50, null=False, blank=False)
     description = models.TextField(_("Description"), null=True, blank=True)
-    price   = MoneyField(max_digits=14,
+    price       = MoneyField(max_digits=14,
                         decimal_places=2,
                         default_currency='USD',
                         validators=[
                             MinMoneyValidator(0),
                         ])
     price_in_points= models.IntegerField(validators=[MinValueValidator(int('0'))])
-    points_rate  = models.DecimalField(
+    points_rate    = models.DecimalField(
         max_digits=4,
         decimal_places=1,
         validators=[
@@ -140,22 +149,30 @@ class Ticket(models.Model):
 
 class ActivityTag(models.Model):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tag, verbose_name=_("Tag"), on_delete=models.CASCADE)
+    tag     = models.ForeignKey(Tag, verbose_name=_("Tag"), on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     
+class TourSite(models.Model):
+    tour = models.ForeignKey("Tour", verbose_name=_("Tour"), on_delete=models.CASCADE, related_name='tour_sites')
+    site = models.ForeignKey("Site", verbose_name=_("Site"), on_delete=models.CASCADE, related_name='site_tours')
+    order= models.PositiveIntegerField(_("Order"))
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
+    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['tour', 'order'], name='unique_tour_order'),
+            models.UniqueConstraint(fields=['tour', 'site'], name='unique_tour_site')
+        ]
     
-class Attraction(models.Model):
-    tour    = models.ForeignKey(Tour, verbose_name=_(""), on_delete=models.CASCADE, max_length=2, related_name='attractions')
+class Site(models.Model):
     photo   = AvatarField(_("Photo"), max_size=(1024, 1024),upload_to="uploads/attractions")
     address = AddressField(null=True)
     name    = models.CharField(_("Name"), max_length=50)
-    order   = models.PositiveIntegerField(_("Order"))
+    description= models.TextField(_("Description"), null=True, blank=True)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     
     class Meta:
-        ordering = ['order']
-        constraints = [
-            models.UniqueConstraint(fields=['tour', 'order'], name='unique_tour_order')
-        ]
+        ordering = ['name']
+        
