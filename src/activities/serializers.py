@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import serializers
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from services.serializers import ServicePhotoSerializer
@@ -99,7 +100,7 @@ class TourSiteSerializer(serializers.ModelSerializer):
         
         validated_data['tour_id'] = self.context['tour_pk']
         
-        validated_data['order'] = self.get_order()
+        validated_data['order'] = self._get_order()
         try:
             attraction = super().create(validated_data)
         except IntegrityError as e:
@@ -111,8 +112,8 @@ class TourSiteSerializer(serializers.ModelSerializer):
         except IntegrityError as e:
             raise ValidationError({"detail":"duplicate entry for the site"})
         return instance
-    def get_order(self):
-        last_order =TourSite.objects.filter(tour= self.context['tour_pk']).order_by('order').first()
+    def _get_order(self):
+        last_order =TourSite.objects.filter(tour= self.context['tour_pk']).order_by('-order').first()
         if last_order == None:
             order = 1
         else:
@@ -127,7 +128,10 @@ class TourSerializer(ServiceSerializer):
     class Meta:
         model = Tour
         fields = ServiceSerializer.Meta.fields + ['sites','tickets','guide_id','guide','takeoff_date','end_date', 'end_date', 'duration']
-        read_only_fields = ['created', 'modified', 'tickets', 'guide']
+        read_only_fields = ['created', 'modified', 'tickets', 'guide', 'upfront_rate']
+    def create(self, validated_data):
+        validated_data['upfront_rate'] = 100
+        return super().create(validated_data)
 
 class ListingSerializer(ServiceSerializer):
     tickets = TicketSerializer(read_only=True, many=True)
@@ -141,4 +145,17 @@ class ListingSerializer(ServiceSerializer):
     def create(self, validated_data):
         validated_data['upfront_rate'] = 100
         return super().create(validated_data)
+    def validate(self, data):
+        opens_at = data.get('opens_at')
+        work_hours = data.get('work_hours')
+        opens_at_datetime = datetime.datetime.combine(datetime.datetime.today(), opens_at)
+
+        work_hours_int = int(work_hours)
+        work_minutes = (work_hours - work_hours_int) * 60
+
+        closing_time = opens_at_datetime + datetime.timedelta(hours=work_hours_int, minutes=float(work_minutes))
+
+        if closing_time.time() < opens_at:
+            raise ValidationError("The sum of opens_at and work_hours exceeds 24 hours.")
+        return super().validate(data)
         

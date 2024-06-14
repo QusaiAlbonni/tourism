@@ -15,6 +15,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from address.models import AddressField
 from services.models import Service
 from .validators import DateLessThanToday
+from django.core.exceptions import ValidationError
 User = get_user_model()
 
 
@@ -114,7 +115,7 @@ class Tour(Activity):
 
 class Listing(Activity):
     opens_at   = models.TimeField(_(""), auto_now=False, auto_now_add=False)
-    work_hours = models.DecimalField(max_digits=4, decimal_places=2)
+    work_hours = models.DecimalField(max_digits=4, decimal_places=2, validators=[MaxValueValidator(23.99)])
     site       = models.ForeignKey('Site', verbose_name=_(""), on_delete=models.CASCADE, related_name='listings')
     website    = models.URLField(_("Link"), max_length=200, null=True, blank=True)
     @property
@@ -122,6 +123,17 @@ class Listing(Activity):
         opening_datetime = dt.combine(dt.today(), self.opens_at)
         closing_datetime = opening_datetime + timedelta(hours=float(self.work_hours))
         return closing_datetime.time()
+    def clean(self) -> None:
+        opens_at_datetime = datetime.datetime.combine(datetime.datetime.today(), self.opens_at)
+
+        work_hours_int = int(self.work_hours)
+        work_minutes = (self.work_hours - work_hours_int) * 60
+
+        closing_time = opens_at_datetime + timedelta(hours=work_hours_int, minutes=float(work_minutes))
+
+        if closing_time.time() < self.opens_at:
+            raise ValidationError("The sum of opens_at and work_hours exceeds 24 hours.")
+        return super().clean()
     
 
 class Ticket(models.Model):
