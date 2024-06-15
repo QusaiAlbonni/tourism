@@ -7,10 +7,9 @@ from app_media.models import AvatarField
 from django.contrib.auth import get_user_model
 from djmoney.models.fields import MoneyField
 from django.contrib.auth.models import AbstractUser
-from address.models import Country
 from django.utils.timezone import timedelta, now
 from tags.models import Tag
-from djmoney.models.validators import MaxMoneyValidator, MinMoneyValidator
+from djmoney.models.validators import MinMoneyValidator
 from django.core.validators import MinValueValidator, MaxValueValidator
 from address.models import AddressField
 from services.models import Service
@@ -109,7 +108,7 @@ class Tour(Activity):
     )
     
     @property
-    def end_date(self):
+    def end_date(self)-> datetime.datetime:
         return self.takeoff_date + self.duration
     
 
@@ -119,7 +118,7 @@ class Listing(Activity):
     site       = models.ForeignKey('Site', verbose_name=_(""), on_delete=models.CASCADE, related_name='listings')
     website    = models.URLField(_("Link"), max_length=200, null=True, blank=True)
     @property
-    def closes_at(self):
+    def closes_at(self) -> datetime.time:
         opening_datetime = dt.combine(dt.today(), self.opens_at)
         closing_datetime = opening_datetime + timedelta(hours=float(self.work_hours))
         return closing_datetime.time()
@@ -146,15 +145,16 @@ class Ticket(models.Model):
                         validators=[
                             MinMoneyValidator(0),
                         ])
-    price_in_points= models.IntegerField(validators=[MinValueValidator(int('0'))])
+    price_in_points= models.IntegerField(validators=[MinValueValidator(int('1'))])
     points_rate    = models.DecimalField(
         max_digits=4,
         decimal_places=1,
         validators=[
-            MinValueValidator(Decimal('0.0')),
+            MinValueValidator(Decimal('1.0')),
             MaxValueValidator(Decimal('100.0'))
         ]
     )
+    stock       = models.PositiveIntegerField(_("Stock"), validators=[MaxValueValidator(int(1e6)), MinValueValidator(int(1))], default=100)
     valid_until = models.DateField(validators=[DateLessThanToday(now())])
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

@@ -1,10 +1,8 @@
-from typing import Any
-from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from rest_framework.decorators import action, permission_classes
-from rest_framework.exceptions import ValidationError, MethodNotAllowed, NotFound
+from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError, NotFound
 from app_auth.permissions import isAdminOrReadOnly
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from .serializers import GuideSerializer, SiteSerializer, TicketSerializer, ActivitySerializer, TourSerializer, TourSiteSerializer, ListingSerializer
@@ -31,7 +29,7 @@ class SiteViewSet(viewsets.ModelViewSet):
 
 class TicketViewSet(viewsets.ModelViewSet):
     serializer_class = TicketSerializer
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    #permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
     def get_queryset(self):
         return Ticket.objects.filter(activity= self.kwargs['activity_pk'])
     def get_serializer_context(self):   

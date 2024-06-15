@@ -1,8 +1,7 @@
 import datetime
 from rest_framework import serializers
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
-from services.serializers import ServicePhotoSerializer
-from services.serializers import ServiceSerializer, ServiceReviewSerializer
+from services.serializers import ServiceSerializer
 from address.models import Address
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError
@@ -55,7 +54,7 @@ class AddressSerializer(serializers.ModelSerializer):
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Ticket
-        fields =['activity_id','name', 'description','price_currency', 'price', 'price_in_points', 'points_rate', 'valid_until', 'created', 'modified']
+        fields =['id','activity_id','name', 'description','stock','price_currency', 'price', 'price_in_points', 'points_rate', 'valid_until', 'created', 'modified']
         read_only_fields = ['created', 'modified', 'activity']
     def create(self, validated_data):
         validated_data['activity_id'] = self.context['activity_pk']
