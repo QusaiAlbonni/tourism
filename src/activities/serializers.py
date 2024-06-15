@@ -4,6 +4,7 @@ from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from services.serializers import ServiceSerializer
 from address.models import Address
 from django.db import IntegrityError
+from django.db import models
 from rest_framework.exceptions import ValidationError
 
 
@@ -95,6 +96,7 @@ class TourSiteSerializer(serializers.ModelSerializer):
         model = TourSite
         fields = ['id', 'order', 'site_id', 'site', 'tour']
         read_only_fields = ['created', 'modified', 'order', 'site', 'tour']
+    
     def create(self, validated_data):
         
         validated_data['tour_id'] = self.context['tour_pk']
@@ -105,12 +107,14 @@ class TourSiteSerializer(serializers.ModelSerializer):
         except IntegrityError as e:
             raise ValidationError({"detail":"duplicate entry for the site"})
         return attraction
+    
     def update(self, instance, validated_data):
         try:
             instance= super().update(instance, validated_data)
         except IntegrityError as e:
             raise ValidationError({"detail":"duplicate entry for the site"})
         return instance
+    
     def _get_order(self):
         last_order =TourSite.objects.filter(tour= self.context['tour_pk']).order_by('-order').first()
         if last_order == None:
@@ -120,7 +124,7 @@ class TourSiteSerializer(serializers.ModelSerializer):
         return order
     
 class TourSerializer(ServiceSerializer):
-    sites   = TourSiteSerializer(many=True, read_only=True, source= 'tour_sites')
+    sites       = TourSiteSerializer(many=True, read_only=True, source= 'tour_sites')
     guide       = GuideSerializer(read_only=True)
     guide_id    = serializers.PrimaryKeyRelatedField(queryset=Guide.objects.all(), write_only=True, source='guide', allow_null=False)
     tickets     = TicketSerializer(read_only= True, many=True)
@@ -128,9 +132,35 @@ class TourSerializer(ServiceSerializer):
         model = Tour
         fields = ServiceSerializer.Meta.fields + ['sites','tickets','guide_id','guide','takeoff_date','end_date', 'end_date', 'duration']
         read_only_fields = ['created', 'modified', 'tickets', 'guide', 'upfront_rate']
+    
     def create(self, validated_data):
         validated_data['upfront_rate'] = 100
         return super().create(validated_data)
+
+    def validate(self, data):
+        takeoff_date = data.get('takeoff_date')
+        duration = data.get('duration')
+        guide = data.get('guide')
+
+        if not (takeoff_date and duration and guide):
+            raise serializers.ValidationError("Takeoff date, duration, and book are required.")
+
+        input_end_date = takeoff_date + duration
+
+        overlapping_records = Tour.objects.annotate(
+            end_date=models.ExpressionWrapper(models.F('takeoff_date') + models.F('duration'), output_field=models.DateTimeField())
+        ).filter(
+            models.Q(guide=guide) &
+            models.Q(takeoff_date__lt=input_end_date) &
+            models.Q(end_date__gt=takeoff_date)
+        )
+
+        if self.instance:
+            overlapping_records = overlapping_records.exclude(id=self.instance.id)
+
+        if overlapping_records.exists():
+            raise serializers.ValidationError({"guide_id":"The specified time range overlaps with an existing tour for this guide."})
+        return super().validate(data)
 
 class ListingSerializer(ServiceSerializer):
     tickets = TicketSerializer(read_only=True, many=True)

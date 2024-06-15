@@ -110,6 +110,18 @@ class Tour(Activity):
     @property
     def end_date(self)-> datetime.datetime:
         return self.takeoff_date + self.duration
+    def clean(self) -> None:
+        takeoff_date = self.takeoff_date
+        end_date     = self.end_date
+        if Tour.objects.annotate(
+            end_date=models.ExpressionWrapper(models.F('takeoff_date') + models.F('duration'), output_field=models.DateTimeField())
+            ).filter(
+            models.Q(guide=self.guide)&
+            models.Q(takeoff_date__lt=end_date) &
+            models.Q(end_date__gt=takeoff_date)
+        ).exists():
+            raise ValidationError("this guide is not available at the selected time period")
+        return super().clean()
     
 
 class Listing(Activity):

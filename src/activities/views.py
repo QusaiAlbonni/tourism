@@ -29,7 +29,7 @@ class SiteViewSet(viewsets.ModelViewSet):
 
 class TicketViewSet(viewsets.ModelViewSet):
     serializer_class = TicketSerializer
-    #permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
     def get_queryset(self):
         return Ticket.objects.filter(activity= self.kwargs['activity_pk'])
     def get_serializer_context(self):   
