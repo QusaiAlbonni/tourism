@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "b90f2084-f0d2-494f-814b-8e7ad96c8c37",
 		"name": "django api",
+		"description": "this api utilizes RESTful api convention with CRUD operations and extra actions\n\n- usually the apis are as follows:\n    \n\nlist: lists an array of elements\n\ndetails: responseds with one element that is detailed and info rich\n\ncreate: creates an entry for the resource\n\npatch: partially updates the resource\n\nput: comepletely updates the resource\n\ndelete: deletes or soft deletes (trashes) the resource\n\n- pagination:\n    \n\nlist endpoints have a settings params called limit and offset that will paginate the response default page size is 100\n\ne.g: requesting a products list with offset 2 and limit 10 will get a list that starts from the 2nd result up until the 10th one (not inclusive)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_uid": "31542329-b90f2084-f0d2-494f-814b-8e7ad96c8c37"
 	},
@@ -1885,7 +1886,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:8000/services/activities/guides/",
+									"raw": "http://127.0.0.1:8000/services/activities/guides/?limit=2&offset=0",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -1899,9 +1900,18 @@
 										"activities",
 										"guides",
 										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										}
 									]
-								},
-								"description": "This endpoint retrieves a list of guides for activities. The request should be made using an HTTP GET method to the specified URL.\n\n### Request\n\nNo request body is required for this endpoint.\n\n### Response\n\nThe response will be in JSON format with a 200 status code. The response schema for the list of guides is as follows:\n\n``` json\n[\n  {\n    \"id\": \"number\",\n    \"name\": \"string\",\n    \"bio\": \"string or null\",\n    \"avatar\": \"string or null\",\n    \"likes\": \"number\",\n    \"email\": \"string or null\",\n    \"liked\": \"boolean\",\n    \"is_popular\": \"boolean\"\n  }\n]\n\n ```\n\nThe response includes the guide's ID, name, bio, avatar, number of likes, email, liked status, and popularity status."
+								}
 							},
 							"response": []
 						},
@@ -2132,8 +2142,7 @@
 										"sites",
 										""
 									]
-								},
-								"description": "### GET /services/activities/sites/\n\nThis endpoint retrieves a list of activities sites.\n\n#### Request\n\nNo request body is required for this request.\n\n#### Response\n\nThe response is a JSON array containing objects with the following properties:\n\n- `id` (number): The unique identifier of the site.\n    \n- `name` (string): The name of the site.\n    \n- `description` (string): The description of the site.\n    \n- `photo` (string): The URL of the photo of the site.\n    \n- `address` (object): An object containing address details with the following properties:\n    - `id` (number): The unique identifier of the address.\n        \n    - `raw` (string): The raw address.\n        \n    - `street_number` (string): The street number of the address.\n        \n    - `route` (string): The route of the address.\n        \n    - `locality` (string): The locality of the address.\n        \n- `created` (string): The timestamp of when the site was created.\n    \n- `modified` (string): The timestamp of when the site was last modified.\n    \n\nExample response:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": \"\",\n    \"photo\": \"\",\n    \"address\": {\n      \"id\": 0,\n      \"raw\": \"\",\n      \"street_number\": \"\",\n      \"route\": \"\",\n      \"locality\": \"\"\n    },\n    \"created\": \"\",\n    \"modified\": \"\"\n  }\n]\n\n ```"
+								}
 							},
 							"response": []
 						},
@@ -2300,8 +2309,7 @@
 										"listings",
 										""
 									]
-								},
-								"description": "### GET /services/activities/listings/\n\nThis endpoint retrieves a list of activity listings.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response will be a JSON array containing objects with the following properties:\n\n- `id` (number): The unique identifier for the activity listing.\n    \n- `name` (string): The name of the activity.\n    \n- `description` (string): The description of the activity.\n    \n- `refund_rate` (string): The refund rate for the activity.\n    \n- `allow_points` (boolean): Indicates if points are allowed for the activity.\n    \n- `photos` (array): An array of objects containing photo information for the activity.\n    \n    - `id` (number): The unique identifier for the photo.\n        \n    - `image` (string): The URL of the photo.\n        \n- `site` (object): Information about the site where the activity is located.\n    \n    - `id` (number): The unique identifier for the site.\n        \n    - `name` (string): The name of the site.\n        \n    - `description` (string): The description of the site.\n        \n    - `photo` (string): The URL of the site's photo.\n        \n    - `address` (object): Address information for the site.\n        \n        - `id` (number): The unique identifier for the address.\n            \n        - `raw` (string): The raw address.\n            \n        - `street_number` (string): The street number of the address.\n            \n        - `route` (string): The route of the address.\n            \n        - `locality` (string): The locality of the address.\n            \n    - `created` (string): The creation date of the site.\n        \n    - `modified` (string): The modification date of the site.\n        \n- `opens_at` (string): The opening time of the activity.\n    \n- `work_hours` (string): The work hours of the activity.\n    \n- `closes_at` (string): The closing time of the activity.\n    \n- `created` (string): The creation date of the activity listing.\n    \n- `modified` (string): The modification date of the activity listing.\n    \n- `review_by` (array): An array of objects containing review information for the activity.\n    \n- `tickets` (array): An array of tickets available for the activity.\n    \n- `website` (string): The website URL for the activity.\n    \n\nExample response:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": null,\n    \"refund_rate\": \"\",\n    \"allow_points\": true,\n    \"photos\": [\n      {\n        \"id\": 0,\n        \"image\": \"\"\n      }\n    ],\n    \"site\": {\n      \"id\": 0,\n      \"name\": \"\",\n      \"description\": \"\",\n      \"photo\": \"\",\n      \"address\": {\n        \"id\": 0,\n        \"raw\": \"\",\n        \"street_number\": \"\",\n        \"route\": \"\",\n        \"locality\": null\n      },\n      \"created\": \"\",\n      \"modified\": \"\"\n    },\n    \"opens_at\": \"\",\n    \"work_hours\": \"\",\n    \"closes_at\": \"\",\n    \"created\": \"\",\n    \"modified\": \"\",\n    \"review_by\": [],\n    \"tickets\": [],\n    \"website\": null\n  }\n]\n\n ```"
+								}
 							},
 							"response": []
 						},
@@ -2585,8 +2593,7 @@
 												"1",
 												"sites"
 											]
-										},
-										"description": "### GET /services/activities/tours/1/sites\n\nThis endpoint retrieves a list of sites for the tour with ID 1.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL\n    - Type: `String`\n        \n    - Description: The URL for the GET request.\n        \n    - Example: `http://localhost:8000/services/activities/tours/1/sites`\n        \n\n#### Response\n\nThe response will be a JSON array containing objects with the following properties:\n\n- `id` (Number): The ID of the site.\n    \n- `order` (Number): The order of the site in the tour.\n    \n- `site` (Object): Information about the site.\n    - `id` (Number): The ID of the site.\n        \n    - `name` (String): The name of the site.\n        \n    - `description` (String): The description of the site.\n        \n    - `photo` (String): The photo URL of the site.\n        \n    - `address` (Object): The address of the site.\n        - `id` (Number): The ID of the address.\n            \n        - `raw` (String): The raw address.\n            \n        - `street_number` (String): The street number of the address.\n            \n        - `route` (String): The route of the address.\n            \n        - `locality` (String): The locality of the address.\n            \n    - `created` (String): The creation date of the site.\n        \n    - `modified` (String): The modification date of the site.\n        \n- `tour` (Number): The ID of the tour to which the site belongs.\n    \n\n#### JSON Schema\n\n``` json\n[\n    {\n        \"type\": \"object\",\n        \"properties\": {\n            \"id\": { \"type\": \"number\" },\n            \"order\": { \"type\": \"number\" },\n            \"site\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": { \"type\": \"number\" },\n                    \"name\": { \"type\": \"string\" },\n                    \"description\": { \"type\": \"string\" },\n                    \"photo\": { \"type\": \"string\" },\n                    \"address\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"id\": { \"type\": \"number\" },\n                            \"raw\": { \"type\": \"string\" },\n                            \"street_number\": { \"type\": \"string\" },\n                            \"route\": { \"type\": \"string\" },\n                            \"locality\": { \"type\": \"string\" }\n                        }\n                    },\n                    \"created\": { \"type\": \"string\" },\n                    \"modified\": { \"type\": \"string\" }\n                }\n            },\n            \"tour\": { \"type\": \"number\" }\n        }\n    }\n]\n\n ```"
+										}
 									},
 									"response": []
 								},
@@ -2730,8 +2737,7 @@
 										"activities",
 										"tours"
 									]
-								},
-								"description": "### GET /services/activities/tours\n\nThis endpoint retrieves a list of tours available.\n\n#### Request\n\nThere are no request parameters for this endpoint.\n\n#### Response\n\nThe response is a JSON array containing tour objects with the following properties:\n\n- `id` (number): The unique identifier of the tour.\n    \n- `name` (string): The name of the tour.\n    \n- `description` (string): The description of the tour.\n    \n- `refund_rate` (string): The refund rate for the tour.\n    \n- `upfront_rate` (string): The upfront rate for the tour.\n    \n- `allow_points` (boolean): Indicates if points are allowed for the tour.\n    \n- `photos` (array): An array of photo objects with `id` (number) and `image` (string) properties.\n    \n- `sites` (array): An array of site objects with `id` (number), `order` (number), `site` (object), and `tour` (number) properties.\n    \n- `tickets` (array): An array of ticket objects.\n    \n- `guide` (object): An object containing information about the guide, with `id` (number), `name` (string), `bio` (string), `avatar` (string), `likes` (number), `email` (string), `liked` (boolean), and `is_popular` (boolean) properties.\n    \n- `takeoff_date` (string): The takeoff date of the tour.\n    \n- `end_date` (string): The end date of the tour.\n    \n- `duration` (string): The duration of the tour.\n    \n\nExample response:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": null,\n    \"refund_rate\": \"\",\n    \"upfront_rate\": \"\",\n    \"allow_points\": true,\n    \"photos\": [\n      {\n        \"id\": 0,\n        \"image\": \"\"\n      }\n    ],\n    \"sites\": [\n      {\n        \"id\": 0,\n        \"order\": 0,\n        \"site\": {\n          \"id\": 0,\n          \"name\": \"\",\n          \"description\": \"\",\n          \"photo\": \"\",\n          \"address\": {\n            \"id\": 0,\n            \"raw\": \"\",\n            \"street_number\": \"\",\n            \"route\": \"\",\n            \"locality\": \"\"\n          },\n          \"created\": \"\",\n          \"modified\": \"\"\n        },\n        \"tour\": 0\n      }\n    ],\n    \"tickets\": [],\n    \"guide\": {\n      \"id\": 0,\n      \"name\": \"\",\n      \"bio\": \"\",\n      \"avatar\": null,\n      \"likes\": 0,\n      \"email\": null,\n      \"liked\": true,\n      \"is_popular\": true\n    },\n    \"takeoff_date\": \"\",\n    \"end_date\": \"\",\n    \"duration\": \"\"\n  }\n]\n\n ```"
+								}
 							},
 							"response": []
 						},
@@ -2883,8 +2889,7 @@
 										"1",
 										"tickets"
 									]
-								},
-								"description": "### GET /services/activities/1/tickets\n\nThis endpoint retrieves the tickets for a specific activity.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL\n    - Type: `string`\n        \n    - Description: The URL for retrieving tickets for a specific activity.\n        \n\n#### Response\n\nThe response will be a JSON array containing ticket objects with the following properties:\n\n- `id` (number): The unique identifier for the ticket.\n    \n- `activity_id` (number): The identifier for the activity associated with the ticket.\n    \n- `name` (string): The name of the ticket.\n    \n- `description` (string): The description of the ticket.\n    \n- `stock` (number): The available stock of the ticket.\n    \n- `price_currency` (string): The currency in which the ticket price is denominated.\n    \n- `price` (string): The price of the ticket.\n    \n- `price_in_points` (number): The price of the ticket in points.\n    \n- `points_rate` (string): The rate of conversion between currency and points.\n    \n- `valid_until` (string): The expiration date of the ticket.\n    \n- `created` (string): The timestamp of when the ticket was created.\n    \n- `modified` (string): The timestamp of when the ticket was last modified.\n    \n\n#### JSON Schema\n\n``` json\n[\n  {\n    \"type\": \"object\",\n    \"properties\": {\n      \"id\": { \"type\": \"number\" },\n      \"activity_id\": { \"type\": \"number\" },\n      \"name\": { \"type\": \"string\" },\n      \"description\": { \"type\": \"string\" },\n      \"stock\": { \"type\": \"number\" },\n      \"price_currency\": { \"type\": \"string\" },\n      \"price\": { \"type\": \"string\" },\n      \"price_in_points\": { \"type\": \"number\" },\n      \"points_rate\": { \"type\": \"string\" },\n      \"valid_until\": { \"type\": \"string\" },\n      \"created\": { \"type\": \"string\" },\n      \"modified\": { \"type\": \"string\" }\n    }\n  }\n]\n\n ```"
+								}
 							},
 							"response": []
 						},
