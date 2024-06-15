@@ -9,6 +9,7 @@ id = 68ffa487-3639-47be-bd71-402143ba2a08
 
 [config.relations.collections]
 rootDirectory = postman
+files[] = {"id":"31542329-b90f2084-f0d2-494f-814b-8e7ad96c8c37","path":"django api.json","metaData":{}}
 
 [config.relations.collections.metaData]
 
