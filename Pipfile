@@ -50,6 +50,8 @@ django-extensions = "*"
 django-debug-toolbar = "*"
 drf-nested-routers = "*"
 environs = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 

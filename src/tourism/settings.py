@@ -23,7 +23,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app"]
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
 
 STATIC_URL = "static/"
