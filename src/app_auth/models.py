@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager
+from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 # from profiles.models import PointsWallet
 
@@ -25,4 +26,12 @@ class User(AbstractUser):
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
+    class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
+        permissions = (
+            ('manage_activities', 'Can manage Activities'),
+            ('manage_properties', 'Can manage properties'),
+            ('manage_car_rental', 'Can manage Car Rental')
+        )
     

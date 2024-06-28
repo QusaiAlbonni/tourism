@@ -94,6 +94,9 @@ class Activity(Service):
         through="ActivityTag",
         through_fields=("activity", "tag")
         )
+    class Meta:
+        verbose_name = 'Activity'
+        verbose_name_plural = 'Activities'
     
 class Tour(Activity):
     takeoff_date = models.DateTimeField(_(""), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(now())])

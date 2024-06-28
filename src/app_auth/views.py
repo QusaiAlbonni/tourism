@@ -1,11 +1,14 @@
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 from .models import User
 from rest_framework.views import APIView
 import requests
 from .serializers import pwAdminLoginSerializer
+from djoser.views import UserViewSet as DjoserUserViewSet
 
 
 class WebLoginView(TokenObtainPairView):
@@ -58,3 +61,11 @@ class UserResetPasswordView(APIView):
 
         context = {'error_message': 'Password reset failed'}
         return render(request, 'reset_password.html', context)
+    
+class UserViewSet(DjoserUserViewSet):
+    def get_queryset(self):
+        user = self.request.user
+        queryset = viewsets.ModelViewSet.get_queryset(self)
+        if settings.DJOSER.get('HIDE_USERS', True) and self.action == "list" and not (user.is_staff or user.is_admin):
+            queryset = queryset.filter(pk=user.pk)
+        return queryset
