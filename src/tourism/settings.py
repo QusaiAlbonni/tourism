@@ -163,6 +163,7 @@ DJOSER = {
     "ACTIVATION_URL": 'auth/activation/{uid}/{token}',
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',
+        'current_user': 'app_auth.serializers.UserSerializer',
     },
     'EMAIL': {
        'activation': 'app_auth.email.ActivationEmail',
