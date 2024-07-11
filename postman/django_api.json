@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "82895683-8ffc-47ca-969c-a42e408fb571",
+		"_postman_id": "a743b378-167b-423a-9c5b-3319af1443e7",
 		"name": "django api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31542329",
-		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-82895683-8ffc-47ca-969c-a42e408fb571?action=share&source=collection_link&creator=31542329"
+		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-a743b378-167b-423a-9c5b-3319af1443e7?action=share&source=collection_link&creator=31542329"
 	},
 	"item": [
 		{
@@ -107,7 +107,7 @@
 								}
 							},
 							"_postman_previewlanguage": "JSON",
-							"header": null,
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"detail\": \"No active account found with the given credentials\"\r\n}"
 						},
@@ -143,7 +143,7 @@
 								}
 							},
 							"_postman_previewlanguage": "JSON",
-							"header": null,
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"detail\": \"No active account found with the given credentials\"\r\n}"
 						},
@@ -179,7 +179,7 @@
 								}
 							},
 							"_postman_previewlanguage": "JSON",
-							"header": null,
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDc2MjY1NiwiaWF0IjoxNzE0MTU3ODU2LCJqdGkiOiI4YWQ3MzdhNTcxMTU0MjgzYjNlMjgwODczZjk1NzNhMSIsInVzZXJfaWQiOjN9.zVNPk21A-tCiW0w-vH-7Fq_Frbr5QwJlliWyqtblg58\",\r\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE0MjQ0MjU2LCJpYXQiOjE3MTQxNTc4NTYsImp0aSI6IjAwZTAzNDM1NDhlNTRlZmRhOWU2MmU2MTVjM2FjMzcxIiwidXNlcl9pZCI6M30.mhXai2UBpztK6-xoUoCly78TAhKwOiz0o1EXMjaPaX4\"\r\n}"
 						}
@@ -300,6 +300,105 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMTI5NDQ4NiwiaWF0IjoxNzIwNjg5Njg2LCJqdGkiOiJhY2U5MWY0OTJjMDI0NzdjYjRhZmRlOTIyOTEyMDg1ZSIsInVzZXJfaWQiOjF9.1syvL8rXM-vZ5KR8zReedU_4KIh0wxn3ciMDsyR67KI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/jwt/refresh",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"jwt",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request google link",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/o/google-oauth2/?redirect_uri=http://127.0.0.1:3000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"o",
+								"google-oauth2",
+								""
+							],
+							"query": [
+								{
+									"key": "redirect_uri",
+									"value": "http://127.0.0.1:3000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/o/google-oauth2/?state=UZnik1sVMS9aSx7ez4GxMfCV3JrBMCaR&code=4/0ATx3LY6xAiWIamMZRf42si4BV9_3wf5SH2aZdwnU5KeFIH47KCPC_b3FtA_Hc6lnZ_EXLQ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"o",
+								"google-oauth2",
+								""
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "UZnik1sVMS9aSx7ez4GxMfCV3JrBMCaR"
+								},
+								{
+									"key": "code",
+									"value": "4/0ATx3LY6xAiWIamMZRf42si4BV9_3wf5SH2aZdwnU5KeFIH47KCPC_b3FtA_Hc6lnZ_EXLQ"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -317,55 +416,46 @@
 									{
 										"key": "Cache-Control",
 										"value": "no-cache",
-										"name": "cache-control",
 										"type": "text"
 									},
 									{
 										"key": "Postman-Token",
 										"value": "<calculated when request is sent>",
-										"name": "postman-token",
 										"type": "text"
 									},
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"name": "content-type",
 										"type": "text"
 									},
 									{
 										"key": "Content-Length",
 										"value": "<calculated when request is sent>",
-										"name": "content-length",
 										"type": "text"
 									},
 									{
 										"key": "Host",
 										"value": "<calculated when request is sent>",
-										"name": "host",
 										"type": "text"
 									},
 									{
 										"key": "User-Agent",
 										"value": "PostmanRuntime/7.32.1",
-										"name": "user-agent",
 										"type": "text"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"name": "accept",
 										"type": "text"
 									},
 									{
 										"key": "Accept-Encoding",
 										"value": "gzip, deflate, br",
-										"name": "accept-encoding",
 										"type": "text"
 									},
 									{
 										"key": "Connection",
 										"value": "keep-alive",
-										"name": "connection",
 										"type": "text"
 									},
 									{
@@ -493,7 +583,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"ccv\": [\r\n        \"Ensure this value has at least 4 characters (it has 2).\"\r\n    ]\r\n}"
 								},
@@ -589,7 +679,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"card_number\": [\r\n        \"credit card with this card number already exists.\"\r\n    ]\r\n}"
 								}
@@ -673,15 +763,6 @@
 												"type": "text"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "text"
-												}
-											}
-										},
 										"url": {
 											"raw": "http://127.0.0.1:8000/profile/credite/",
 											"protocol": "http",
@@ -700,7 +781,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"detail\": \"This user does not have any credit card.\"\r\n}"
 								}
@@ -714,43 +795,36 @@
 									{
 										"key": "Cache-Control",
 										"value": "no-cache",
-										"name": "cache-control",
 										"type": "text"
 									},
 									{
 										"key": "Postman-Token",
 										"value": "<calculated when request is sent>",
-										"name": "postman-token",
 										"type": "text"
 									},
 									{
 										"key": "Host",
 										"value": "<calculated when request is sent>",
-										"name": "host",
 										"type": "text"
 									},
 									{
 										"key": "User-Agent",
 										"value": "PostmanRuntime/7.32.1",
-										"name": "user-agent",
 										"type": "text"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"name": "accept",
 										"type": "text"
 									},
 									{
 										"key": "Accept-Encoding",
 										"value": "gzip, deflate, br",
-										"name": "accept-encoding",
 										"type": "text"
 									},
 									{
 										"key": "Connection",
 										"value": "keep-alive",
-										"name": "connection",
 										"type": "text"
 									},
 									{
@@ -848,7 +922,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"detail\": \"This user does not have any credit card.\"\r\n}"
 								}
@@ -871,43 +945,36 @@
 									{
 										"key": "Cache-Control",
 										"value": "no-cache",
-										"name": "cache-control",
 										"type": "text"
 									},
 									{
 										"key": "Postman-Token",
 										"value": "<calculated when request is sent>",
-										"name": "postman-token",
 										"type": "text"
 									},
 									{
 										"key": "Host",
 										"value": "<calculated when request is sent>",
-										"name": "host",
 										"type": "text"
 									},
 									{
 										"key": "User-Agent",
 										"value": "PostmanRuntime/7.32.1",
-										"name": "user-agent",
 										"type": "text"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"name": "accept",
 										"type": "text"
 									},
 									{
 										"key": "Accept-Encoding",
 										"value": "gzip, deflate, br",
-										"name": "accept-encoding",
 										"type": "text"
 									},
 									{
 										"key": "Connection",
 										"value": "keep-alive",
-										"name": "connection",
 										"type": "text"
 									},
 									{
@@ -1162,8 +1229,8 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
 									"body": "[\r\n    {\r\n        \"user\": 1,\r\n        \"bio\": null,\r\n        \"marital_status\": false,\r\n        \"birth_date\": null,\r\n        \"num_kids\": 0,\r\n        \"avatar\": null\r\n    },\r\n    {\r\n        \"user\": 2,\r\n        \"bio\": null,\r\n        \"marital_status\": false,\r\n        \"birth_date\": null,\r\n        \"num_kids\": 0,\r\n        \"avatar\": null\r\n    }\r\n]"
 								},
@@ -1192,8 +1259,8 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
 									"body": "[\r\n    {\r\n        \"user\": 1,\r\n        \"bio\": null,\r\n        \"marital_status\": false,\r\n        \"birth_date\": null,\r\n        \"num_kids\": 0,\r\n        \"avatar\": null\r\n    }\r\n]"
 								}
@@ -1257,8 +1324,8 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"detail\": \"address does not exist\"\r\n}"
 								}
@@ -1341,8 +1408,8 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"detail\": \"address does not exist\"\r\n}"
 								}
@@ -1426,8 +1493,8 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n    \"street_number\": \"1\",\r\n    \"route\": \"Somewhere Ave\",\r\n    \"locality\": \"Northcote, Victoria 3070, Australia\"\r\n}"
 								},
@@ -1467,8 +1534,8 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"detail\": \"address already exists\"\r\n}"
 								}
@@ -1550,7 +1617,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"non_field_errors\": [\r\n        \"Unable to log in with provided credentials.\"\r\n    ]\r\n}"
 								},
@@ -1587,7 +1654,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDc2MTczMiwiaWF0IjoxNzE0MTU2OTMyLCJqdGkiOiI4ZTllNWQwZGQ1YWQ0NzNmODAwM2MyZGJlOTgyZjI4YiIsInVzZXJfaWQiOjJ9.YLQterGWd7MNzJUjb5Jky3FlLOrspIZSb56WPn9wRbs\",\r\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE0MjQzMzMyLCJpYXQiOjE3MTQxNTY5MzIsImp0aSI6ImQwMzY5ZDQxZmE0NzQzNTNiMDEwMDczMTI4YWNmNzAwIiwidXNlcl9pZCI6Mn0.uuwlKwXDKiy73-iZtTtDm6OSTWL3xXmJildC7GzR27s\"\r\n}"
 								},
@@ -1624,7 +1691,7 @@
 										}
 									},
 									"_postman_previewlanguage": "JSON",
-									"header": null,
+									"header": [],
 									"cookie": [],
 									"body": "{\r\n    \"error\": \"Unauthorized access\"\r\n}"
 								}
@@ -2225,10 +2292,10 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
-									"body": null
+									"body": ""
 								}
 							]
 						},
@@ -2286,10 +2353,10 @@
 											]
 										}
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "Text",
+									"header": [],
 									"cookie": [],
-									"body": null
+									"body": ""
 								}
 							]
 						}
@@ -3256,8 +3323,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
 						},
@@ -3295,8 +3362,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        }\r\n    ]\r\n}"
 						},
@@ -3339,8 +3406,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
 						},
@@ -3372,8 +3439,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\r\n    \"count\": 1,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
 						}
