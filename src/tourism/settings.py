@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    ##
+    'django_cleanup.apps.CleanupConfig',#for files cleanup for each db update
+    'profanity',#for bad world filter 
     # 3rd party
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
@@ -62,7 +65,9 @@ INSTALLED_APPS = [
     'profiles',
     'activities',
     'tags',
-    'services'
+    'services',
+    # 'properties',
+    'events'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
