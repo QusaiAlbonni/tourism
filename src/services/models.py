@@ -55,14 +55,6 @@ class Service(models.Model):
             MaxValueValidator(Decimal('95.0'))
         ]
     )
-    points_purchase_rate = models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
-        validators=[
-            MinValueValidator(Decimal('0.0')),
-            MaxValueValidator(Decimal('95.0'))
-        ]
-    )
     
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

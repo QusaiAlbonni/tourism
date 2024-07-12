@@ -25,7 +25,7 @@ class ServiceSerializer(serializers.ModelSerializer):
     on_discount = serializers.ReadOnlyField()
     class Meta:
         model = Service
-        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate','points_earning_rate','points_purchase_rate', 'allow_points','allow_review','discount', 'photos','avg_rating','num_rating','discount','on_discount']
+        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate','points_earning_rate', 'allow_points','allow_review','discount', 'photos','avg_rating','num_rating','discount','on_discount']
     def create(self, validated_data):
         photos_data = validated_data.pop('photos', [])
 
