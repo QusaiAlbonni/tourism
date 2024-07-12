@@ -1,11 +1,10 @@
 from django.db import models
-from datetime import  timedelta
+from datetime import  timedelta, date
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
 from djmoney.contrib.exchange.models import convert_money
 from djmoney.money import Money
-from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from django.core.validators import MaxValueValidator, MinValueValidator
 from address.models import AddressField
 from app_media.models import AvatarField
@@ -53,10 +52,21 @@ class CreditCard(models.Model):
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
 
     def decrease_balance(self, amount, currency):
-        OpenExchangeRatesBackend().update_rates()
+        if self.is_expired():
+            raise ValueError('Expired Credit Card')
         converted_amount = convert_money(Money(amount, currency),self.balance.currency)
+        if converted_amount > self.balance:
+            raise ValueError("Insufficient funds")
         self.balance -= converted_amount
         self.save()
+    def increase_balance(self, amount, currency):
+        if self.is_expired():
+           raise ValueError('Expired Credit Card')
+        converted_amount = convert_money(Money(amount, currency),self.balance.currency)
+        self.balance += converted_amount
+        self.save()
+    def is_expired(self):
+        return self.expiration_date < date.today()
     
 class PointsWallet(models.Model):
 

@@ -94,9 +94,12 @@ class Activity(Service):
         through="ActivityTag",
         through_fields=("activity", "tag")
         )
+    class Meta:
+        verbose_name = 'Activity'
+        verbose_name_plural = 'Activities'
     
 class Tour(Activity):
-    takeoff_date = models.DateTimeField(_(""), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(now())])
+    takeoff_date = models.DateTimeField(_(""), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(1)])
     duration     = models.DurationField(_("Tour Duration"))
     guide        = models.ForeignKey(Guide, verbose_name=_("Guide"), on_delete=models.SET_NULL, null=True)
     sites        = models.ManyToManyField(
@@ -120,7 +123,7 @@ class Tour(Activity):
             models.Q(takeoff_date__lt=end_date) &
             models.Q(end_date__gt=takeoff_date)
         ).exists():
-            raise ValidationError("this guide is not available at the selected time period")
+            raise ValidationError(_("this guide is not available at the selected time period"))
         return super().clean()
     
 
@@ -157,19 +160,23 @@ class Ticket(models.Model):
                         validators=[
                             MinMoneyValidator(0),
                         ])
-    price_in_points= models.IntegerField(validators=[MinValueValidator(int('1'))])
-    points_rate    = models.DecimalField(
+    points_discount_price= models.IntegerField(validators=[MinValueValidator(int('1'))])
+    points_discount      = models.DecimalField(
         max_digits=4,
         decimal_places=1,
         validators=[
-            MinValueValidator(Decimal('1.0')),
+            MinValueValidator(Decimal('0.0')),
             MaxValueValidator(Decimal('100.0'))
         ]
     )
     stock       = models.PositiveIntegerField(_("Stock"), validators=[MaxValueValidator(int(1e6)), MinValueValidator(int(1))], default=100)
-    valid_until = models.DateField(validators=[DateLessThanToday(now())])
+    valid_until = models.DateField(validators=[DateLessThanToday(1,inclusive=True)])
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    
+    @property
+    def is_valid()-> bool:
+        return bool()    
 
 class ActivityTag(models.Model):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)

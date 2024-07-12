@@ -1,5 +1,6 @@
-from djoser.serializers import UserCreatePasswordRetypeSerializer ,TokenCreateSerializer
+from djoser.serializers import UserCreatePasswordRetypeSerializer ,TokenCreateSerializer, UserSerializer as DjoserUserSerializer
 from django.contrib.auth import get_user_model
+from rest_framework.serializers import SerializerMethodField
 
 User = get_user_model()
 
@@ -11,3 +12,15 @@ class pwAdminLoginSerializer(TokenCreateSerializer):
     class Meta:
         model = User
         fields = ('email','password')
+
+class UserSerializer(DjoserUserSerializer):
+    permissions = SerializerMethodField()
+    
+    class Meta(DjoserUserSerializer.Meta):
+        fields = DjoserUserSerializer.Meta.fields + ('permissions', )
+    
+    def get_permissions(self, instance):
+        user_perms = instance.get_all_permissions()
+        permissions_codenames = [perm.split('.')[1] for perm in user_perms]
+        
+        return permissions_codenames

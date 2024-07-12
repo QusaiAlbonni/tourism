@@ -3,16 +3,18 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError, NotFound
-from app_auth.permissions import isAdminOrReadOnly
+from app_auth.permissions import isAdminOrReadOnly, CanManageActivitiesOrReadOnly
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from .serializers import GuideSerializer, SiteSerializer, TicketSerializer, ActivitySerializer, TourSerializer, TourSiteSerializer, ListingSerializer
 from django.db import transaction
+from django.utils.timezone import timedelta, now
+
 
 
 
 class GuideViewSet(viewsets.ModelViewSet):
     serializer_class = GuideSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     def get_queryset(self):
         return Guide.objects.all()
     
@@ -25,13 +27,17 @@ class GuideViewSet(viewsets.ModelViewSet):
 class SiteViewSet(viewsets.ModelViewSet):
     serializer_class = SiteSerializer
     queryset = Site.objects.all()
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
 
 class TicketViewSet(viewsets.ModelViewSet):
     serializer_class = TicketSerializer
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     def get_queryset(self):
-        return Ticket.objects.filter(activity= self.kwargs['activity_pk'])
+        query = Ticket.objects.filter(activity= self.kwargs['activity_pk'])
+        if not(self.request.user.is_authenticated) or not(self.request.user.is_admin or self.request.user.is_staff or self.request.user.has_perm('app_auth.manage_activities')):
+            query = query.filter(valid_until__gte=now())
+        return query
+            
     def get_serializer_context(self):   
         context = super().get_serializer_context()
         context['activity_pk'] = self.kwargs['activity_pk']
@@ -41,17 +47,17 @@ class TicketViewSet(viewsets.ModelViewSet):
 class ActivityViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ActivitySerializer
     queryset = Activity.objects.all()
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     
 
 class TourViewSet(viewsets.ModelViewSet):
     serializer_class = TourSerializer
     queryset = Tour.objects.all()
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     
 class TourSiteViewSet(viewsets.ModelViewSet):
     serializer_class = TourSiteSerializer
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     def get_queryset(self):
         return TourSite.objects.filter(tour= self.kwargs['tour_pk'])
     def get_serializer_context(self):   
@@ -91,5 +97,5 @@ class TourSiteViewSet(viewsets.ModelViewSet):
 class ListingViewSet(viewsets.ModelViewSet):
     serializer_class = ListingSerializer
     queryset = Listing.objects.all()
-    permission_classes= [IsAuthenticatedOrReadOnly, isAdminOrReadOnly]
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     

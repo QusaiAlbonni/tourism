@@ -1,0 +1,3989 @@
+{
+	"info": {
+		"_postman_id": "a743b378-167b-423a-9c5b-3319af1443e7",
+		"name": "django api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31542329",
+		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-a743b378-167b-423a-9c5b-3319af1443e7?action=share&source=collection_link&creator=31542329"
+	},
+	"item": [
+		{
+			"name": "auth_system",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"username\": \"user\",\r\n    \"password\": \"1234asdf!@#$\",\r\n    \"first_name\": \"\",\r\n    \"last_name\": \"\",\r\n    \"re_password\": \"1234asdf!@#$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"password\": \"1234asdf!@#$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/jwt/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"jwt",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "email not in database",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/auth/jwt/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"jwt",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": "JSON",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"detail\": \"No active account found with the given credentials\"\r\n}"
+						},
+						{
+							"name": "email in database but not activate or password not correct",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/auth/jwt/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"jwt",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": "JSON",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"detail\": \"No active account found with the given credentials\"\r\n}"
+						},
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/auth/jwt/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"jwt",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": "JSON",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDc2MjY1NiwiaWF0IjoxNzE0MTU3ODU2LCJqdGkiOiI4YWQ3MzdhNTcxMTU0MjgzYjNlMjgwODczZjk1NzNhMSIsInVzZXJfaWQiOjN9.zVNPk21A-tCiW0w-vH-7Fq_Frbr5QwJlliWyqtblg58\",\r\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE0MjQ0MjU2LCJpYXQiOjE3MTQxNTc4NTYsImp0aSI6IjAwZTAzNDM1NDhlNTRlZmRhOWU2MmU2MTVjM2FjMzcxIiwidXNlcl9pZCI6M30.mhXai2UBpztK6-xoUoCly78TAhKwOiz0o1EXMjaPaX4\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "forget password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"www.logical123@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/users/reset_password/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"users",
+								"reset_password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/users/me",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"123\",\r\n    \"new_password\": \"sasa1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/users/set_password/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"users",
+								"set_password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMTI5NDQ4NiwiaWF0IjoxNzIwNjg5Njg2LCJqdGkiOiJhY2U5MWY0OTJjMDI0NzdjYjRhZmRlOTIyOTEyMDg1ZSIsInVzZXJfaWQiOjF9.1syvL8rXM-vZ5KR8zReedU_4KIh0wxn3ciMDsyR67KI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/jwt/refresh",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"jwt",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request google link",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/o/google-oauth2/?redirect_uri=http://127.0.0.1:3000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"o",
+								"google-oauth2",
+								""
+							],
+							"query": [
+								{
+									"key": "redirect_uri",
+									"value": "http://127.0.0.1:3000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth/o/google-oauth2/?state=UZnik1sVMS9aSx7ez4GxMfCV3JrBMCaR&code=4/0ATx3LY6xAiWIamMZRf42si4BV9_3wf5SH2aZdwnU5KeFIH47KCPC_b3FtA_Hc6lnZ_EXLQ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"o",
+								"google-oauth2",
+								""
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "UZnik1sVMS9aSx7ez4GxMfCV3JrBMCaR"
+								},
+								{
+									"key": "code",
+									"value": "4/0ATx3LY6xAiWIamMZRf42si4BV9_3wf5SH2aZdwnU5KeFIH47KCPC_b3FtA_Hc6lnZ_EXLQ"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "card",
+					"item": [
+						{
+							"name": "create_card",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cache-Control",
+										"value": "no-cache",
+										"type": "text"
+									},
+									{
+										"key": "Postman-Token",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Length",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "Host",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "User-Agent",
+										"value": "PostmanRuntime/7.32.1",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Encoding",
+										"value": "gzip, deflate, br",
+										"type": "text"
+									},
+									{
+										"key": "Connection",
+										"value": "keep-alive",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NTI1NTg0LCJpYXQiOjE3MTU0MzkxODQsImp0aSI6Ijg1ZmUyNmU5NGQ0NTQ0YjJhOGMyNzgyYzczYmQ5MjUyIiwidXNlcl9pZCI6MX0.RSDa6SEYF1Wq9K5QD-_PwOVZNPImks01udmUHRsggq4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"1234\",\r\n  \"card_type\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profile/credit/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profile",
+										"credit",
+										"create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "create_card with ccv less than 4",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"name": "cache-control",
+												"type": "text"
+											},
+											{
+												"key": "Postman-Token",
+												"value": "<calculated when request is sent>",
+												"name": "postman-token",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"name": "content-type",
+												"type": "text"
+											},
+											{
+												"key": "Content-Length",
+												"value": "<calculated when request is sent>",
+												"name": "content-length",
+												"type": "text"
+											},
+											{
+												"key": "Host",
+												"value": "<calculated when request is sent>",
+												"name": "host",
+												"type": "text"
+											},
+											{
+												"key": "User-Agent",
+												"value": "PostmanRuntime/7.32.1",
+												"name": "user-agent",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"name": "accept",
+												"type": "text"
+											},
+											{
+												"key": "Accept-Encoding",
+												"value": "gzip, deflate, br",
+												"name": "accept-encoding",
+												"type": "text"
+											},
+											{
+												"key": "Connection",
+												"value": "keep-alive",
+												"name": "connection",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"56\",\r\n  \"card_type\": \"Visa\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profile/credite/create",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profile",
+												"credite",
+												"create"
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"ccv\": [\r\n        \"Ensure this value has at least 4 characters (it has 2).\"\r\n    ]\r\n}"
+								},
+								{
+									"name": "create_card with card_number reqeater",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"name": "cache-control",
+												"type": "text"
+											},
+											{
+												"key": "Postman-Token",
+												"value": "<calculated when request is sent>",
+												"name": "postman-token",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"name": "content-type",
+												"type": "text"
+											},
+											{
+												"key": "Content-Length",
+												"value": "<calculated when request is sent>",
+												"name": "content-length",
+												"type": "text"
+											},
+											{
+												"key": "Host",
+												"value": "<calculated when request is sent>",
+												"name": "host",
+												"type": "text"
+											},
+											{
+												"key": "User-Agent",
+												"value": "PostmanRuntime/7.32.1",
+												"name": "user-agent",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"name": "accept",
+												"type": "text"
+											},
+											{
+												"key": "Accept-Encoding",
+												"value": "gzip, deflate, br",
+												"name": "accept-encoding",
+												"type": "text"
+											},
+											{
+												"key": "Connection",
+												"value": "keep-alive",
+												"name": "connection",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"1234\",\r\n  \"card_type\": \"Visa\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profile/credite/create",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profile",
+												"credite",
+												"create"
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"card_number\": [\r\n        \"credit card with this card number already exists.\"\r\n    ]\r\n}"
+								}
+							]
+						},
+						{
+							"name": "retrive_card",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/profiles/credit/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"profiles",
+										"credit",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "retrive_card",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"name": "cache-control",
+												"type": "text"
+											},
+											{
+												"key": "Postman-Token",
+												"value": "<calculated when request is sent>",
+												"name": "postman-token",
+												"type": "text"
+											},
+											{
+												"key": "Host",
+												"value": "<calculated when request is sent>",
+												"name": "host",
+												"type": "text"
+											},
+											{
+												"key": "User-Agent",
+												"value": "PostmanRuntime/7.32.1",
+												"name": "user-agent",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"name": "accept",
+												"type": "text"
+											},
+											{
+												"key": "Accept-Encoding",
+												"value": "gzip, deflate, br",
+												"name": "accept-encoding",
+												"type": "text"
+											},
+											{
+												"key": "Connection",
+												"value": "keep-alive",
+												"name": "connection",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/profile/credite/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profile",
+												"credite",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"This user does not have any credit card.\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "delete_card",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Cache-Control",
+										"value": "no-cache",
+										"type": "text"
+									},
+									{
+										"key": "Postman-Token",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "Host",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "User-Agent",
+										"value": "PostmanRuntime/7.32.1",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Encoding",
+										"value": "gzip, deflate, br",
+										"type": "text"
+									},
+									{
+										"key": "Connection",
+										"value": "keep-alive",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/profile/credit/delete",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profile",
+										"credit",
+										"delete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "delete_card without card(imposiple)",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"name": "cache-control",
+												"type": "text"
+											},
+											{
+												"key": "Postman-Token",
+												"value": "<calculated when request is sent>",
+												"name": "postman-token",
+												"type": "text"
+											},
+											{
+												"key": "Host",
+												"value": "<calculated when request is sent>",
+												"name": "host",
+												"type": "text"
+											},
+											{
+												"key": "User-Agent",
+												"value": "PostmanRuntime/7.32.1",
+												"name": "user-agent",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"name": "accept",
+												"type": "text"
+											},
+											{
+												"key": "Accept-Encoding",
+												"value": "gzip, deflate, br",
+												"name": "accept-encoding",
+												"type": "text"
+											},
+											{
+												"key": "Connection",
+												"value": "keep-alive",
+												"name": "connection",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/profile/credite/delete",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profile",
+												"credite",
+												"delete"
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"This user does not have any credit card.\"\r\n}"
+								}
+							]
+						}
+					],
+					"description": "types of card is :\n\nVisa\n\nMastercard\n\nAmerican Express"
+				},
+				{
+					"name": "PointsWallet",
+					"item": [
+						{
+							"name": "retrive_wallet",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cache-Control",
+										"value": "no-cache",
+										"type": "text"
+									},
+									{
+										"key": "Postman-Token",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "Host",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "User-Agent",
+										"value": "PostmanRuntime/7.32.1",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Encoding",
+										"value": "gzip, deflate, br",
+										"type": "text"
+									},
+									{
+										"key": "Connection",
+										"value": "keep-alive",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profile/wallet/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profile",
+										"wallet",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "me",
+							"item": [
+								{
+									"name": "get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/me/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"me",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "put",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "bio",
+													"value": "I'm the best user",
+													"description": "Text, nullable? Yes, Max length? 2048",
+													"type": "text"
+												},
+												{
+													"key": "marital_status",
+													"value": "true",
+													"description": "boolean, default: false, ",
+													"type": "text"
+												},
+												{
+													"key": "birth_date",
+													"value": "2024-05-12",
+													"description": "Date format: YYYY-MM-DD",
+													"type": "text"
+												},
+												{
+													"key": "num_kids",
+													"value": "22",
+													"description": "int default: 0, min: 0, max: 30",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"description": "image file",
+													"type": "file",
+													"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/me/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"me",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "patch",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "bio",
+													"value": "I'm the best user",
+													"description": "Text, nullable? Yes, Max length? 2048",
+													"type": "text"
+												},
+												{
+													"key": "marital_status",
+													"value": "true",
+													"description": "boolean, default: false, ",
+													"type": "text"
+												},
+												{
+													"key": "birth_date",
+													"value": "2024-05-12",
+													"description": "Date format: YYYY-MM-DD",
+													"type": "text"
+												},
+												{
+													"key": "num_kids",
+													"value": "22",
+													"description": "int default: 0, min: 0, max: 30",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"description": "image file",
+													"type": "file",
+													"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/me/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"me",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/profiles",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profiles"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "user is admin",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles"
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "[\r\n    {\r\n        \"user\": 1,\r\n        \"bio\": null,\r\n        \"marital_status\": false,\r\n        \"birth_date\": null,\r\n        \"num_kids\": 0,\r\n        \"avatar\": null\r\n    },\r\n    {\r\n        \"user\": 2,\r\n        \"bio\": null,\r\n        \"marital_status\": false,\r\n        \"birth_date\": null,\r\n        \"num_kids\": 0,\r\n        \"avatar\": null\r\n    }\r\n]"
+								},
+								{
+									"name": "normal user",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles"
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "[\r\n    {\r\n        \"user\": 1,\r\n        \"bio\": null,\r\n        \"marital_status\": false,\r\n        \"birth_date\": null,\r\n        \"num_kids\": 0,\r\n        \"avatar\": null\r\n    }\r\n]"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Address",
+					"item": [
+						{
+							"name": "get",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/profiles/address",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profiles",
+										"address"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "get",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/address",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"address"
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"address does not exist\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "put/patch",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n    \"street_number\": \"1\",\r\n    \"route\": \"Somewhere Ave\",\r\n    \"locality\": \"Northcote\",\r\n    \"postal_code\": \"3070\",\r\n    \"state\": \"Victoria\",\r\n    \"state_code\": \"VIC\",\r\n    \"country\": \"Australia\",\r\n    \"country_code\": \"AU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profiles/address/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profiles",
+										"address",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "user doesnt have address",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n    \"street_number\": \"1\",\r\n    \"route\": \"Somewhere Ave\",\r\n    \"locality\": \"Northcote\",\r\n    \"postal_code\": \"3070\",\r\n    \"state\": \"Victoria\",\r\n    \"state_code\": \"VIC\",\r\n    \"country\": \"Australia\",\r\n    \"country_code\": \"AU\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/address/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"address",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"address does not exist\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n    \"street_number\": \"1\",\r\n    \"route\": \"Somewhere Ave\",\r\n    \"locality\": \"Northcote\",\r\n    \"postal_code\": \"3070\",\r\n    \"state\": \"Victoria\",\r\n    \"state_code\": \"VIC\",\r\n    \"country\": \"Australia\",\r\n    \"country_code\": \"AU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profiles/address/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profiles",
+										"address",
+										""
+									]
+								},
+								"description": "# Profile Address Update\n\nThis API endpoint is used to update the address details in a user's profile.\n\n## Request Body\n\n- `raw` (string): The raw address data.\n    \n- `street_number` (string): The street number of the address.\n    \n- `route` (string): The route or street name.\n    \n- `locality` (string): The locality or city.\n    \n- `postal_code` (string): The postal code.\n    \n- `state` (string): The state name.\n    \n- `state_code` (string): The state code.\n    \n- `country` (string): The country name.\n    \n- `country_code` (string): The country code.\n    \n\n## Response\n\nThe response for this request follows the JSON schema below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n  \"street_number\": \"1\",\r\n  \"route\": \"Somewhere Ave\",\r\n  \"locality\": \"Northcote\",\r\n  \"postal_code\": \"3070\",\r\n  \"state\": \"Victoria\",\r\n  \"state_code\": \"VIC\",\r\n  \"country\": \"Australia\",\r\n  \"country_code\": \"AU\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/address/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"address",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n    \"street_number\": \"1\",\r\n    \"route\": \"Somewhere Ave\",\r\n    \"locality\": \"Northcote, Victoria 3070, Australia\"\r\n}"
+								},
+								{
+									"name": "post",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NjIyMTY4LCJpYXQiOjE3MTU1MzU3NjgsImp0aSI6ImMxZTNmZTlmZTNmZjRiYWE5OGM1MGExYjE3ZGFiYTczIiwidXNlcl9pZCI6Mn0.EcX8TlOLaDM4yJXx1L2ISlSTZDwq1msAaGoVdZv9Kk4"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"raw\": \"1 Somewhere Ave, Northcote, VIC 3070, AU\",\r\n  \"street_number\": \"1\",\r\n  \"route\": \"Somewhere Ave\",\r\n  \"locality\": \"Northcote\",\r\n  \"postal_code\": \"3070\",\r\n  \"state\": \"Victoria\",\r\n  \"state_code\": \"VIC\",\r\n  \"country\": \"Australia\",\r\n  \"country_code\": \"AU\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/profiles/address/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"profiles",
+												"address",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"address already exists\"\r\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "web",
+			"item": [
+				{
+					"name": "auth_system",
+					"item": [
+						{
+							"name": "login_admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"1234asdf!@#$\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/auth/login/web/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"login",
+										"web",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "error in login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/auth/login/web/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"auth",
+												"login",
+												"web",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"non_field_errors\": [\r\n        \"Unable to log in with provided credentials.\"\r\n    ]\r\n}"
+								},
+								{
+									"name": "email is admin with correct password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/auth/login/web/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"auth",
+												"login",
+												"web",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDc2MTczMiwiaWF0IjoxNzE0MTU2OTMyLCJqdGkiOiI4ZTllNWQwZGQ1YWQ0NzNmODAwM2MyZGJlOTgyZjI4YiIsInVzZXJfaWQiOjJ9.YLQterGWd7MNzJUjb5Jky3FlLOrspIZSb56WPn9wRbs\",\r\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE0MjQzMzMyLCJpYXQiOjE3MTQxNTY5MzIsImp0aSI6ImQwMzY5ZDQxZmE0NzQzNTNiMDEwMDczMTI4YWNmNzAwIiwidXNlcl9pZCI6Mn0.uuwlKwXDKiy73-iZtTtDm6OSTWL3xXmJildC7GzR27s\"\r\n}"
+								},
+								{
+									"name": "email and password correct but not admin",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/auth/login/web/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"auth",
+												"login",
+												"web",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "JSON",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"error\": \"Unauthorized access\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "forget password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"www.logical123@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/auth/users/reset_password/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"users",
+										"reset_password",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Guides",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/activities/guides/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"guides",
+										""
+									]
+								},
+								"description": "This endpoint retrieves a list of guides for activities. The request should be made using an HTTP GET method to the specified URL.\n\n### Request\n\nNo request body is required for this endpoint.\n\n### Response\n\nThe response will be in JSON format with a 200 status code. The response schema for the list of guides is as follows:\n\n``` json\n[\n  {\n    \"id\": \"number\",\n    \"name\": \"string\",\n    \"bio\": \"string or null\",\n    \"avatar\": \"string or null\",\n    \"likes\": \"number\",\n    \"email\": \"string or null\",\n    \"liked\": \"boolean\",\n    \"is_popular\": \"boolean\"\n  }\n]\n\n ```\n\nThe response includes the guide's ID, name, bio, avatar, number of likes, email, liked status, and popularity status."
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NDM3NDkzLCJpYXQiOjE3MTgzNTEwOTMsImp0aSI6IjFkMjk2MGJkZjkwODQ1YmM4MGFjNWYwNTU2YWEyM2YzIiwidXNlcl9pZCI6MX0.sZJrYAGndfMTKT5vVojC-o-3wZXGmvYVHIXAVomatrA"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "steve jobs",
+											"type": "text"
+										},
+										{
+											"key": "bio",
+											"value": "this is steve the best guide to your tours",
+											"description": "can be null",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "steve@gmail.com",
+											"description": "can be null",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"description": "can be null",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/activities/guides/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"guides",
+										""
+									]
+								},
+								"description": "### Request\n\nThis endpoint makes an HTTP POST request to the specified URL to create a new guide for activities. The request should include a form-data body with the following parameters:\n\n- `name` (text): The name of the guide.\n    \n- `bio` (text, optional): A brief biography of the guide, which can be null.\n    \n- `email` (text, optional): The email address of the guide, which can be null.\n    \n- `avatar` (file, optional): An image file representing the guide's avatar, which can be null.\n    \n\n### **Auth**\n\nadmin with permission or staff\n\n### Response\n\nThe response will be in JSON format with a status code of 201 (Created). The response schema for the newly created guide is as follows:\n\n``` json\n{\n  \"id\": \"number\",\n  \"name\": \"string\",\n  \"bio\": \"string\",\n  \"avatar\": \"string\",\n  \"likes\": \"number\",\n  \"email\": \"string\",\n  \"liked\": \"boolean\",\n  \"is_popular\": \"boolean\"\n}\n\n ```\n\nThe response includes the newly created guide's ID, name, bio, avatar, number of likes, email, liked status, and popularity status."
+							},
+							"response": []
+						},
+						{
+							"name": "detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/activities/guides/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"guides",
+										"1"
+									]
+								},
+								"description": "\n# Get Guide by ID\n\nThis endpoint retrieves information about a specific guide by their ID.\n\n## Request\n\n### Request Body\nThis endpoint does not require a request body.\n\n### Request Parameters\n- `ID`: The unique identifier of the guide. \n\n## Response\n\n### Response Body\nThe response will be a JSON object with the following properties:\n- `id` (number): The unique identifier of the guide.\n- `name` (string): The name of the guide.\n- `bio` (string): The biography of the guide.\n- `avatar` (string): The URL of the guide's avatar image.\n- `likes` (number): The number of likes the guide has received.\n- `email` (string): The email address of the guide.\n- `liked` (boolean): Indicates if the current user has liked the guide.\n- `is_popular` (boolean): Indicates if the guide is popular.\n\n### Response JSON Schema\n```json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": {\n            \"type\": \"number\"\n        },\n        \"name\": {\n            \"type\": \"string\"\n        },\n        \"bio\": {\n            \"type\": \"string\"\n        },\n        \"avatar\": {\n            \"type\": \"string\"\n        },\n        \"likes\": {\n            \"type\": \"number\"\n        },\n        \"email\": {\n            \"type\": \"string\"\n        },\n        \"liked\": {\n            \"type\": \"boolean\"\n        },\n        \"is_popular\": {\n            \"type\": \"boolean\"\n        }\n    }\n}\n```\n"
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "steve not jobss",
+											"description": "unique",
+											"type": "text"
+										},
+										{
+											"key": "bio",
+											"value": "dsadsk",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "email",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/activities/guides/2/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"guides",
+										"2",
+										""
+									]
+								},
+								"description": "### Request\n\nThis endpoint makes an HTTP PATCH request to the specified URL to update an existing guide for activities. The request should include a form-data body with the following parameters:\n\n- `name` (text): The name of the guide.\n    \n- `bio` (text, optional): A brief biography of the guide, which can be null.\n    \n- `email` (text, optional): The email address of the guide, which can be null.\n    \n- `avatar` (file, optional): An image file representing the guide's avatar, which can be null.\n    \n\n### **Auth**\n\nadmin with permission or staff\n\n### Response\n\nThe response will be in JSON format with a status code of 200 (OK). The response schema for the updated guide is as follows:\n\n``` json\n{\n  \"id\": \"number\",\n  \"name\": \"string\",\n  \"bio\": \"string\",\n  \"avatar\": \"string\",\n  \"likes\": \"number\",\n  \"email\": \"string\",\n  \"liked\": \"boolean\",\n  \"is_popular\": \"boolean\"\n}\n\n ```\n\nThe response includes the updated guide's ID, name, bio, avatar, number of likes, email, liked status, and popularity status."
+							},
+							"response": []
+						},
+						{
+							"name": "like toggle",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/activities/guides/2/toggle_like/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"guides",
+										"2",
+										"toggle_like",
+										""
+									]
+								},
+								"description": "### Request Description\n\nThis endpoint is used to toggle the like status for a specific guide by sending an HTTP POST request to the specified URL. The request should include the necessary parameters to identify the guide and toggle the like status.\n\n#### Request Body\n\n- No specific request body parameters provided.\n    \n\n### Response\n\nThe response to this request is a JSON object with the following schema:\n\n``` json\n{\n    \"liked\": \"boolean\"\n}\n\n ```\n\n- `liked` (boolean): Indicates whether the like status for the guide has been toggled successfully."
+							},
+							"response": []
+						}
+					],
+					"description": "guides accompany tourists on a tour tourists can be liked, viewed, searched(missing feature)"
+				},
+				{
+					"name": "Sites",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/sites/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"sites",
+										""
+									]
+								},
+								"description": "### GET /services/activities/sites/\n\nThis endpoint retrieves a list of activities sites.\n\n#### Request\n\nNo request body is required for this request.\n\n#### Response\n\nThe response is a JSON array containing objects with the following properties:\n\n- `id` (number): The unique identifier of the site.\n    \n- `name` (string): The name of the site.\n    \n- `description` (string): The description of the site.\n    \n- `photo` (string): The URL of the photo of the site.\n    \n- `address` (object): An object containing address details with the following properties:\n    - `id` (number): The unique identifier of the address.\n        \n    - `raw` (string): The raw address.\n        \n    - `street_number` (string): The street number of the address.\n        \n    - `route` (string): The route of the address.\n        \n    - `locality` (string): The locality of the address.\n        \n- `created` (string): The timestamp of when the site was created.\n    \n- `modified` (string): The timestamp of when the site was last modified.\n    \n\nExample response:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": \"\",\n    \"photo\": \"\",\n    \"address\": {\n      \"id\": 0,\n      \"raw\": \"\",\n      \"street_number\": \"\",\n      \"route\": \"\",\n      \"locality\": \"\"\n    },\n    \"created\": \"\",\n    \"modified\": \"\"\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "New York National Park",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "the national park for new york city",
+											"description": "can be null",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "address.raw",
+											"value": "new york city",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/sites/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"sites",
+										""
+									]
+								},
+								"description": "### POST /services/activities/sites/\n\nThis endpoint is used to create a new activities site.\n\n#### Request\n\nThe request should be sent as an HTTP POST to the following URL: `http://localhost:8000/services/activities/sites/`.\n\nThe request body should be of type form-data and include the following parameters:\n\n- `name` (text): The name of the site.\n    \n- `description` (text, optional): The description of the site (can be null).\n    \n- `photo` (file): The photo of the site.\n    \n- address:\n    \n    - `raw` (string): The raw address data.\n        \n    - `street_number` (string): The street number of the address.\n        \n    - `route` (string): The route or street name.\n        \n    - `locality` (string): The locality or city.\n        \n    - `postal_code` (string): The postal code.\n        \n    - `state` (string): The state name.\n        \n    - `state_code` (string): The state code.\n        \n    - `country` (string): The country name.\n        \n    - `country_code` (string): The country code.\n        \n\n#### Response\n\nThe response is a JSON object with the following properties:\n\n- `id` (number): The unique identifier of the site.\n    \n- `name` (string): The name of the site.\n    \n- `description` (string): The description of the site.\n    \n- `photo` (string): The URL of the photo of the site.\n    \n- `address` (object): An object containing address details with the following properties:\n    \n    - `id` (number): The unique identifier of the address.\n        \n    - `raw` (string): The raw address.\n        \n    - `street_number` (string): The street number of the address.\n        \n    - `route` (string): The route of the address.\n        \n    - `locality` (string): The locality of the address.\n        \n- `created` (string): The timestamp of when the site was created.\n    \n- `modified` (string): The timestamp of when the site was last modified.\n    \n\nExample response:\n\n``` json\n{\n  \"id\": 0,\n  \"name\": \"\",\n  \"description\": \"\",\n  \"photo\": \"\",\n  \"address\": {\n    \"id\": 0,\n    \"raw\": \"\",\n    \"street_number\": \"\",\n    \"route\": \"\",\n    \"locality\": null\n  },\n  \"created\": \"\",\n  \"modified\": \"\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/sites/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"sites",
+										"1"
+									]
+								},
+								"description": "### GET /services/activities/sites/1\n\nThis endpoint retrieves details of a specific activity site.\n\n#### Request\n\nNo request body is required for this request.\n\n#### Response\n\nThe response is a JSON object with the following properties:\n\n- `id` (number): The unique identifier of the site.\n    \n- `name` (string): The name of the site.\n    \n- `description` (string): The description of the site.\n    \n- `photo` (string): The URL of the photo of the site.\n    \n- `address` (object): An object containing address details with the following properties:\n    \n    - `id` (number): The unique identifier of the address.\n        \n    - `raw` (string): The raw address.\n        \n    - `street_number` (string): The street number of the address.\n        \n    - `route` (string): The route of the address.\n        \n    - `locality` (string): The locality of the address.\n        \n- `created` (string): The timestamp of when the site was created.\n    \n- `modified` (string): The timestamp of when the site was last modified.\n    \n\nExample response:\n\n``` json\n{\n  \"id\": 0,\n  \"name\": \"\",\n  \"description\": \"\",\n  \"photo\": \"\",\n  \"address\": {\n    \"id\": 0,\n    \"raw\": \"\",\n    \"street_number\": \"\",\n    \"route\": \"\",\n    \"locality\": \"\"\n  },\n  \"created\": \"\",\n  \"modified\": \"\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "New York National Park",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "the national park for new york city",
+											"description": "can be null",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "address.raw",
+											"value": "new york city",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/sites/1/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"sites",
+										"1",
+										""
+									]
+								},
+								"description": "### PATCH /services/activities/sites/1/\n\nThis endpoint is used to update a specific site's information.\n\n#### Request Body\n\n- `name` (text):\n    \n- `description` (text, optional): can be null\n    \n- `photo` (file):\n    \n- `address:`\n    \n    - `raw` (string): The raw address data.\n        \n    - `street_number` (string): The street number of the address.\n        \n    - `route` (string): The route or street name.\n        \n    - `locality` (string): The locality or city.\n        \n    - `postal_code` (string): The postal code.\n        \n    - `state` (string): The state name.\n        \n    - `state_code` (string): The state code.\n        \n    - `country` (string): The country name.\n        \n    - `country_code` (string): The country code.\n        \n\n#### Response\n\nThe response is in JSON format and has the following schema:\n\n``` json\n{\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": \"\",\n    \"photo\": \"\",\n    \"address\": {\n        \"id\": 0,\n        \"raw\": \"\",\n        \"street_number\": \"\",\n        \"route\": \"\",\n        \"locality\": null\n    },\n    \"created\": \"\",\n    \"modified\": \"\"\n}\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "geographical locations in which tourists are interested in"
+				},
+				{
+					"name": "Listings",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/listings/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"listings",
+										""
+									]
+								},
+								"description": "### GET /services/activities/listings/\n\nThis endpoint retrieves a list of activity listings.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response will be a JSON array containing objects with the following properties:\n\n- `id` (number): The unique identifier for the activity listing.\n    \n- `name` (string): The name of the activity.\n    \n- `description` (string): The description of the activity.\n    \n- `refund_rate` (string): The refund rate for the activity.\n    \n- `allow_points` (boolean): Indicates if points are allowed for the activity.\n    \n- `photos` (array): An array of objects containing photo information for the activity.\n    \n    - `id` (number): The unique identifier for the photo.\n        \n    - `image` (string): The URL of the photo.\n        \n- `site` (object): Information about the site where the activity is located.\n    \n    - `id` (number): The unique identifier for the site.\n        \n    - `name` (string): The name of the site.\n        \n    - `description` (string): The description of the site.\n        \n    - `photo` (string): The URL of the site's photo.\n        \n    - `address` (object): Address information for the site.\n        \n        - `id` (number): The unique identifier for the address.\n            \n        - `raw` (string): The raw address.\n            \n        - `street_number` (string): The street number of the address.\n            \n        - `route` (string): The route of the address.\n            \n        - `locality` (string): The locality of the address.\n            \n    - `created` (string): The creation date of the site.\n        \n    - `modified` (string): The modification date of the site.\n        \n- `opens_at` (string): The opening time of the activity.\n    \n- `work_hours` (string): The work hours of the activity.\n    \n- `closes_at` (string): The closing time of the activity.\n    \n- `created` (string): The creation date of the activity listing.\n    \n- `modified` (string): The modification date of the activity listing.\n    \n- `review_by` (array): An array of objects containing review information for the activity.\n    \n- `tickets` (array): An array of tickets available for the activity.\n    \n- `website` (string): The website URL for the activity.\n    \n\nExample response:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": null,\n    \"refund_rate\": \"\",\n    \"allow_points\": true,\n    \"photos\": [\n      {\n        \"id\": 0,\n        \"image\": \"\"\n      }\n    ],\n    \"site\": {\n      \"id\": 0,\n      \"name\": \"\",\n      \"description\": \"\",\n      \"photo\": \"\",\n      \"address\": {\n        \"id\": 0,\n        \"raw\": \"\",\n        \"street_number\": \"\",\n        \"route\": \"\",\n        \"locality\": null\n      },\n      \"created\": \"\",\n      \"modified\": \"\"\n    },\n    \"opens_at\": \"\",\n    \"work_hours\": \"\",\n    \"closes_at\": \"\",\n    \"created\": \"\",\n    \"modified\": \"\",\n    \"review_by\": [],\n    \"tickets\": [],\n    \"website\": null\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "New York National Park - Park",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "this is the main park of new york national park",
+											"description": "nullable",
+											"type": "text"
+										},
+										{
+											"key": "refund_rate",
+											"value": "20",
+											"description": "between 0 and 100",
+											"type": "text"
+										},
+										{
+											"key": "allow_points",
+											"value": "false",
+											"description": "whether or not points are allowed",
+											"type": "text"
+										},
+										{
+											"key": "photos[0]image",
+											"description": "photos is an array of photo objects at least two photos are required",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "site_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "opens_at",
+											"value": "10:50:00",
+											"type": "text"
+										},
+										{
+											"key": "website",
+											"value": "https://www.nationalpark.com",
+											"description": "nullable",
+											"type": "text"
+										},
+										{
+											"key": "work_hours",
+											"value": "5",
+											"description": "hours in float cant exceed 23.99 hours and cant result in a closing time smaller than opening time (looping)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/listings/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"listings",
+										""
+									]
+								},
+								"description": "### POST /services/activities/listings/\n\nThis endpoint is used to create a new activity listing.\n\n#### Request Body\n\n- `name` (text):\n    \n- `description` (text, nullable):\n    \n- `refund_rate` (text): Should be a number between 0 and 100.\n    \n- `allow_points` (text): Indicates whether or not points are allowed.\n    \n- `photos[]`(array): Photos is an array of photo objects where at least two photos are required.\n    \n    - image (img file)\n        \n- `site_id`\n    \n- `opens_at`\n    \n- `website` (text, nullable):\n    \n- `work_hours` (text): Hours in float format, can't exceed 23.99 hours and can't result in a closing time smaller than opening time (looping).\n    \n\n#### Response (201 - Created)\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": {\"type\": \"integer\"},\n        \"name\": {\"type\": \"string\"},\n        \"description\": {\"type\": \"string\"},\n        \"refund_rate\": {\"type\": \"string\"},\n        \"allow_points\": {\"type\": \"boolean\"},\n        \"photos\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\"type\": \"integer\"},\n                    \"image\": {\"type\": \"string\"}\n                }\n            }\n        },\n        \"site\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": {\"type\": \"integer\"},\n                \"name\": {\"type\": \"string\"},\n                \"description\": {\"type\": \"string\"},\n                \"photo\": {\"type\": \"string\"},\n                \"address\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"id\": {\"type\": \"integer\"},\n                        \"raw\": {\"type\": \"string\"},\n                        \"street_number\": {\"type\": \"string\"},\n                        \"route\": {\"type\": \"string\"},\n                        \"locality\": {\"type\": \"string\"}\n                    }\n                },\n                \"created\": {\"type\": \"string\"},\n                \"modified\": {\"type\": \"string\"}\n            }\n        },\n        \"opens_at\": {\"type\": \"string\"},\n        \"work_hours\": {\"type\": \"string\"},\n        \"closes_at\": {\"type\": \"string\"},\n        \"created\": {\"type\": \"string\"},\n        \"modified\": {\"type\": \"string\"},\n        \"review_by\": {\"type\": \"array\"},\n        \"tickets\": {\"type\": \"array\"},\n        \"website\": {\"type\": \"string\"}\n    }\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "create",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "New York National Park - Park history show",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "this is a show that shows the history of the new york national park and the city",
+													"description": "nullable",
+													"type": "text"
+												},
+												{
+													"key": "refund_rate",
+													"value": "20",
+													"description": "between 0 and 100",
+													"type": "text"
+												},
+												{
+													"key": "allow_points",
+													"value": "false",
+													"description": "whether or not points are allowed",
+													"type": "text"
+												},
+												{
+													"key": "photos[0]image",
+													"description": "photos is an array of photo objects at least two photos are required",
+													"type": "file",
+													"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+												},
+												{
+													"key": "photos[1]image",
+													"type": "file",
+													"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+												},
+												{
+													"key": "site_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "opens_at",
+													"value": "10:50:00",
+													"type": "text"
+												},
+												{
+													"key": "website",
+													"value": "https://www.nationalpark.com",
+													"description": "nullable",
+													"type": "text"
+												},
+												{
+													"key": "work_hours",
+													"value": "5",
+													"description": "hours in float cant exceed 23.99 hours and cant result in a closing time smaller than opening time (looping)",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8000/services/activities/listings/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"listings",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/listings/12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"listings",
+										"12"
+									]
+								},
+								"description": "### GET /services/activities/listings/12\n\nThis endpoint retrieves the details of a specific activity listing.\n\n#### Request\n\nThis is a simple GET request that does not require a request body. It retrieves the details of the activity listing with the ID \"12\".\n\n#### Response\n\nThe response will be in JSON format and will contain the following fields:\n\n- `id` (number): The unique identifier of the activity listing.\n    \n- `name` (string): The name of the activity.\n    \n- `description` (string): A brief description of the activity.\n    \n- `refund_rate` (string): The refund rate for the activity.\n    \n- `allow_points` (boolean): Indicates whether points are allowed for the activity.\n    \n- `photos` (array): An array of photo objects, each containing an `id` (number) and an `image` (string).\n    \n- `site` (object): Details of the site where the activity is located, including an `id`, `name`, `description`, `photo`, `address` (with subfields `id`, `raw`, `street_number`, `route`, and `locality`), `created`, and `modified`.\n    \n- `opens_at` (string): The opening time of the activity.\n    \n- `work_hours` (string): The working hours of the activity.\n    \n- `closes_at` (string): The closing time of the activity.\n    \n- `created` (string): The creation timestamp of the activity listing.\n    \n- `modified` (string): The last modification timestamp of the activity listing.\n    \n- `review_by` (array): An array of reviewers for the activity.\n    \n- `tickets` (array): An array of tickets available for the activity.\n    \n- `website` (string): The website of the activity.\n    \n\nExample Response:\n\n``` json\n{\n  \"id\": 0,\n  \"name\": \"\",\n  \"description\": \"\",\n  \"refund_rate\": \"\",\n  \"allow_points\": true,\n  \"photos\": [\n    {\n      \"id\": 0,\n      \"image\": \"\"\n    }\n  ],\n  \"site\": {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": \"\",\n    \"photo\": \"\",\n    \"address\": {\n      \"id\": 0,\n      \"raw\": \"\",\n      \"street_number\": \"\",\n      \"route\": \"\",\n      \"locality\": null\n    },\n    \"created\": \"\",\n    \"modified\": \"\"\n  },\n  \"opens_at\": \"\",\n  \"work_hours\": \"\",\n  \"closes_at\": \"\",\n  \"created\": \"\",\n  \"modified\": \"\",\n  \"review_by\": [],\n  \"tickets\": [],\n  \"website\": \"\"\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "details",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/services/activities/listings/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"listings",
+												"1"
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"description": "a site can be listed for the users to see it under the impression it will give services to the tourists"
+				},
+				{
+					"name": "Tours",
+					"item": [
+						{
+							"name": "TourSites",
+							"item": [
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/services/activities/tours/1/sites",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"tours",
+												"1",
+												"sites"
+											]
+										},
+										"description": "### GET /services/activities/tours/1/sites\n\nThis endpoint retrieves a list of sites for the tour with ID 1.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL\n    - Type: `String`\n        \n    - Description: The URL for the GET request.\n        \n    - Example: `http://localhost:8000/services/activities/tours/1/sites`\n        \n\n#### Response\n\nThe response will be a JSON array containing objects with the following properties:\n\n- `id` (Number): The ID of the site.\n    \n- `order` (Number): The order of the site in the tour.\n    \n- `site` (Object): Information about the site.\n    - `id` (Number): The ID of the site.\n        \n    - `name` (String): The name of the site.\n        \n    - `description` (String): The description of the site.\n        \n    - `photo` (String): The photo URL of the site.\n        \n    - `address` (Object): The address of the site.\n        - `id` (Number): The ID of the address.\n            \n        - `raw` (String): The raw address.\n            \n        - `street_number` (String): The street number of the address.\n            \n        - `route` (String): The route of the address.\n            \n        - `locality` (String): The locality of the address.\n            \n    - `created` (String): The creation date of the site.\n        \n    - `modified` (String): The modification date of the site.\n        \n- `tour` (Number): The ID of the tour to which the site belongs.\n    \n\n#### JSON Schema\n\n``` json\n[\n    {\n        \"type\": \"object\",\n        \"properties\": {\n            \"id\": { \"type\": \"number\" },\n            \"order\": { \"type\": \"number\" },\n            \"site\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": { \"type\": \"number\" },\n                    \"name\": { \"type\": \"string\" },\n                    \"description\": { \"type\": \"string\" },\n                    \"photo\": { \"type\": \"string\" },\n                    \"address\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"id\": { \"type\": \"number\" },\n                            \"raw\": { \"type\": \"string\" },\n                            \"street_number\": { \"type\": \"string\" },\n                            \"route\": { \"type\": \"string\" },\n                            \"locality\": { \"type\": \"string\" }\n                        }\n                    },\n                    \"created\": { \"type\": \"string\" },\n                    \"modified\": { \"type\": \"string\" }\n                }\n            },\n            \"tour\": { \"type\": \"number\" }\n        }\n    }\n]\n\n ```"
+									},
+									"response": []
+								},
+								{
+									"name": "swap",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "first_site_id",
+													"value": "1",
+													"description": "first site for the tour to be swaped by the second one",
+													"type": "text"
+												},
+												{
+													"key": "second_site_id",
+													"value": "2",
+													"description": "second site to be swaped with the first one",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8000/services/activities/tours/1/sites/swap_order/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"tours",
+												"1",
+												"sites",
+												"swap_order",
+												""
+											]
+										},
+										"description": "### POST /services/activities/tours/1/sites/swap_order/\n\nThis endpoint is used to swap the order of two sites for the tour with ID 1.\n\n#### Request\n\n- Form-Data\n    \n    - `first_site_id` (text): First site for the tour to be swapped by the second one.\n        \n    - `second_site_id` (text): Second site to be swapped with the first one.\n        \n- URL\n    \n    - Type: `String`\n        \n    - Description: The URL for the POST request.\n        \n    - Example: `http://localhost:8000/services/activities/tours/1/sites/swap_order/`\n        \n\n#### Response\n\nThe response will be a JSON array containing objects with the following properties:\n\n- `id` (Number): The ID of the site.\n    \n- `order` (Number): The order of the site in the tour.\n    \n- `site` (Object): Information about the site.\n    - `id` (Number): The ID of the site.\n        \n    - `name` (String): The name of the site.\n        \n    - `description` (String): The description of the site.\n        \n    - `photo` (String): The photo URL of the site.\n        \n    - `address` (Object): The address of the site.\n        - `id` (Number): The ID of the address.\n            \n        - `raw` (String): The raw address.\n            \n        - `street_number` (String): The street number of the address.\n            \n        - `route` (String): The route of the address.\n            \n        - `locality` (String): The locality of the address.\n            \n    - `created` (String): The creation date of the site.\n        \n    - `modified` (String): The modification date of the site.\n        \n- `tour` (Number): The ID of the tour to which the site belongs.\n    \n\n#### JSON Schema\n\n``` json\n[\n    {\n        \"type\": \"object\",\n        \"properties\": {\n            \"id\": { \"type\": \"number\" },\n            \"order\": { \"type\": \"number\" },\n            \"site\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": { \"type\": \"number\" },\n                    \"name\": { \"type\": \"string\" },\n                    \"description\": { \"type\": \"string\" },\n                    \"photo\": { \"type\": \"string\" },\n                    \"address\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"id\": { \"type\": \"number\" },\n                            \"raw\": { \"type\": \"string\" },\n                            \"street_number\": { \"type\": \"string\" },\n                            \"route\": { \"type\": \"string\" },\n                            \"locality\": { \"type\": \"string\" }\n                        }\n                    },\n                    \"created\": { \"type\": \"string\" },\n                    \"modified\": { \"type\": \"string\" }\n                }\n            },\n            \"tour\": { \"type\": \"number\" }\n        }\n    }\n]\n\n ```"
+									},
+									"response": []
+								},
+								{
+									"name": "details",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/services/activities/tours/1/sites/20",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"tours",
+												"1",
+												"sites",
+												"20"
+											]
+										},
+										"description": "### GET /services/activities/tours/1/sites/20\n\nThis endpoint retrieves information about a specific site with ID 20 for the tour with ID 1.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL\n    - Type: `String`\n        \n    - Description: The URL for the GET request.\n        \n    - Example: `http://localhost:8000/services/activities/tours/1/sites/20`\n        \n\n#### Response\n\nThe response will be a JSON object with the following properties:\n\n- `id` (Number): The ID of the site.\n    \n- `order` (Number): The order of the site in the tour.\n    \n- `site` (Object): Information about the site.\n    - `id` (Number): The ID of the site.\n        \n    - `name` (String): The name of the site.\n        \n    - `description` (String): The description of the site.\n        \n    - `photo` (String): The photo URL of the site.\n        \n    - `address` (Object): The address of the site.\n        - `id` (Number): The ID of the address.\n            \n        - `raw` (String): The raw address.\n            \n        - `street_number` (String): The street number of the address.\n            \n        - `route` (String): The route of the address.\n            \n        - `locality` (String): The locality of the address.\n            \n    - `created` (String): The creation date of the site.\n        \n    - `modified` (String): The modification date of the site.\n        \n- `tour` (Number): The ID of the tour to which the site belongs.\n    \n\n#### JSON Schema\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": { \"type\": \"number\" },\n        \"order\": { \"type\": \"number\" },\n        \"site\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": { \"type\": \"number\" },\n                \"name\": { \"type\": \"string\" },\n                \"description\": { \"type\": \"string\" },\n                \"photo\": { \"type\": \"string\" },\n                \"address\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"id\": { \"type\": \"number\" },\n                        \"raw\": { \"type\": \"string\" },\n                        \"street_number\": { \"type\": \"string\" },\n                        \"route\": { \"type\": \"string\" },\n                        \"locality\": { \"type\": \"string\" }\n                    }\n                },\n                \"created\": { \"type\": \"string\" },\n                \"modified\": { \"type\": \"string\" }\n            }\n        },\n        \"tour\": { \"type\": \"number\" }\n    }\n}\n\n ```"
+									},
+									"response": []
+								},
+								{
+									"name": "create",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "site_id",
+													"value": "3",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8000/services/activities/tours/1/sites/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"tours",
+												"1",
+												"sites",
+												""
+											]
+										},
+										"description": "### POST /services/activities/tours/1/sites/\n\nThis endpoint adds a new site to the tour with ID 1.\n\n#### Request\n\n- URL\n    \n    - Type: `String`\n        \n    - Description: The URL for the POST request.\n        \n    - Example: `http://localhost:8000/services/activities/tours/1/sites/`\n        \n- Body (form-data)\n    \n    - `site_id` (text): ID of the site.\n        \n\n#### Response\n\nUpon successful creation, the response will be a JSON object with the following properties:\n\n- `id` (Number): The ID of the newly created site.\n    \n- `order` (Number): The order of the site in the tour.\n    \n- `site` (Object): Information about the site.\n    - `id` (Number): The ID of the site.\n        \n    - `name` (String): The name of the site.\n        \n    - `description` (String): The description of the site.\n        \n    - `photo` (String): The photo URL of the site.\n        \n    - `address` (Object): The address of the site.\n        - `id` (Number): The ID of the address.\n            \n        - `raw` (String): The raw address.\n            \n        - `street_number` (String): The street number of the address.\n            \n        - `route` (String): The route of the address.\n            \n        - `locality` (String): The locality of the address.\n            \n    - `created` (String): The creation date of the site.\n        \n    - `modified` (String): The modification date of the site.\n        \n- `tour` (String): The ID of the tour to which the site belongs.\n    \n\n#### JSON Schema\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": { \"type\": \"number\" },\n        \"order\": { \"type\": \"number\" },\n        \"site\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": { \"type\": \"number\" },\n                \"name\": { \"type\": \"string\" },\n                \"description\": { \"type\": \"string\" },\n                \"photo\": { \"type\": \"string\" },\n                \"address\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"id\": { \"type\": \"number\" },\n                        \"raw\": { \"type\": \"string\" },\n                        \"street_number\": { \"type\": \"string\" },\n                        \"route\": { \"type\": \"string\" },\n                        \"locality\": { \"type\": \"string\" }\n                    }\n                },\n                \"created\": { \"type\": \"string\" },\n                \"modified\": { \"type\": \"string\" }\n            }\n        },\n        \"tour\": { \"type\": \"number\" }\n    }\n}\n\n ```"
+									},
+									"response": []
+								}
+							],
+							"description": "the list of sites for a tour"
+						},
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/tours",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"tours"
+									]
+								},
+								"description": "### GET /services/activities/tours\n\nThis endpoint retrieves a list of tours available.\n\n#### Request\n\nThere are no request parameters for this endpoint.\n\n#### Response\n\nThe response is a JSON array containing tour objects with the following properties:\n\n- `id` (number): The unique identifier of the tour.\n    \n- `name` (string): The name of the tour.\n    \n- `description` (string): The description of the tour.\n    \n- `refund_rate` (string): The refund rate for the tour.\n    \n- `upfront_rate` (string): The upfront rate for the tour.\n    \n- `allow_points` (boolean): Indicates if points are allowed for the tour.\n    \n- `photos` (array): An array of photo objects with `id` (number) and `image` (string) properties.\n    \n- `sites` (array): An array of site objects with `id` (number), `order` (number), `site` (object), and `tour` (number) properties.\n    \n- `tickets` (array): An array of ticket objects.\n    \n- `guide` (object): An object containing information about the guide, with `id` (number), `name` (string), `bio` (string), `avatar` (string), `likes` (number), `email` (string), `liked` (boolean), and `is_popular` (boolean) properties.\n    \n- `takeoff_date` (string): The takeoff date of the tour.\n    \n- `end_date` (string): The end date of the tour.\n    \n- `duration` (string): The duration of the tour.\n    \n\nExample response:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": null,\n    \"refund_rate\": \"\",\n    \"upfront_rate\": \"\",\n    \"allow_points\": true,\n    \"photos\": [\n      {\n        \"id\": 0,\n        \"image\": \"\"\n      }\n    ],\n    \"sites\": [\n      {\n        \"id\": 0,\n        \"order\": 0,\n        \"site\": {\n          \"id\": 0,\n          \"name\": \"\",\n          \"description\": \"\",\n          \"photo\": \"\",\n          \"address\": {\n            \"id\": 0,\n            \"raw\": \"\",\n            \"street_number\": \"\",\n            \"route\": \"\",\n            \"locality\": \"\"\n          },\n          \"created\": \"\",\n          \"modified\": \"\"\n        },\n        \"tour\": 0\n      }\n    ],\n    \"tickets\": [],\n    \"guide\": {\n      \"id\": 0,\n      \"name\": \"\",\n      \"bio\": \"\",\n      \"avatar\": null,\n      \"likes\": 0,\n      \"email\": null,\n      \"liked\": true,\n      \"is_popular\": true\n    },\n    \"takeoff_date\": \"\",\n    \"end_date\": \"\",\n    \"duration\": \"\"\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/tours/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"tours",
+										"14"
+									]
+								},
+								"description": "### GET /services/activities/tours/1\n\nThis endpoint retrieves details of a specific tour.\n\n#### Request\n\nThere are no request parameters for this endpoint.\n\n#### Response\n\nThe response is a JSON object with the following properties:\n\n- `id` (number): The unique identifier of the tour.\n    \n- `name` (string): The name of the tour.\n    \n- `description` (string): The description of the tour.\n    \n- `refund_rate` (string): The refund rate for the tour.\n    \n- `upfront_rate` (string): The upfront rate for the tour.\n    \n- `allow_points` (boolean): Indicates if points are allowed for the tour.\n    \n- `photos` (array): An array of photo objects with `id` (number) and `image` (string) properties.\n    \n- `sites` (array): An array of site objects with `id` (number), `order` (number), `site` (object), and `tour` (number) properties.\n    \n- `tickets` (array): An array of ticket objects.\n    \n- `guide` (object): An object containing information about the guide, with `id` (number), `name` (string), `bio` (string), `avatar` (string), `likes` (number), `email` (string), `liked` (boolean), and `is_popular` (boolean) properties.\n    \n- `takeoff_date` (string): The takeoff date of the tour.\n    \n- `end_date` (string): The end date of the tour.\n    \n- `duration` (string): The duration of the tour.\n    \n\nExample response:\n\n``` json\n{\n  \"id\": 0,\n  \"name\": \"\",\n  \"description\": null,\n  \"refund_rate\": \"\",\n  \"upfront_rate\": \"\",\n  \"allow_points\": true,\n  \"photos\": [\n    {\n      \"id\": 0,\n      \"image\": \"\"\n    }\n  ],\n  \"sites\": [\n    {\n      \"id\": 0,\n      \"order\": 0,\n      \"site\": {\n        \"id\": 0,\n        \"name\": \"\",\n        \"description\": \"\",\n        \"photo\": \"\",\n        \"address\": {\n          \"id\": 0,\n          \"raw\": \"\",\n          \"street_number\": \"\",\n          \"route\": \"\",\n          \"locality\": \"\"\n        },\n        \"created\": \"\",\n        \"modified\": \"\"\n      },\n      \"tour\": 0\n    }\n  ],\n  \"tickets\": [],\n  \"guide\": {\n    \"id\": 0,\n    \"name\": \"\",\n    \"bio\": \"\",\n    \"avatar\": null,\n    \"likes\": 0,\n    \"email\": null,\n    \"liked\": true,\n    \"is_popular\": true\n  },\n  \"takeoff_date\": \"\",\n  \"end_date\": \"\",\n  \"duration\": \"\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "A tour around New York City",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "",
+											"description": "nullable",
+											"type": "text"
+										},
+										{
+											"key": "refund_rate",
+											"value": "20",
+											"description": "between 0 and 100",
+											"type": "text"
+										},
+										{
+											"key": "allow_points",
+											"value": "false",
+											"description": "whether or not points are allowed",
+											"type": "text"
+										},
+										{
+											"key": "photos[0]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "guide_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "takeoff_date",
+											"value": "2024-08-07T12:34:00+03:00",
+											"type": "text"
+										},
+										{
+											"key": "duration",
+											"value": "1 10:22:11",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/tours/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"tours",
+										""
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								},
+								"description": "### POST /services/activities/tours\n\nThis endpoint is used to create a new tour activity.\n\n#### Request Body\n\n- `name` (text): The name of the tour.\n    \n- `description` (text, nullable): A brief description of the tour.\n    \n- `refund_rate` (text): The refund rate for the tour (should be between 0 and 100).\n    \n- `allow_points` (text): Indicates whether or not points are allowed for the tour.\n    \n- `photos[]`\n    \n- `guide_id` (text): The ID of the guide for the tour.\n    \n- `takeoff_date` (text): The date of the tour takeoff.\n    \n- `duration` (text): The duration of the tour.\n    \n\n#### Response (201 - Created)\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"number\"\n    },\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"description\": {\n      \"type\": \"string\"\n    },\n    \"refund_rate\": {\n      \"type\": \"string\"\n    },\n    \"upfront_rate\": {\n      \"type\": \"string\"\n    },\n    \"allow_points\": {\n      \"type\": \"boolean\"\n    },\n    \"photos\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": {\n            \"type\": \"number\"\n          },\n          \"image\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"sites\": {\n      \"type\": \"array\"\n    },\n    \"tickets\": {\n      \"type\": \"array\"\n    },\n    \"guide\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"number\"\n        },\n        \"name\": {\n          \"type\": \"string\"\n        },\n        \"bio\": {\n          \"type\": \"string\"\n        },\n        \"avatar\": {\n          \"type\": \"string\"\n        },\n        \"likes\": {\n          \"type\": \"number\"\n        },\n        \"email\": {\n          \"type\": \"string\"\n        },\n        \"liked\": {\n          \"type\": \"boolean\"\n        },\n        \"is_popular\": {\n          \"type\": \"boolean\"\n        }\n      }\n    },\n    \"takeoff_date\": {\n      \"type\": \"string\"\n    },\n    \"end_date\": {\n      \"type\": \"string\"\n    },\n    \"duration\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "a tour is a tourist activity which a guide takes them on a trip where they will pass through a bunch of sites in a specific **order**"
+				},
+				{
+					"name": "Tickets",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets"
+									]
+								},
+								"description": "### GET /services/activities/1/tickets\n\nThis endpoint retrieves the tickets for a specific activity.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL\n    - Type: `string`\n        \n    - Description: The URL for retrieving tickets for a specific activity.\n        \n\n#### Response\n\nThe response will be a JSON array containing ticket objects with the following properties:\n\n- `id` (number): The unique identifier for the ticket.\n    \n- `activity_id` (number): The identifier for the activity associated with the ticket.\n    \n- `name` (string): The name of the ticket.\n    \n- `description` (string): The description of the ticket.\n    \n- `stock` (number): The available stock of the ticket.\n    \n- `price_currency` (string): The currency in which the ticket price is denominated.\n    \n- `price` (string): The price of the ticket.\n    \n- `price_in_points` (number): The price of the ticket in points.\n    \n- `points_rate` (string): The rate of conversion between currency and points.\n    \n- `valid_until` (string): The expiration date of the ticket.\n    \n- `created` (string): The timestamp of when the ticket was created.\n    \n- `modified` (string): The timestamp of when the ticket was last modified.\n    \n\n#### JSON Schema\n\n``` json\n[\n  {\n    \"type\": \"object\",\n    \"properties\": {\n      \"id\": { \"type\": \"number\" },\n      \"activity_id\": { \"type\": \"number\" },\n      \"name\": { \"type\": \"string\" },\n      \"description\": { \"type\": \"string\" },\n      \"stock\": { \"type\": \"number\" },\n      \"price_currency\": { \"type\": \"string\" },\n      \"price\": { \"type\": \"string\" },\n      \"price_in_points\": { \"type\": \"number\" },\n      \"points_rate\": { \"type\": \"string\" },\n      \"valid_until\": { \"type\": \"string\" },\n      \"created\": { \"type\": \"string\" },\n      \"modified\": { \"type\": \"string\" }\n    }\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"2"
+									]
+								},
+								"description": "### GET /services/activities/1/tickets/2\n\nThis endpoint retrieves a specific ticket for a particular activity.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL\n    - Type: `string`\n        \n    - Description: The URL for retrieving a specific ticket for a particular activity.\n        \n\n#### Response\n\nThe response will be a JSON object containing the details of the ticket with the following properties:\n\n- `id` (number): The unique identifier for the ticket.\n    \n- `activity_id` (number): The identifier for the activity associated with the ticket.\n    \n- `name` (string): The name of the ticket.\n    \n- `description` (string): The description of the ticket.\n    \n- `stock` (number): The available stock of the ticket.\n    \n- `price_currency` (string): The currency in which the ticket price is denominated.\n    \n- `price` (string): The price of the ticket.\n    \n- `price_in_points` (number): The price of the ticket in points.\n    \n- `points_rate` (string): The rate of conversion between currency and points.\n    \n- `valid_until` (string): The expiration date of the ticket.\n    \n- `created` (string): The timestamp of when the ticket was created.\n    \n- `modified` (string): The timestamp of when the ticket was last modified.\n    \n\n#### Request Body\n\nNot applicable for this endpoint.\n\n#### Response Body\n\n``` json\n{\n  \"id\": 0,\n  \"activity_id\": 0,\n  \"name\": \"\",\n  \"description\": \"\",\n  \"stock\": 0,\n  \"price_currency\": \"\",\n  \"price\": \"\",\n  \"price_in_points\": 0,\n  \"points_rate\": \"\",\n  \"valid_until\": \"\",\n  \"created\": \"\",\n  \"modified\": \"\"\n}\n\n ```\n\n#### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"number\" },\n    \"activity_id\": { \"type\": \"number\" },\n    \"name\": { \"type\": \"string\" },\n    \"description\": { \"type\": \"string\" },\n    \"stock\": { \"type\": \"number\" },\n    \"price_currency\": { \"type\": \"string\" },\n    \"price\": { \"type\": \"string\" },\n    \"price_in_points\": { \"type\": \"number\" },\n    \"points_rate\": { \"type\": \"string\" },\n    \"valid_until\": { \"type\": \"string\" },\n    \"created\": { \"type\": \"string\" },\n    \"modified\": { \"type\": \"string\" }\n  }\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Grand Show",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "the grand show for the new york national park",
+											"description": "nullable",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "1200",
+											"description": "default 100",
+											"type": "text"
+										},
+										{
+											"key": "price_currency",
+											"value": "SYP",
+											"description": "default USD",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "12.99",
+											"type": "text"
+										},
+										{
+											"key": "price_in_points",
+											"value": "100",
+											"description": "min 1",
+											"type": "text"
+										},
+										{
+											"key": "points_rate",
+											"value": "25",
+											"description": "float between 1 and 100 specify how much is the points discount of the price of the ticket by spending points specified in price_in_points",
+											"type": "text"
+										},
+										{
+											"key": "valid_until",
+											"value": "2024-06-28",
+											"description": "the ticket can be purchased up to the date specified in this field",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										""
+									]
+								},
+								"description": "### Create Activity Ticket\n\nThis API endpoint allows the creation of a ticket for a specific activity.\n\n#### Request Body Parameters\n\n- `name` (text, required): The name of the ticket.\n    \n- `description` (text, optional): A description of the ticket.\n    \n- `stock` (text, optional, default: 100): The initial stock of the ticket.\n    \n- `price_currency` (text, optional, default: USD): The currency in which the price is specified.\n    \n- `price` (text, required): The price of the ticket.\n    \n- `price_in_points` (text, required, min: 1): The amount of points required to purchase the ticket.\n    \n- `points_rate` (text, required, float between 1 and 100): Specifies the discount rate when purchasing with points.\n    \n- `valid_until` (text, required): The date until which the ticket can be purchased.\n    \n\n#### Response (201 - Created)\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n    \"activity_id\": \"\",\n    \"name\": \"\",\n    \"description\": \"\",\n    \"stock\": 0,\n    \"price_currency\": \"\",\n    \"price\": \"\",\n    \"price_in_points\": 0,\n    \"points_rate\": \"\",\n    \"valid_until\": \"\",\n    \"created\": \"\",\n    \"modified\": \"\"\n}\n\n ```\n\n- `activity_id` (string): The ID of the activity associated with the ticket.\n    \n- `name` (string): The name of the ticket.\n    \n- `description` (string): The description of the ticket.\n    \n- `stock` (number): The remaining stock of the ticket.\n    \n- `price_currency` (string): The currency of the ticket price.\n    \n- `price` (string): The price of the ticket.\n    \n- `price_in_points` (number): The points required to purchase the ticket.\n    \n- `points_rate` (string): The discount rate when purchasing with points.\n    \n- `valid_until` (string): The expiration date of the ticket.\n    \n- `created` (string): Timestamp of creation.\n    \n- `modified` (string): Timestamp of last modification."
+							},
+							"response": []
+						}
+					],
+					"description": "Tickets for services offered for an activity  \neach ticket represents an action a tourist can perform in the activity\n\ne.g: entrance to a concert, entrance to an event\n\nnote that activities IDs in these urls are the same as their type implementation :\n\ne.g: activity with id 1 maps to tour with id 1; site with id 1 does not exist\n\ne.g: activity with id 2 maps to site with id 2; tour with id 2 can never exist"
+				}
+			],
+			"description": "the activities are a way for the user to interact with geographical locations called **sites  \n**these sites are an address with description and info about the place and theres two types of activities\n\n1. **listings:** an admin can choose to list a site for selling its activities with tickets\n    \n2. **tours:** an admin can choose to list a number of sites under a Tour with a guide that accompany the tourists the tour will have a number of sites that the company guarantees the tourists will come across during the tour\n    \n\n**Tickets**:\n\nTickets are a way to sell an activity service in either listings or tours examples could be:\n\nfor listings: entry ticket for a museum, movie theater etc\n\nfor tours: tour ticket, additional services during the trip",
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "headerPrefix",
+						"value": "JWT",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "tag",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTI4NjA5LCJpYXQiOjE3MTg2Njk0MDksImp0aSI6IjY0OWVhNDU4NGEyMjQ2ZDhhM2Q1ZGU4ZDM5ZjUwZjRhIiwidXNlcl9pZCI6Mn0.Xh9I4bDY-hambquz-boTSbswF5XzuzviCvVUohIHXoU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "freepath",
+											"type": "text"
+										},
+										{
+											"key": "contenttype",
+											"value": "clean and modern",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTI4MDcwLCJpYXQiOjE3MjAyNjg4NzAsImp0aSI6ImY5ZTU0OTY2NTBkZDQ4NDNhNzc1NzkzOGI5ODJjYTQ0IiwidXNlcl9pZCI6NH0.pQNc9xU_QclAxT20ZgQLA6y_uTvlweZ6qDmHsQc9HJo",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTI4NjA5LCJpYXQiOjE3MTg2Njk0MDksImp0aSI6IjY0OWVhNDU4NGEyMjQ2ZDhhM2Q1ZGU4ZDM5ZjUwZjRhIiwidXNlcl9pZCI6Mn0.Xh9I4bDY-hambquz-boTSbswF5XzuzviCvVUohIHXoU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTI4NjA5LCJpYXQiOjE3MTg2Njk0MDksImp0aSI6IjY0OWVhNDU4NGEyMjQ2ZDhhM2Q1ZGU4ZDM5ZjUwZjRhIiwidXNlcl9pZCI6Mn0.Xh9I4bDY-hambquz-boTSbswF5XzuzviCvVUohIHXoU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list by category",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTgzNDg5LCJpYXQiOjE3MTg3MjQyODksImp0aSI6IjZjYWE5NmEwMDE3YzQxZTc4OTMwNDQyNTQ3YWJiMTkxIiwidXNlcl9pZCI6Mn0.uFu6sa7GGtzJHco677Oqxg1_FOlCYmFX9HT8xgu1oQY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/?category_pk=2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										""
+									],
+									"query": [
+										{
+											"key": "category_pk",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "category",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTgzNDg5LCJpYXQiOjE3MTg3MjQyODksImp0aSI6IjZjYWE5NmEwMDE3YzQxZTc4OTMwNDQyNTQ3YWJiMTkxIiwidXNlcl9pZCI6Mn0.uFu6sa7GGtzJHco677Oqxg1_FOlCYmFX9HT8xgu1oQY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "hool",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Property",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/categories/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"categories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTI4NjA5LCJpYXQiOjE3MTg2Njk0MDksImp0aSI6IjY0OWVhNDU4NGEyMjQ2ZDhhM2Q1ZGU4ZDM5ZjUwZjRhIiwidXNlcl9pZCI6Mn0.Xh9I4bDY-hambquz-boTSbswF5XzuzviCvVUohIHXoU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/categories/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"categories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTI4NjA5LCJpYXQiOjE3MTg2Njk0MDksImp0aSI6IjY0OWVhNDU4NGEyMjQ2ZDhhM2Q1ZGU4ZDM5ZjUwZjRhIiwidXNlcl9pZCI6Mn0.Xh9I4bDY-hambquz-boTSbswF5XzuzviCvVUohIHXoU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/categories/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"categories",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4OTI4NjA5LCJpYXQiOjE3MTg2Njk0MDksImp0aSI6IjY0OWVhNDU4NGEyMjQ2ZDhhM2Q1ZGU4ZDM5ZjUwZjRhIiwidXNlcl9pZCI6Mn0.Xh9I4bDY-hambquz-boTSbswF5XzuzviCvVUohIHXoU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/categories/2/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"categories",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Favourites",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTIzMzgwLCJpYXQiOjE3MjAyNjQxODAsImp0aSI6ImU2NWQyM2I1NzNhNjQ5NDFiZTcyZDJkZDkyNmQ5ZjM2IiwidXNlcl9pZCI6MX0.rs4F14K32efWM4EuW_z45l670XMN3SHv4SZ5JAdAUNg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "service",
+									"value": "8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/services/service-favorites/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"service-favorites",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTI4NzY5LCJpYXQiOjE3MjAyNjk1NjksImp0aSI6IjAzZjJmNmM2ZWY3ZDQ4NGViZmNjYjRiODMzYTdmYzdjIiwidXNlcl9pZCI6MX0.X4D8e0Sdo0F273OtWkNCMgQnx87TPyC3XQLDdSQuQhM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "service",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/services/service-favorites/4/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"service-favorites",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTI4MDcwLCJpYXQiOjE3MjAyNjg4NzAsImp0aSI6ImY5ZTU0OTY2NTBkZDQ4NDNhNzc1NzkzOGI5ODJjYTQ0IiwidXNlcl9pZCI6NH0.pQNc9xU_QclAxT20ZgQLA6y_uTvlweZ6qDmHsQc9HJo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/services/service-favorites/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"service-favorites",
+								""
+							],
+							"query": [
+								{
+									"key": "service_id",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "list for admin",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
+						},
+						{
+							"name": "list for admin with user_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/?user_id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										""
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        }\r\n    ]\r\n}"
+						},
+						{
+							"name": "list for admin with service_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/?service_id=4",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										""
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "service_id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
+						},
+						{
+							"name": "list if usr is normal",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTE4OTA1LCJpYXQiOjE3MjAyNTk3MDUsImp0aSI6IjkwYzhkODQ2MzZhZDQzZDc5MjZmZGM5YmIwYzRjZGQ5IiwidXNlcl9pZCI6NX0.jftGFztnpn3DSCKin0srvRvl6MdyiSen3I-nFEWJONo",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"count\": 1,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
+						}
+					]
+				}
+			],
+			"description": "admin cant (create update delete) fav servie just can show teh list of favorate and can send service id or user id or **both** in parameter to return specifec\n\nuser cant update  \nin delete send service id with auth token"
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjIzMzc3LCJpYXQiOjE3MjAzNjQxNzcsImp0aSI6IjU0ZGM3ZjEyZTBmZTQ5NWRiOGJlODMzM2QzZTAxMDAzIiwidXNlcl9pZCI6NX0.7SKo0SLnmLHgnxSWk4xKvoaRIkTrHkEHW6Wa7V4NvoU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "you are the best ",
+									"type": "text"
+								},
+								{
+									"key": "service",
+									"value": "12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/services/service-reviews/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"service-reviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTY4ODcxLCJpYXQiOjE3MjAzMDk2NzEsImp0aSI6Ijg3NjI1NjQwNWUwMzQwNDFiZTcwZThhOWRjYWZlN2VhIiwidXNlcl9pZCI6MX0.msZWBvvgKvs2XnvLchCUWAf_0xLr5EimibGndKOa2Rw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "comment",
+									"value": "idasfllvjoe df sdajf las",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "service",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/services/service-reviews/10/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"service-reviews",
+								"10",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjM2NDkwLCJpYXQiOjE3MjAzNzcyOTAsImp0aSI6ImI5Yzg4NDc2MWJmMDQ3NjRhMmM0OTQ1ZjgxMWE3ZGExIiwidXNlcl9pZCI6NX0.D6J-4dvNg09X8U-cjXK9OdjCWJ7JiBFp4tBGaFq40po",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "comment",
+									"value": "idasfllvjoe df sdajf las",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "service",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/services/service-reviews/me/?service_id=12",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"service-reviews",
+								"me",
+								""
+							],
+							"query": [
+								{
+									"key": "service_id",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/services/properties/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "aa555",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "refund_rate",
+							"value": "33.8",
+							"type": "text"
+						},
+						{
+							"key": "upfront_rate",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "allow_points",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "allow_review",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "points_earning_rate",
+							"value": "33.0",
+							"type": "text"
+						},
+						{
+							"key": "points_purchase_rate",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "discount",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "star",
+							"value": "3",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "Hotel",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "desgen",
+							"value": "Old",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address.raw",
+							"value": "33",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "photos[0]image",
+							"type": "file",
+							"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+						},
+						{
+							"key": "photos[1]image",
+							"type": "file",
+							"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
+						},
+						{
+							"key": "photos[1]image",
+							"type": "file",
+							"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816",
+							"disabled": true
+						},
+						{
+							"key": "service",
+							"value": "7",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/services/services/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"services",
+						"services",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/services/properties/ Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "aa",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "aa",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "refund_rate",
+							"value": "33",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "upfront_rate",
+							"value": "33",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "allow_points",
+							"value": "false",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "allow_review",
+							"value": "false",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "points_earning_rate",
+							"value": "33",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "points_purchase_rate",
+							"value": "33",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "discount",
+							"value": "33",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "star",
+							"value": "3",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "Hotel",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "desgen",
+							"value": "Old",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "image ",
+							"type": "file",
+							"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
+						},
+						{
+							"key": "service",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/services/services/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"services",
+						"services",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/services/properties/ Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "refund_rate",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "upfront_rate",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "allow_points",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "allow_review",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "points_earning_rate",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "points_purchase_rate",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "discount",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "star",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "Hotel",
+							"type": "text"
+						},
+						{
+							"key": "desgen",
+							"value": "Old",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/services/properties/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"services",
+						"properties",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "headerPrefix",
+				"value": "JWT",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

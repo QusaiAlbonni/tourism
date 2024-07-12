@@ -23,7 +23,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app"]
+ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app", "192.168.27.123"]
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
 
 STATIC_URL = "static/"
@@ -58,7 +58,9 @@ INSTALLED_APPS = [
     'djmoney.contrib.exchange',
     'address',
     'django_extensions',
-    #'debug_toolbar',
+    'debug_toolbar',
+    'django_celery_beat',
+    'django_celery_results',
     
     # pingoway apps
     'app_auth',
@@ -68,6 +70,7 @@ INSTALLED_APPS = [
     'services',
     # 'properties',
     'events'
+    'reservations'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
@@ -168,10 +171,14 @@ DJOSER = {
     "ACTIVATION_URL": 'auth/activation/{uid}/{token}',
     'SERIALIZERS': {
         'user_create_password_retype': 'app_auth.serializers.pwUserCreateSerializer',
+        'current_user': 'app_auth.serializers.UserSerializer',
     },
     'EMAIL': {
        'activation': 'app_auth.email.ActivationEmail',
        'password_reset': 'app_auth.email.PasswordResetEmail',
+    },
+    'PERMISSIONS': {
+      'user_list': ['app_auth.permissions.CurrentUserOrAdmin']
     },
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://127.0.0.1:3000"],
@@ -228,3 +235,15 @@ AUTHENTICATION_BACKENDS = (
 )
 
 GOOGLE_API_KEY = None
+
+CELERY_TIMEZONE = env('TIME_ZONE')
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
+
+CELERY_BEAT_SCHEDULE = {
+    'openexchange_update': {
+        'task': 'profiles.tasks.update_openexchange_rates',
+        'schedule': 30.0,
+    },
+}
