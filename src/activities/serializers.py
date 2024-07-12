@@ -186,7 +186,7 @@ class ListingSerializer(ServiceSerializer):
     site_id = serializers.PrimaryKeyRelatedField(queryset=Site.objects.all(), write_only=True, source='site', allow_null=False)
     class Meta:
         model = Listing
-        fields = ['id','name', 'description', 'refund_rate', 'allow_points', 'photos', 'site', 
+        fields = ['id','name', 'description', 'refund_rate', 'allow_points', 'photos', 'site', 'points_earning_rate',
                 'opens_at', 'work_hours', 'closes_at','created', 'modified', 'review_by', 'tickets', 'site_id', 'website']
         read_only_fields = ['created', 'modified', 'tickets']
     def create(self, validated_data):

@@ -17,7 +17,12 @@ User = get_user_model()
 
 # Create your models here.
 
-class TicketPurchase(models.Model):
+
+class BaseReservation(models.Model):
+    class Meta:
+        abstract = True    
+
+class TicketPurchase(BaseReservation):
     ticket   = models.ForeignKey("activities.Ticket", verbose_name=_("Ticket"), on_delete=models.CASCADE)
     owner    = models.ForeignKey(User, verbose_name=_("Owner"), on_delete=models.CASCADE, editable=False)
     scanned  = models.BooleanField(_("Scanned"), default=False)
@@ -87,7 +92,9 @@ class Payment(models.Model):
         if converted_amount > self.content_object.owner.creditcard.balance:
             raise ValidationError("Insufficient funds")
         return super().clean()
-    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
         self.full_clean()
         if self.pk is None:
             try:
@@ -111,7 +118,9 @@ class PointsPayment(models.Model):
             raise ValidationError("Insufficient funds")
         return super().clean()
     
-    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
         self.full_clean()
         if self.pk is None:
             try:

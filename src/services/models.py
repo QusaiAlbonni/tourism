@@ -124,7 +124,7 @@ class ServiceReview(models.Model):
         ]
 
 class ServiceDiscount(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='discounts')
     event = models.ForeignKey(Event,on_delete=models.CASCADE,null=True)
     percent = models.DecimalField(
         max_digits=3,
