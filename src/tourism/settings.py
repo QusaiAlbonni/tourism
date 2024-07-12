@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     'tags',
     'services',
     # 'properties',
-    'events',
+    'events'
     'reservations'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
