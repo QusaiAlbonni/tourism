@@ -23,7 +23,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app"]
+ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app", "192.168.27.123"]
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
 
 STATIC_URL = "static/"
@@ -55,14 +55,17 @@ INSTALLED_APPS = [
     'djmoney.contrib.exchange',
     'address',
     'django_extensions',
-    #'debug_toolbar',
+    'debug_toolbar',
+    'django_celery_beat',
+    'django_celery_results',
     
     # pingoway apps
     'app_auth',
     'profiles',
     'activities',
     'tags',
-    'services'
+    'services',
+    'reservations'
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
@@ -227,3 +230,15 @@ AUTHENTICATION_BACKENDS = (
 )
 
 GOOGLE_API_KEY = None
+
+CELERY_TIMEZONE = env('TIME_ZONE')
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
+
+CELERY_BEAT_SCHEDULE = {
+    'openexchange_update': {
+        'task': 'profiles.tasks.update_openexchange_rates',
+        'schedule': 30.0,
+    },
+}

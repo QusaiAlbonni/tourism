@@ -7,6 +7,8 @@ from app_auth.permissions import isAdminOrReadOnly, CanManageActivitiesOrReadOnl
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from .serializers import GuideSerializer, SiteSerializer, TicketSerializer, ActivitySerializer, TourSerializer, TourSiteSerializer, ListingSerializer
 from django.db import transaction
+from django.utils.timezone import timedelta, now
+
 
 
 
@@ -31,7 +33,11 @@ class TicketViewSet(viewsets.ModelViewSet):
     serializer_class = TicketSerializer
     permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     def get_queryset(self):
-        return Ticket.objects.filter(activity= self.kwargs['activity_pk'])
+        query = Ticket.objects.filter(activity= self.kwargs['activity_pk'])
+        if not(self.request.user.is_authenticated) or not(self.request.user.is_admin or self.request.user.is_staff or self.request.user.has_perm('app_auth.manage_activities')):
+            query = query.filter(valid_until__gte=now())
+        return query
+            
     def get_serializer_context(self):   
         context = super().get_serializer_context()
         context['activity_pk'] = self.kwargs['activity_pk']

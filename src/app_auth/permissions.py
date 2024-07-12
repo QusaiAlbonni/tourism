@@ -17,6 +17,9 @@ class CanManageActivitiesOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return bool(request.user and request.user.has_perm('app_auth.manage_activities'))
+class CanManageActivities(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.has_perm('app_auth.manage_activities'))
 class CanManagePropertiesOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
@@ -38,3 +41,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.owner == request.user
+    
+
+class ReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return False

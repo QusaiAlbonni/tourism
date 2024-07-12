@@ -52,6 +52,13 @@ drf-nested-routers = "*"
 environs = "*"
 gunicorn = "*"
 django-heroku = "*"
+django-apscheduler = "*"
+celery = "*"
+django-celery-beat = "*"
+django-celery-results = "*"
+redis = "*"
+eventlet = "*"
+gevent = "*"
 
 [dev-packages]
 

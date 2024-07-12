@@ -6,7 +6,9 @@ from address.models import Address
 from django.db import IntegrityError
 from django.db import models
 from rest_framework.exceptions import ValidationError
-
+from django.http import Http404
+import django.utils.timezone as timezone
+from django.utils.translation import gettext_lazy as _
 
 class GuideSerializer(serializers.ModelSerializer):
     liked = serializers.SerializerMethodField()
@@ -55,11 +57,24 @@ class AddressSerializer(serializers.ModelSerializer):
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Ticket
-        fields =['id','activity_id','name', 'description','stock','price_currency', 'price', 'price_in_points', 'points_rate', 'valid_until', 'created', 'modified']
+        fields =['id','activity_id','name', 'description','stock','price_currency', 'price', 'points_discount_price', 'points_discount', 'valid_until', 'created', 'modified']
         read_only_fields = ['created', 'modified', 'activity']
     def create(self, validated_data):
         validated_data['activity_id'] = self.context['activity_pk']
-        return super().create(validated_data)
+        try:
+            return super().create(validated_data)
+        except Activity.DoesNotExist as e:
+            raise Http404(_("Activity Does not exist."))
+        
+    def validate_valid_until(self, value):
+        activity = Activity.objects.get(pk= self.context['activity_pk'])
+        if hasattr(activity, "tour"):
+            ticket_activity_is_valid = activity.tour.takeoff_date.date() > value
+            if not ticket_activity_is_valid:
+                raise serializers.ValidationError(_("the Valid until field must be at least a day earlier than the takeoff date."))
+            return value
+        else:
+            return value
 
 
 class SiteSerializer(serializers.ModelSerializer):
@@ -103,16 +118,19 @@ class TourSiteSerializer(serializers.ModelSerializer):
         
         validated_data['order'] = self._get_order()
         try:
-            attraction = super().create(validated_data)
-        except IntegrityError as e:
-            raise ValidationError({"detail":"duplicate entry for the site"})
+            try:
+                attraction = super().create(validated_data)
+            except IntegrityError as e:
+                raise ValidationError({"detail":_("duplicate entry for the site")})
+        except Tour.DoesNotExist as e:
+            raise Http404(_("Tour does not exist."))
         return attraction
     
     def update(self, instance, validated_data):
         try:
             instance= super().update(instance, validated_data)
         except IntegrityError as e:
-            raise ValidationError({"detail":"duplicate entry for the site"})
+            raise ValidationError({"detail":_("duplicate entry for the site")})
         return instance
     
     def _get_order(self):
@@ -143,7 +161,7 @@ class TourSerializer(ServiceSerializer):
         guide = data.get('guide')
 
         if not (takeoff_date and duration and guide):
-            raise serializers.ValidationError("Takeoff date, duration, and book are required.")
+            raise serializers.ValidationError(_("Takeoff date, duration, and book are required."))
 
         input_end_date = takeoff_date + duration
 
@@ -159,7 +177,7 @@ class TourSerializer(ServiceSerializer):
             overlapping_records = overlapping_records.exclude(id=self.instance.id)
 
         if overlapping_records.exists():
-            raise serializers.ValidationError({"guide_id":"The specified time range overlaps with an existing tour for this guide."})
+            raise serializers.ValidationError({"guide_id":_("The specified time range overlaps with an existing tour for this guide.")})
         return super().validate(data)
 
 class ListingSerializer(ServiceSerializer):
@@ -185,6 +203,6 @@ class ListingSerializer(ServiceSerializer):
         closing_time = opens_at_datetime + datetime.timedelta(hours=work_hours_int, minutes=float(work_minutes))
 
         if closing_time.time() < opens_at:
-            raise ValidationError("The sum of opens_at and work_hours exceeds 24 hours.")
+            raise ValidationError(_("The sum of opens_at and work_hours exceeds 24 hours."))
         return super().validate(data)
         
