@@ -28,8 +28,12 @@ urlpatterns = [
     path('auth/', include('app_auth.urls')),
     path('profiles/', include('profiles.urls')),
     path('services/activities/', include('activities.urls')),
+    path('reservations/', include('reservations.urls')),
     path('services/', include('services.urls')),
     path('tags/', include('tags.urls')),
     path('events/', include('events.urls')),
     # path('services/properties/',include('properties.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+urlpatterns += [
+        re_path(r'^rosetta/', include('rosetta.urls'))
+    ]

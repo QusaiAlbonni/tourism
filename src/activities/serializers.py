@@ -67,7 +67,10 @@ class TicketSerializer(serializers.ModelSerializer):
             raise Http404(_("Activity Does not exist."))
         
     def validate_valid_until(self, value):
-        activity = Activity.objects.get(pk= self.context['activity_pk'])
+        try:
+            activity = Activity.objects.get(pk= self.context['activity_pk'])
+        except Activity.DoesNotExist as e:
+            raise Http404(_("Activity Does not exist."))
         if hasattr(activity, "tour"):
             ticket_activity_is_valid = activity.tour.takeoff_date.date() > value
             if not ticket_activity_is_valid:
@@ -186,7 +189,7 @@ class ListingSerializer(ServiceSerializer):
     site_id = serializers.PrimaryKeyRelatedField(queryset=Site.objects.all(), write_only=True, source='site', allow_null=False)
     class Meta:
         model = Listing
-        fields = ['id','name', 'description', 'refund_rate', 'allow_points', 'photos', 'site', 'points_earning_rate',
+        fields = ['id','name', 'description', 'refund_rate', 'allow_points', 'photos', 'site', 'points_gift',
                 'opens_at', 'work_hours', 'closes_at','created', 'modified', 'review_by', 'tickets', 'site_id', 'website']
         read_only_fields = ['created', 'modified', 'tickets']
     def create(self, validated_data):

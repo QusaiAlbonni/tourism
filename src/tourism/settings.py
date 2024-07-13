@@ -58,9 +58,10 @@ INSTALLED_APPS = [
     'djmoney.contrib.exchange',
     'address',
     'django_extensions',
-    'debug_toolbar',
+    #'debug_toolbar',
     'django_celery_beat',
     'django_celery_results',
+    'rosetta',
     
     # pingoway apps
     'app_auth',
@@ -86,6 +87,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "social_django.middleware.SocialAuthExceptionMiddleware",
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'tourism.urls'
@@ -244,6 +246,11 @@ CELERY_RESULT_EXTENDED = True
 CELERY_BEAT_SCHEDULE = {
     'openexchange_update': {
         'task': 'profiles.tasks.update_openexchange_rates',
-        'schedule': 30.0,
+        'schedule': 60.0,
     },
 }
+
+USE_I18N = True
+
+# Directories where Django will look for translation files
+LOCALE_PATHS = (BASE_DIR / 'locale/', )

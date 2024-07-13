@@ -47,14 +47,9 @@ class Service(models.Model):
     )
     allow_points = models.BooleanField(null=False,default=False)
     allow_review = models.BooleanField(null=False,default=False)
-    points_earning_rate = models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
-        validators=[
-            MinValueValidator(Decimal('0.0')),
-            MaxValueValidator(Decimal('95.0'))
-        ]
-    )
+    points_gift = models.PositiveIntegerField(_("Gifted points"),
+                                            validators=[MaxValueValidator(10000), MinValueValidator(1)]
+                                        )
     
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
@@ -77,6 +72,9 @@ class Service(models.Model):
             models.Q(event__isnull=True) | models.Q(event__on=True)
         ).values('percent', 'event__name', 'event__on')
         return list(discounts)
+    @property
+    def upfront_rate_decimal(self):
+        return self.upfront_rate / Decimal(100)
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

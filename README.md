@@ -18,4 +18,14 @@ py manage.py runserver
 ```
 
 The Django Base dir is in src
+<br/>
+
+to run celery for scheduled task open the command line and run the following each line in a seperate command line window
+
+```sh
+celery -A tourism.celery beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+```
+```sh
+celery -A tourism.celery worker -P gevent -l INFO
+```
 

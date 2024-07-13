@@ -97,9 +97,16 @@ class Activity(Service):
     class Meta:
         verbose_name = 'Activity'
         verbose_name_plural = 'Activities'
+        
+    def get_type(self):
+        if hasattr(self, "tour"):
+            return "tour"
+        else:
+            return "listing"
+    
     
 class Tour(Activity):
-    takeoff_date = models.DateTimeField(_(""), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(1)])
+    takeoff_date = models.DateTimeField(_("Takeoff date"), auto_now=False, auto_now_add=False, validators=[DateLessThanToday(1)])
     duration     = models.DurationField(_("Tour Duration"))
     guide        = models.ForeignKey(Guide, verbose_name=_("Guide"), on_delete=models.SET_NULL, null=True)
     sites        = models.ManyToManyField(
@@ -125,12 +132,14 @@ class Tour(Activity):
         ).exists():
             raise ValidationError(_("this guide is not available at the selected time period"))
         return super().clean()
+    class Meta:
+        ordering = ['-modified']
     
 
 class Listing(Activity):
-    opens_at   = models.TimeField(_(""), auto_now=False, auto_now_add=False)
+    opens_at   = models.TimeField(_("Opens At Time"), auto_now=False, auto_now_add=False)
     work_hours = models.DecimalField(max_digits=4, decimal_places=2, validators=[MaxValueValidator(23.99)])
-    site       = models.ForeignKey('Site', verbose_name=_(""), on_delete=models.CASCADE, related_name='listings')
+    site       = models.ForeignKey('Site', verbose_name=_("Site"), on_delete=models.CASCADE, related_name='listings')
     website    = models.URLField(_("Link"), max_length=200, null=True, blank=True)
     @property
     def closes_at(self) -> datetime.time:
@@ -148,6 +157,8 @@ class Listing(Activity):
         if closing_time.time() < self.opens_at:
             raise ValidationError("The sum of opens_at and work_hours exceeds 24 hours.")
         return super().clean()
+    class Meta:
+        ordering = ['-modified']
     
 
 class Ticket(models.Model):
@@ -158,7 +169,7 @@ class Ticket(models.Model):
                         decimal_places=2,
                         default_currency='USD',
                         validators=[
-                            MinMoneyValidator(0),
+                            MinMoneyValidator(0.01),
                         ])
     points_discount_price= models.IntegerField(validators=[MinValueValidator(int('1'))])
     points_discount      = models.DecimalField(
@@ -175,8 +186,17 @@ class Ticket(models.Model):
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     
     @property
-    def is_valid()-> bool:
-        return bool()    
+    def is_valid(self)-> bool:
+        return bool(self.valid_until > datetime.datetime.now().date())
+    
+    @property
+    def points_discount_decimal(self):
+        return self.points_discount / Decimal(100)
+    
+    def get_activity_type(self):
+        return self.activity.get_type()
+    class Meta:
+        ordering = ['-modified']
 
 class ActivityTag(models.Model):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
@@ -195,6 +215,7 @@ class TourSite(models.Model):
             models.UniqueConstraint(fields=['tour', 'order'], name='unique_tour_order'),
             models.UniqueConstraint(fields=['tour', 'site'], name='unique_tour_site')
         ]
+        ordering = ['-modified']
     
 class Site(models.Model):
     photo   = AvatarField(_("Photo"), max_size=(1024, 1024),upload_to="uploads/attractions")

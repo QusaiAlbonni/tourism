@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "86b5979b563f3646d68493effcd6d5e584d8407821945664380517ca91fba0ec"
+            "sha256": "dfa0a026ff80e2a9afd3e966bbe3df360d0cfaa779ee256478c45c08fb047623"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -415,6 +415,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==3.5.2"
+        },
+        "django-rosetta": {
+            "hashes": [
+                "sha256:a42ed265a976a8e5e907f20bad56239e701084a4b9936810e85ffb27bf9a1f15",
+                "sha256:e0380c456e807b5954afaa54ed43c1dbaf29a2af8dd773ec332c8c2fe5465418"
+            ],
+            "index": "pypi",
+            "version": "==0.10.0"
         },
         "django-templated-mail": {
             "hashes": [
@@ -897,6 +905,13 @@
             "markers": "python_version >= '3.8'",
             "version": "==24.1.2"
         },
+        "polib": {
+            "hashes": [
+                "sha256:1c77ee1b81feb31df9bca258cbc58db1bbb32d10214b173882452c73af06d62d",
+                "sha256:f3ef94aefed6e183e342a8a269ae1fc4742ba193186ad76f175938621dbfc26b"
+            ],
+            "version": "==1.2.0"
+        },
         "prompt-toolkit": {
             "hashes": [
                 "sha256:0d7bfa67001d5e39d02c224b663abc33687405033a8c422d0d675a5a13361d10",
@@ -1120,12 +1135,12 @@
         },
         "social-auth-app-django": {
             "hashes": [
-                "sha256:2a43cde559dd34fdc7132417b6c52c780fa99ec2332dee9f405b4763f371c367",
-                "sha256:7519f186c63c50f2d364457b236f051338d194bcface55e318a6a705c5213477"
+                "sha256:0c041a31707921aef9a930f143183c65d8c7b364381364a50f3f7c6fcc9d62f6",
+                "sha256:c8832c6cf13da6ad76f5613bcda2647d89ae7cfbc5217fadd13477a3406feaa8"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==5.4.1"
+            "version": "==5.4.2"
         },
         "social-auth-core": {
             "hashes": [

@@ -25,14 +25,14 @@ class ServiceSerializer(serializers.ModelSerializer):
     on_discount = serializers.ReadOnlyField()
     class Meta:
         model = Service
-        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate','points_earning_rate', 'allow_points','allow_review','discount', 'photos','avg_rating','num_rating','discount','on_discount']
+        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate','points_gift', 'allow_points','allow_review','discount', 'photos','avg_rating','num_rating','discount','on_discount']
     def create(self, validated_data):
         photos_data = validated_data.pop('photos', [])
 
         if len(photos_data) < 2:
             raise serializers.ValidationError("At least two photos are required.")
 
-        service = Service.objects.create(**validated_data)
+        service = self.Meta.model.objects.create(**validated_data)
 
         for photo_data in photos_data:
             photo_data['service'] = service

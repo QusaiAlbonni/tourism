@@ -59,6 +59,7 @@ django-celery-results = "*"
 redis = "*"
 eventlet = "*"
 gevent = "*"
+django-rosetta = "*"
 
 [dev-packages]
 

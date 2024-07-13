@@ -10,7 +10,7 @@ class GuideViewSetTestCase(APITestCase):
     def setUp(self):
         self.guide = Guide.objects.create(name='Test Guide', bio='Test Bio', email='test@example.com')
         self.user = User.objects.create(username='test_user', email='test_user@example.com')
-        self.admin = User.objects.create(username='test_admin', email='test_admin@example.com', is_admin=True)
+        self.admin = User.objects.create(username='test_admin', email='test_admin@example.com', is_admin=True, is_superuser=True)
 
     def test_list_guides(self):
         url = reverse('guides-list')

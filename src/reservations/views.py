@@ -13,15 +13,21 @@ class TicketPurchaseViewSet(ModelViewSet):
     permission_classes = [(IsAuthenticated & IsOwner) | (CanManageActivities & ReadOnly)]
     
     def get_queryset(self):
-        query = TicketPurchase.objects.filter(ticket= self.kwargs['ticket_pk'])
+        ticket_pk = self.kwargs.get('ticket_pk', None)
+        if ticket_pk:
+            query = TicketPurchase.objects.filter(ticket= self.kwargs['ticket_pk'])
+        else:
+            query = TicketPurchase.objects.all()
         user = self.request.user
-        if self.action == "list" and not (user.is_staff or user.is_admin):
-            query.filter(owner= user)
+        print(user)
+        if self.action == "list" and not (user.is_staff or user.is_admin or user.has_perm('app_auth.manage_activities')):
+            query = query.filter(owner= user)
         return query
             
     def get_serializer_context(self):   
         context = super().get_serializer_context()
-        context['ticket_pk'] = self.kwargs['ticket_pk']
+        if 'ticket_pk' in self.kwargs:
+            context['ticket_pk'] = self.kwargs['ticket_pk']
         context['owner'] = self.request.user.id
         return context
     
