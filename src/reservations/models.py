@@ -49,10 +49,10 @@ class BaseReservation(models.Model):
         currency  = self.get_full_price().currency
         full_price= self.get_full_price().amount
         points_amount= subject.points_discount_price
-        print(use_points_discount)
+        
         
         points_discount_amount = 0
-        full_payment_amount = full_price
+        full_payment_amount = self.apply_discounts(full_price)
         if use_points_discount and service.allow_points:
                 points_discount_amount = full_price * subject.points_discount_decimal
                 full_payment_amount = full_price - points_discount_amount
@@ -129,6 +129,9 @@ class TicketPurchase(BaseReservation):
     def gift_user_points(self):
         if self.get_service().allow_points:
             self.owner.pointswallet.increase_point(0, self.get_service().points_gift)
+    
+    def apply_discounts(self, amount):
+        return amount
     
     @transaction.atomic()
     def save(
