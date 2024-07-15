@@ -2131,6 +2131,21 @@
 						{
 							"name": "create",
 							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -2190,6 +2205,12 @@
 											"key": "work_hours",
 											"value": "5",
 											"description": "hours in float cant exceed 23.99 hours and cant result in a closing time smaller than opening time (looping)",
+											"type": "text"
+										},
+										{
+											"key": "points_gift",
+											"value": "12",
+											"description": "the amount of gifted points if the user buys this",
 											"type": "text"
 										}
 									]
@@ -2548,7 +2569,14 @@
 							"name": "create",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "es-es",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"body": {
 									"mode": "formdata",
 									"formdata": [
@@ -2601,8 +2629,8 @@
 											"type": "text"
 										},
 										{
-											"key": "",
-											"value": "",
+											"key": "points_gift",
+											"value": "12",
 											"type": "text"
 										}
 									]
@@ -2722,13 +2750,13 @@
 											"type": "text"
 										},
 										{
-											"key": "price_in_points",
+											"key": "points_discount",
 											"value": "100",
 											"description": "min 1",
 											"type": "text"
 										},
 										{
-											"key": "points_rate",
+											"key": "points_discount_price",
 											"value": "25",
 											"description": "float between 1 and 100 specify how much is the points discount of the price of the ticket by spending points specified in price_in_points",
 											"type": "text"
@@ -3025,7 +3053,7 @@
 										},
 										{
 											"key": "type",
-											"value": "Property",
+											"value": "Car",
 											"type": "text"
 										}
 									]
@@ -3158,7 +3186,8 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"description": "Car  \nProperty\n\nActivity\n\nSupProperty"
 				}
 			]
 		},
@@ -3623,7 +3652,226 @@
 		},
 		{
 			"name": "Events",
-			"item": []
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reservations",
+			"item": [
+				{
+					"name": "ticket Purchases",
+					"item": [
+						{
+							"name": "list my purchases",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/purchases/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"purchases",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "buy a ticket",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"use_points_discount\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/purchases/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"purchases",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "ar-ar",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/purchases/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"purchases",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "no ticket list my purchases",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/reservations/purchases/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"reservations",
+										"purchases",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refund",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/purchases/35/refund/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"purchases",
+										"35",
+										"refund",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/purchases/35/cancel/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"purchases",
+										"35",
+										"cancel",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
 			"name": "http://127.0.0.1:8000/services/properties/",
@@ -3841,7 +4089,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/services/services/",
+					"raw": "http://127.0.0.1:8000/services/service-discounts/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -3852,7 +4100,7 @@
 					"port": "8000",
 					"path": [
 						"services",
-						"services",
+						"service-discounts",
 						""
 					]
 				}
