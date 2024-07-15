@@ -187,7 +187,10 @@ class Ticket(models.Model):
     
     @property
     def is_valid(self)-> bool:
-        return bool(self.valid_until > datetime.datetime.now().date())
+        acitvity_valid = True
+        if hasattr(self.activity, "tour"):
+            acitvity_valid = self.valid_until <= self.activity.tour.takeoff_date.date()
+        return bool((self.valid_until > datetime.datetime.now().date()) and acitvity_valid)
     
     @property
     def points_discount_decimal(self):
@@ -218,7 +221,7 @@ class TourSite(models.Model):
         ordering = ['-modified']
     
 class Site(models.Model):
-    photo   = AvatarField(_("Photo"), max_size=(1024, 1024),upload_to="uploads/attractions")
+    photo   = AvatarField(_("Photo"), max_size=(1024, 1024),upload_to="uploads/sites")
     address = AddressField(null=True)
     name    = models.CharField(_("Name"), max_length=50)
     description= models.TextField(_("Description"), null=True, blank=True)

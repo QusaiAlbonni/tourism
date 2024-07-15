@@ -1,12 +1,19 @@
 from django.http import Http404
-
+from rest_framework.response import Response
+from rest_framework import status
 from django.shortcuts import render
-from .serializers import TicketPurchaseSerializer, TicketPurchase
+from .serializers import TicketPurchaseSerializer, TicketPurchase, ScanQRCodeSerializer
 from activities.models import Ticket
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
 from app_auth.permissions import IsOwner, CanManageActivities, isAdmin, ReadOnly
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import MethodNotAllowed
 from django.utils.translation import gettext_lazy as _
+from .exceptions import NonRefundableError, NonRefundableException, CantBeCanceled, CantBeCanceledError
+from django.shortcuts import get_object_or_404
+from .permissions import CanScanReservations
+from django.db import transaction
 
 class TicketPurchaseViewSet(ModelViewSet):
     serializer_class = TicketPurchaseSerializer
@@ -15,9 +22,9 @@ class TicketPurchaseViewSet(ModelViewSet):
     def get_queryset(self):
         ticket_pk = self.kwargs.get('ticket_pk', None)
         if ticket_pk:
-            query = TicketPurchase.objects.filter(ticket= self.kwargs['ticket_pk'])
+            query = self.serializer_class.Meta.model.objects.filter(ticket= self.kwargs['ticket_pk'])
         else:
-            query = TicketPurchase.objects.all()
+            query = self.serializer_class.Meta.model.objects.all()
         user = self.request.user
         print(user)
         if self.action == "list" and not (user.is_staff or user.is_admin or user.has_perm('app_auth.manage_activities')):
@@ -36,16 +43,38 @@ class TicketPurchaseViewSet(ModelViewSet):
             return super().create(request, *args, **kwargs)
         except Ticket.DoesNotExist as e:
             raise Http404(_("Ticket does not exist."))
-    def cancel(self):
-        pass
+        
+    @action(('post',), detail=True)
+    def cancel(self, request, pk, *args, **kwargs):
+        instance = self.get_queryset().get(pk=pk)
+        if not instance:
+            raise Http404(_("purchase object not found."))
+        try:
+            instance.cancel()
+        except CantBeCanceled as e:
+            raise CantBeCanceledError()
+        serializer = self.serializer_class(instance, read_only=True)
+        return Response(serializer.data, status= status.HTTP_200_OK)
+    
+    @action(('post',), detail=True)
+    def refund(self, request, pk, *args, **kwargs):
+        instance = get_object_or_404(self.get_queryset(), pk=pk)
+        if not instance:
+            raise Http404(_("purchase object not found."))
+        try:
+            instance.refund()
+        except NonRefundableException as e:
+            raise NonRefundableError()
+        serializer = self.serializer_class(instance, read_only=True)
+        return Response(serializer.data, status= status.HTTP_200_OK)
     
     def destroy(self, request, *args, **kwargs):
-        raise Http404()
+        raise MethodNotAllowed()
     
     def update(self, request, *args, **kwargs):
-        raise Http404()
+        raise MethodNotAllowed()
     
     def partial_update(self, request, *args, **kwargs):
-        raise Http404()
+        raise MethodNotAllowed()
     
 

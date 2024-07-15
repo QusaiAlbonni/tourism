@@ -75,6 +75,9 @@ class Service(models.Model):
     @property
     def upfront_rate_decimal(self):
         return self.upfront_rate / Decimal(100)
+    @property
+    def refund_rate_decimal(self):
+        return self.refund_rate / Decimal(100)
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
