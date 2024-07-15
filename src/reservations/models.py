@@ -197,6 +197,11 @@ class TicketPurchase(BaseReservation):
             raise ValidationError(self.validation_message)
         return super().clean()
     
+    def clean_scan(self):
+        if not self.check_scanable():
+            raise ValidationError(_("Invalid Reservation."))
+        
+    
     def validate_ticket(self) -> bool:
         self.validation_message['ticket'] = []
         

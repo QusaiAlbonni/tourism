@@ -1,14 +1,15 @@
 from django.http import Http404
+from django.core.exceptions import ValidationError as DjValidationError
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import render
 from .serializers import TicketPurchaseSerializer, TicketPurchase, ScanQRCodeSerializer
 from activities.models import Ticket
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.decorators import action
 from app_auth.permissions import IsOwner, CanManageActivities, isAdmin, ReadOnly
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import MethodNotAllowed
+from rest_framework.exceptions import MethodNotAllowed, ValidationError
 from django.utils.translation import gettext_lazy as _
 from .exceptions import NonRefundableError, NonRefundableException, CantBeCanceled, CantBeCanceledError
 from django.shortcuts import get_object_or_404
@@ -76,5 +77,26 @@ class TicketPurchaseViewSet(ModelViewSet):
     
     def partial_update(self, request, *args, **kwargs):
         raise MethodNotAllowed()
+    
+class QrReservationViewSet(GenericViewSet):
+    serializer_class  = ScanQRCodeSerializer
+    permission_classes= [CanScanReservations] 
+    def get_queryset(self):
+        return ScanQRCodeSerializer.Meta.model.objects.all()
+    def get_object(self):
+        uuid = self.kwargs['uuid']
+        return get_object_or_404(self.get_queryset().filter(uuid= uuid))
+    @action(('post',), detail=False)
+    def scan(self, request, *args, **kwargs):
+        serializer = ScanQRCodeSerializer(data={'uuid': self.kwargs['uuid']})
+        serializer.is_valid(raise_exception=True)
+        instance = self.get_object()
+        try:
+            instance.clean_scan()
+            instance.on_scan()
+        except DjValidationError as e:
+            raise ValidationError(str(e))
+        return Response({'detail':'success'}, status.HTTP_200_OK)
+            
     
 
