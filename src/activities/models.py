@@ -169,7 +169,7 @@ class Ticket(models.Model):
                         decimal_places=2,
                         default_currency='USD',
                         validators=[
-                            MinMoneyValidator(0.01),
+                            MinMoneyValidator(Decimal('0.01')),
                         ])
     points_discount_price= models.IntegerField(validators=[MinValueValidator(int('1'))])
     points_discount      = models.DecimalField(

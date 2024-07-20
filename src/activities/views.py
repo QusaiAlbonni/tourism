@@ -27,11 +27,11 @@ class GuideViewSet(viewsets.ModelViewSet):
 class SiteViewSet(viewsets.ModelViewSet):
     serializer_class = SiteSerializer
     queryset = Site.objects.all()
-    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
+    #permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
 
 class TicketViewSet(viewsets.ModelViewSet):
     serializer_class = TicketSerializer
-    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
+    #permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     def get_queryset(self):
         query = Ticket.objects.filter(activity= self.kwargs['activity_pk'])
         if not(self.request.user.is_authenticated) or not(self.request.user.is_admin or self.request.user.is_staff or self.request.user.has_perm('app_auth.manage_activities')):
@@ -97,5 +97,5 @@ class TourSiteViewSet(viewsets.ModelViewSet):
 class ListingViewSet(viewsets.ModelViewSet):
     serializer_class = ListingSerializer
     queryset = Listing.objects.all()
-    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
+    #permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     
