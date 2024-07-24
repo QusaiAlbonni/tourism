@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'rosetta',
     'django_filters',
+    'django.contrib.postgres',
     
     # pingoway apps
     'app_auth',
@@ -233,7 +234,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name", "last_name"]
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
-    'social_core.backends.google.GoogleOAuth2',
+    'app_auth.backends.pwGoogleOauth2',
     'social_core.backends.google.GoogleOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
