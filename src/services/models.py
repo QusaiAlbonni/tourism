@@ -13,7 +13,7 @@ from django.db.models import Sum
 User = get_user_model()
 
 class Service(models.Model):
-    name = models.CharField(_("Name"), max_length=50)
+    name = models.CharField(_("Name"), max_length=50,unique=True)
     description = models.TextField(blank=True,verbose_name=_("Description"), null=True, max_length= 2048)
     favorited_by = models.ManyToManyField(
         User,
@@ -62,15 +62,21 @@ class Service(models.Model):
         return self.servicereview_set.count()
     @property
     def discount(self):
-        total_discount = self.servicediscount_set.filter(
-            models.Q(event__isnull=True) | models.Q(event__on=True)
-        ).aggregate(total_percent=Sum('percent'))['total_percent']
+        try:
+            total_discount = self.servicediscount_set.filter(
+                models.Q(event__isnull=True) | models.Q(event__on=True)
+            ).aggregate(total_percent=Sum('percent'))['total_percent']
+        except:
+            return 0
         return min(total_discount or Decimal('0.0'), Decimal('79.0'))
     @property
     def on_discount(self):
-        discounts = self.servicediscount_set.filter(
-            models.Q(event__isnull=True) | models.Q(event__on=True)
-        ).values('percent', 'event__name', 'event__on')
+        try:
+            discounts = self.servicediscount_set.filter(
+                models.Q(event__isnull=True) | models.Q(event__on=True)
+            ).values('percent', 'event__name', 'event__on')
+        except:
+            return list()
         return list(discounts)
     @property
     def upfront_rate_decimal(self):

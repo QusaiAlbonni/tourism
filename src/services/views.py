@@ -19,7 +19,7 @@ from .models import ServiceFavorite
 from .serializers import ServiceFavoriteSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import PermissionDenied
-from django.db.models import Case, When, Value, IntegerField
+from django.db.models import Case, When, Value, IntegerField ,F
 from rest_framework import viewsets, permissions
 from .models import ServiceReview
 from .serializers import ServiceReviewSerializer
@@ -28,11 +28,26 @@ from .serializers import ServiceDiscountSerializer
 from rest_framework import viewsets
 from .models import ServicePhoto
 from .serializers import ServicePhotoSerializer
-
+from django.core.exceptions import ValidationError
+from rest_framework.exceptions import NotFound
 class ServicePhotoViewSet(viewsets.ModelViewSet):
     queryset = ServicePhoto.objects.all()
     permission_classes = [isAdminOrReadOnly]
     serializer_class = ServicePhotoSerializer
+    
+    def get_queryset(self):
+        service_pk = self.request.query_params.get('service_pk')
+        if service_pk:
+            return self.queryset.filter(service_id=service_pk)
+        return self.queryset.all()
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        try:
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ValidationError as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class ServiceFavoriteViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceFavoriteSerializer
@@ -82,7 +97,7 @@ class ServiceFavoriteViewSet(viewsets.ModelViewSet):
     
     def destroy(self, request, *args, **kwargs):
         user = request.user
-        service = kwargs.get('pk') 
+        service = kwargs.get('pk')
         if user.is_admin:
             raise AdmincantFav()
         instance=get_object_or_404(self.queryset, user=user, service=service)
@@ -103,10 +118,17 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
             if self.request.user.is_admin:
                 return self.get_paginated_response(serializer.data)
             else:
+                reviews = serializer.data
+                for review in reviews:
+                    if review['user'] == request.user.id:
+                        review['can_delete'] = 1
+                    else:
+                        review['can_delete'] = 0
                 response_data ={
-                'service':serializer.data,
+                'reviews':reviews,
                 'user_can_review':1 if not queryset.filter(user=self.request.user).exists() else 0
                 }
+
                 return self.get_paginated_response(response_data)
         
         serializer = self.get_serializer(queryset, many=True)
@@ -115,7 +137,7 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         else:
             response_data ={
-                'service':serializer.data,
+                'reviews':serializer.data,
                 'user_can_review':1 if not queryset.filter(user=self.request.user).exists() else 0
             }
         return Response(response_data)
@@ -140,7 +162,8 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
                 default=Value(1)           
             )
         )
-        return  ordered_query
+
+        return ordered_query
 
     def create(self, request, *args, **kwargs):
         user = request.user
@@ -159,19 +182,26 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
         raise PermissionDenied("Updating favorites is not allowed.")
     
     def destroy(self, request, *args, **kwargs):
-        user = request.user
-        service = kwargs.get('pk') 
-        if user.is_admin:
-            raise AdmincantFav()
-        instance=get_object_or_404(self.queryset, user=user, service=service)
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        instance = self.get_object()
+        if instance.user != request.user:
+            return Response({"detail": "You do not have permission to delete this review."}, status=status.HTTP_403_FORBIDDEN)
+        try:
+            instance.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ValidationError as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
     @action(methods=["get"], detail=False)
     def me(self, request, *args, **kwargs):
         service_id = request.query_params.get('service_id', None)
-        query = ServiceReview.objects.filter(service=service_id, user=request.user)
-        serializer = ServiceReviewSerializer(query)
+        user = request.user
+        if user.is_admin:
+            raise AdmincantFav()
+        try:
+            review = ServiceReview.objects.get(service=service_id, user=user)
+        except ServiceReview.DoesNotExist:
+            raise NotFound("No review found for the specified service by the user.")
+        serializer = self.get_serializer(review)
         return Response(serializer.data)
 
 class ServiceDiscountViewSet(viewsets.ModelViewSet):
