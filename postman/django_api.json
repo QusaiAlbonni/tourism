@@ -3,8 +3,8 @@
 		"_postman_id": "a743b378-167b-423a-9c5b-3319af1443e7",
 		"name": "django api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31542329",
-		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-a743b378-167b-423a-9c5b-3319af1443e7?action=share&source=collection_link&creator=31542329"
+		"_exporter_id": "30954833",
+		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-a743b378-167b-423a-9c5b-3319af1443e7?action=share&source=collection_link&creator=30954833"
 	},
 	"item": [
 		{
@@ -403,288 +403,11 @@
 			]
 		},
 		{
-			"name": "profile",
+			"name": "Profile",
 			"item": [
 				{
 					"name": "card",
 					"item": [
-						{
-							"name": "create_card",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Cache-Control",
-										"value": "no-cache",
-										"type": "text"
-									},
-									{
-										"key": "Postman-Token",
-										"value": "<calculated when request is sent>",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Length",
-										"value": "<calculated when request is sent>",
-										"type": "text"
-									},
-									{
-										"key": "Host",
-										"value": "<calculated when request is sent>",
-										"type": "text"
-									},
-									{
-										"key": "User-Agent",
-										"value": "PostmanRuntime/7.32.1",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*",
-										"type": "text"
-									},
-									{
-										"key": "Accept-Encoding",
-										"value": "gzip, deflate, br",
-										"type": "text"
-									},
-									{
-										"key": "Connection",
-										"value": "keep-alive",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1NTI1NTg0LCJpYXQiOjE3MTU0MzkxODQsImp0aSI6Ijg1ZmUyNmU5NGQ0NTQ0YjJhOGMyNzgyYzczYmQ5MjUyIiwidXNlcl9pZCI6MX0.RSDa6SEYF1Wq9K5QD-_PwOVZNPImks01udmUHRsggq4",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"1234\",\r\n  \"card_type\": \"Visa\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/profile/credit/create",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"profile",
-										"credit",
-										"create"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "create_card with ccv less than 4",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Cache-Control",
-												"value": "no-cache",
-												"name": "cache-control",
-												"type": "text"
-											},
-											{
-												"key": "Postman-Token",
-												"value": "<calculated when request is sent>",
-												"name": "postman-token",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"name": "content-type",
-												"type": "text"
-											},
-											{
-												"key": "Content-Length",
-												"value": "<calculated when request is sent>",
-												"name": "content-length",
-												"type": "text"
-											},
-											{
-												"key": "Host",
-												"value": "<calculated when request is sent>",
-												"name": "host",
-												"type": "text"
-											},
-											{
-												"key": "User-Agent",
-												"value": "PostmanRuntime/7.32.1",
-												"name": "user-agent",
-												"type": "text"
-											},
-											{
-												"key": "Accept",
-												"value": "*/*",
-												"name": "accept",
-												"type": "text"
-											},
-											{
-												"key": "Accept-Encoding",
-												"value": "gzip, deflate, br",
-												"name": "accept-encoding",
-												"type": "text"
-											},
-											{
-												"key": "Connection",
-												"value": "keep-alive",
-												"name": "connection",
-												"type": "text"
-											},
-											{
-												"key": "Authorization",
-												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"56\",\r\n  \"card_type\": \"Visa\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "http://127.0.0.1:8000/profile/credite/create",
-											"protocol": "http",
-											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
-											],
-											"port": "8000",
-											"path": [
-												"profile",
-												"credite",
-												"create"
-											]
-										}
-									},
-									"_postman_previewlanguage": "JSON",
-									"header": [],
-									"cookie": [],
-									"body": "{\r\n    \"ccv\": [\r\n        \"Ensure this value has at least 4 characters (it has 2).\"\r\n    ]\r\n}"
-								},
-								{
-									"name": "create_card with card_number reqeater",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Cache-Control",
-												"value": "no-cache",
-												"name": "cache-control",
-												"type": "text"
-											},
-											{
-												"key": "Postman-Token",
-												"value": "<calculated when request is sent>",
-												"name": "postman-token",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"name": "content-type",
-												"type": "text"
-											},
-											{
-												"key": "Content-Length",
-												"value": "<calculated when request is sent>",
-												"name": "content-length",
-												"type": "text"
-											},
-											{
-												"key": "Host",
-												"value": "<calculated when request is sent>",
-												"name": "host",
-												"type": "text"
-											},
-											{
-												"key": "User-Agent",
-												"value": "PostmanRuntime/7.32.1",
-												"name": "user-agent",
-												"type": "text"
-											},
-											{
-												"key": "Accept",
-												"value": "*/*",
-												"name": "accept",
-												"type": "text"
-											},
-											{
-												"key": "Accept-Encoding",
-												"value": "gzip, deflate, br",
-												"name": "accept-encoding",
-												"type": "text"
-											},
-											{
-												"key": "Connection",
-												"value": "keep-alive",
-												"name": "connection",
-												"type": "text"
-											},
-											{
-												"key": "Authorization",
-												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"1234\",\r\n  \"card_type\": \"Visa\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "http://127.0.0.1:8000/profile/credite/create",
-											"protocol": "http",
-											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
-											],
-											"port": "8000",
-											"path": [
-												"profile",
-												"credite",
-												"create"
-											]
-										}
-									},
-									"_postman_previewlanguage": "JSON",
-									"header": [],
-									"cookie": [],
-									"body": "{\r\n    \"card_number\": [\r\n        \"credit card with this card number already exists.\"\r\n    ]\r\n}"
-								}
-							]
-						},
 						{
 							"name": "retrive_card",
 							"request": {
@@ -927,6 +650,45 @@
 									"body": "{\r\n    \"detail\": \"This user does not have any credit card.\"\r\n}"
 								}
 							]
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTcyMjA5LCJpYXQiOjE3MjE5MTMwMDksImp0aSI6ImQxYmNmMjU2ZjJiNTRkYzM5MmM0MGE3NGFkYTg0NDhjIiwidXNlcl9pZCI6Mn0.IveHu2FDZ0s1Da6q-31Nzu7NDzi2suu6MGdzF1EU6u4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"card_number\": \"1234567890123456\",\r\n  \"holder_name\": \"John Doe\",\r\n  \"expiration_date\": \"2025-12-31\",\r\n  \"ccv\": \"1234\",\r\n  \"card_type\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profiles/credit/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profiles",
+										"credit",
+										"create"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"description": "types of card is :\n\nVisa\n\nMastercard\n\nAmerican Express"
@@ -1546,7 +1308,7 @@
 			]
 		},
 		{
-			"name": "web",
+			"name": "Web",
 			"item": [
 				{
 					"name": "auth_system",
@@ -1558,7 +1320,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"1234asdf!@#$\"\r\n}",
+									"raw": "{\r\n    \"email\": \"www.logical123@gmail.com\",\r\n    \"password\": \"1234wasdf!@#$\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2792,7 +2554,7 @@
 					"description": "Tickets for services offered for an activity  \neach ticket represents an action a tourist can perform in the activity\n\ne.g: entrance to a concert, entrance to an event\n\nnote that activities IDs in these urls are the same as their type implementation :\n\ne.g: activity with id 1 maps to tour with id 1; site with id 1 does not exist\n\ne.g: activity with id 2 maps to site with id 2; tour with id 2 can never exist"
 				}
 			],
-			"description": "the activities are a way for the user to interact with geographical locations called **sites  \n**these sites are an address with description and info about the place and theres two types of activities\n\n1. **listings:** an admin can choose to list a site for selling its activities with tickets\n    \n2. **tours:** an admin can choose to list a number of sites under a Tour with a guide that accompany the tourists the tour will have a number of sites that the company guarantees the tourists will come across during the tour\n    \n\n**Tickets**:\n\nTickets are a way to sell an activity service in either listings or tours examples could be:\n\nfor listings: entry ticket for a museum, movie theater etc\n\nfor tours: tour ticket, additional services during the trip",
+			"description": "the activities are a way for the user to interact with geographical locations called \\*_sites__\\*_these sites are an address with description and info about the place and theres two types of activities\n\n1. **listings:** an admin can choose to list a site for selling its activities with tickets\n    \n2. **tours:** an admin can choose to list a number of sites under a Tour with a guide that accompany the tourists the tour will have a number of sites that the company guarantees the tourists will come across during the tour\n    \n\n**Tickets**:\n\nTickets are a way to sell an activity service in either listings or tours examples could be:\n\nfor listings: entry ticket for a museum, movie theater etc\n\nfor tours: tour ticket, additional services during the trip",
 			"auth": {
 				"type": "oauth2",
 				"oauth2": [
@@ -3192,479 +2954,197 @@
 			]
 		},
 		{
-			"name": "Favourites",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTIzMzgwLCJpYXQiOjE3MjAyNjQxODAsImp0aSI6ImU2NWQyM2I1NzNhNjQ5NDFiZTcyZDJkZDkyNmQ5ZjM2IiwidXNlcl9pZCI6MX0.rs4F14K32efWM4EuW_z45l670XMN3SHv4SZ5JAdAUNg",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "service",
-									"value": "8",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/services/service-favorites/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"services",
-								"service-favorites",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTI4NzY5LCJpYXQiOjE3MjAyNjk1NjksImp0aSI6IjAzZjJmNmM2ZWY3ZDQ4NGViZmNjYjRiODMzYTdmYzdjIiwidXNlcl9pZCI6MX0.X4D8e0Sdo0F273OtWkNCMgQnx87TPyC3XQLDdSQuQhM",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "service",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/services/service-favorites/4/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"services",
-								"service-favorites",
-								"4",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTI4MDcwLCJpYXQiOjE3MjAyNjg4NzAsImp0aSI6ImY5ZTU0OTY2NTBkZDQ4NDNhNzc1NzkzOGI5ODJjYTQ0IiwidXNlcl9pZCI6NH0.pQNc9xU_QclAxT20ZgQLA6y_uTvlweZ6qDmHsQc9HJo",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/services/service-favorites/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"services",
-								"service-favorites",
-								""
-							],
-							"query": [
-								{
-									"key": "service_id",
-									"value": "4",
-									"disabled": true
-								},
-								{
-									"key": "user_id",
-									"value": "1",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "list for admin",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-favorites/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-favorites",
-										""
-									]
-								}
-							},
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [],
-							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
-						},
-						{
-							"name": "list for admin with user_id",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-favorites/?user_id=1",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-favorites",
-										""
-									],
-									"query": [
-										{
-											"key": "user_id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [],
-							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        }\r\n    ]\r\n}"
-						},
-						{
-							"name": "list for admin with service_id",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-favorites/?service_id=4",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-favorites",
-										""
-									],
-									"query": [
-										{
-											"key": "user_id",
-											"value": "1",
-											"disabled": true
-										},
-										{
-											"key": "service_id",
-											"value": "4"
-										}
-									]
-								}
-							},
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [],
-							"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
-						},
-						{
-							"name": "list if usr is normal",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTE4OTA1LCJpYXQiOjE3MjAyNTk3MDUsImp0aSI6IjkwYzhkODQ2MzZhZDQzZDc5MjZmZGM5YmIwYzRjZGQ5IiwidXNlcl9pZCI6NX0.jftGFztnpn3DSCKin0srvRvl6MdyiSen3I-nFEWJONo",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-favorites/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-favorites",
-										""
-									]
-								}
-							},
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [],
-							"body": "{\r\n    \"count\": 1,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
-						}
-					]
-				}
-			],
-			"description": "admin cant (create update delete) fav servie just can show teh list of favorate and can send service id or user id or **both** in parameter to return specifec\n\nuser cant update  \nin delete send service id with auth token"
-		},
-		{
-			"name": "Reviews",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjIzMzc3LCJpYXQiOjE3MjAzNjQxNzcsImp0aSI6IjU0ZGM3ZjEyZTBmZTQ5NWRiOGJlODMzM2QzZTAxMDAzIiwidXNlcl9pZCI6NX0.7SKo0SLnmLHgnxSWk4xKvoaRIkTrHkEHW6Wa7V4NvoU",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "rating",
-									"value": "3",
-									"type": "text"
-								},
-								{
-									"key": "comment",
-									"value": "you are the best ",
-									"type": "text"
-								},
-								{
-									"key": "service",
-									"value": "12",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/services/service-reviews/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"services",
-								"service-reviews",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTY4ODcxLCJpYXQiOjE3MjAzMDk2NzEsImp0aSI6Ijg3NjI1NjQwNWUwMzQwNDFiZTcwZThhOWRjYWZlN2VhIiwidXNlcl9pZCI6MX0.msZWBvvgKvs2XnvLchCUWAf_0xLr5EimibGndKOa2Rw",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "rating",
-									"value": "3",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "comment",
-									"value": "idasfllvjoe df sdajf las",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "service",
-									"value": "2",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/services/service-reviews/10/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"services",
-								"service-reviews",
-								"10",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjM2NDkwLCJpYXQiOjE3MjAzNzcyOTAsImp0aSI6ImI5Yzg4NDc2MWJmMDQ3NjRhMmM0OTQ1ZjgxMWE3ZGExIiwidXNlcl9pZCI6NX0.D6J-4dvNg09X8U-cjXK9OdjCWJ7JiBFp4tBGaFq40po",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "rating",
-									"value": "3",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "comment",
-									"value": "idasfllvjoe df sdajf las",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "service",
-									"value": "2",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/services/service-reviews/me/?service_id=12",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"services",
-								"service-reviews",
-								"me",
-								""
-							],
-							"query": [
-								{
-									"key": "service_id",
-									"value": "12"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Events",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "list",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/events/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/events/?type=Daily",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"events",
+								""
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Daily"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjA5Mzg5LCJpYXQiOjE3MjEzNTAxODksImp0aSI6ImEyNjVhNDQ3M2U1YzRmMTJhZTgzMjMxYThiODUwOTIxIiwidXNlcl9pZCI6M30.mIQmdWd3lDRhWui8-TZNvtTiNBVpFbRiB4pAH9x0HwE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "every week",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Weekly",
+									"type": "text"
+								},
+								{
+									"key": "start_minute",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "start_hour",
+									"value": "00",
+									"type": "text"
+								},
+								{
+									"key": "end_minute",
+									"value": "17",
+									"type": "text"
+								},
+								{
+									"key": "end_hour",
+									"value": "00",
+									"type": "text"
+								},
+								{
+									"key": "start_day_of_week",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "end_day_of_week",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/events/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "start_minute",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "start_hour",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "end_minute",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "end_hour",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/events/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"events",
+								"1",
+								""
+							]
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "reservations",
+			"name": "Reservations",
 			"item": [
 				{
 					"name": "ticket Purchases",
@@ -3874,327 +3354,1636 @@
 			]
 		},
 		{
-			"name": "http://127.0.0.1:8000/services/properties/",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+			"name": "Properties",
+			"item": [
+				{
+					"name": "Hotels",
+					"item": [
 						{
-							"key": "name",
-							"value": "aa555",
-							"type": "text"
+							"name": "create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"function generateTable(obj, parentKey = '') {\r",
+											"    let rows = '';\r",
+											"    for (const key in obj) {\r",
+											"        if (obj.hasOwnProperty(key)) {\r",
+											"            const value = obj[key];\r",
+											"            const fullKey = parentKey ? `${parentKey} > ${key}` : key;\r",
+											"            if (typeof value === 'object' && value !== null && !Array.isArray(value)) {\r",
+											"                rows += `<tr><th colspan=\"2\">${fullKey}</th></tr>`;\r",
+											"                rows += generateTable(value, fullKey);\r",
+											"            } else if (Array.isArray(value)) {\r",
+											"                rows += `<tr><th>${fullKey}</th><td>`;\r",
+											"                value.forEach(item => {\r",
+											"                    if (typeof item === 'object' && item !== null) {\r",
+											"                        rows += '<table border=\"1\" style=\"margin: 10px;\">';\r",
+											"                        rows += generateTable(item);\r",
+											"                        rows += '</table>';\r",
+											"                    } else {\r",
+											"                        rows += `${item} `;\r",
+											"                    }\r",
+											"                });\r",
+											"                rows += '</td></tr>';\r",
+											"            } else {\r",
+											"                rows += `<tr><th>${fullKey}</th><td>${value}</td></tr>`;\r",
+											"            }\r",
+											"        }\r",
+											"    }\r",
+											"    return rows;\r",
+											"}\r",
+											"// Get the response JSON\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"// HTML Template for visualization\r",
+											"const template = `\r",
+											"    <style>\r",
+											"        table {\r",
+											"            width: 100%;\r",
+											"            border-collapse: collapse;\r",
+											"        }\r",
+											"        th, td {\r",
+											"            border: 1px solid #ddd;\r",
+											"            padding: 8px;\r",
+											"            vertical-align: top;\r",
+											"        }\r",
+											"        th {\r",
+											"            background-color: #f2f2f2;\r",
+											"        }\r",
+											"        img {\r",
+											"            max-width: 100px;\r",
+											"            height: auto;\r",
+											"        }\r",
+											"    </style>\r",
+											"    <h3>Response Data</h3>\r",
+											"    <table>\r",
+											"        ${generateTable(response)}\r",
+											"    </table>\r",
+											"`;\r",
+											"\r",
+											"// Set the visualization template in Postman\r",
+											"pm.visualizer.set(template);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Dreem Hotel4",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "teh best hotel in the world4",
+											"type": "text"
+										},
+										{
+											"key": "refund_rate",
+											"value": "33.3",
+											"type": "text"
+										},
+										{
+											"key": "upfront_rate",
+											"value": "67.8",
+											"type": "text"
+										},
+										{
+											"key": "allow_points",
+											"value": "True",
+											"type": "text"
+										},
+										{
+											"key": "allow_review",
+											"value": "True",
+											"type": "text"
+										},
+										{
+											"key": "points_gift",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Hotel",
+											"type": "text"
+										},
+										{
+											"key": "desgen",
+											"value": "Old",
+											"type": "text"
+										},
+										{
+											"key": "star",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "address.raw",
+											"value": "new york city",
+											"type": "text"
+										},
+										{
+											"key": "photos[0]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
+										},
+										{
+											"key": "photos[2]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816",
+											"disabled": true
+										},
+										{
+											"key": "photos[3]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "description",
-							"value": "aa",
-							"type": "text"
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Dreem Hotel4497",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "teh best hotel in the world45",
+											"type": "text"
+										},
+										{
+											"key": "refund_rate",
+											"value": "10.4",
+											"type": "text"
+										},
+										{
+											"key": "upfront_rate",
+											"value": "10.5",
+											"type": "text"
+										},
+										{
+											"key": "allow_points",
+											"value": "False",
+											"type": "text"
+										},
+										{
+											"key": "allow_review",
+											"value": "False",
+											"type": "text"
+										},
+										{
+											"key": "points_gift",
+											"value": "128",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Apartment",
+											"type": "text"
+										},
+										{
+											"key": "desgen",
+											"value": "Old",
+											"type": "text"
+										},
+										{
+											"key": "star",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "address.raw",
+											"value": "new york city4",
+											"type": "text"
+										},
+										{
+											"key": "photos[0]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816",
+											"disabled": true
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "refund_rate",
-							"value": "33.8",
-							"type": "text"
+							"name": "partial update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Dreem Hotel4497",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "description",
+											"value": "teh best hotel in the world45",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "refund_rate",
+											"value": "10.4",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "upfront_rate",
+											"value": "10.5",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "allow_points",
+											"value": "False",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "allow_review",
+											"value": "False",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "points_gift",
+											"value": "128",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Apartment",
+											"type": "text"
+										},
+										{
+											"key": "desgen",
+											"value": "Old",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "star",
+											"value": "4",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "address.raw",
+											"value": "new york city4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/5/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"5",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "upfront_rate",
-							"value": "33",
-							"type": "text"
+							"name": "details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/5/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"5",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "allow_points",
-							"value": "false",
-							"type": "text"
-						},
-						{
-							"key": "allow_review",
-							"value": "false",
-							"type": "text"
-						},
-						{
-							"key": "points_earning_rate",
-							"value": "33.0",
-							"type": "text"
-						},
-						{
-							"key": "points_purchase_rate",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "discount",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "star",
-							"value": "3",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "type",
-							"value": "Hotel",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "desgen",
-							"value": "Old",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "address.raw",
-							"value": "33",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "photos[0]image",
-							"type": "file",
-							"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
-						},
-						{
-							"key": "photos[1]image",
-							"type": "file",
-							"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
-						},
-						{
-							"key": "photos[1]image",
-							"type": "file",
-							"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816",
-							"disabled": true
-						},
-						{
-							"key": "service",
-							"value": "7",
-							"type": "text",
-							"disabled": true
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										""
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/services/services/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"services",
-						"services",
-						""
-					]
+				{
+					"name": "Rooms",
+					"item": []
+				},
+				{
+					"name": "Beds",
+					"item": []
+				},
+				{
+					"name": "Hotel Tags",
+					"item": []
+				},
+				{
+					"name": "Rooms Tags",
+					"item": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "http://127.0.0.1:8000/services/properties/ Copy",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+			"name": "Service",
+			"item": [
+				{
+					"name": "Photo",
+					"item": [
 						{
-							"key": "name",
-							"value": "aa",
-							"type": "text",
-							"disabled": true
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-photos/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-photos",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "description",
-							"value": "aa",
-							"type": "text",
-							"disabled": true
+							"name": "detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-photos/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-photos",
+										"3"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "refund_rate",
-							"value": "33",
-							"type": "text",
-							"disabled": true
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-photos/14/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-photos",
+										"14",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "upfront_rate",
-							"value": "33",
-							"type": "text",
-							"disabled": true
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT fgdfsgfg",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-photos/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-photos",
+										""
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "allow_points",
-							"value": "false",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "allow_review",
-							"value": "false",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "points_earning_rate",
-							"value": "33",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "points_purchase_rate",
-							"value": "33",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "discount",
-							"value": "33",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "star",
-							"value": "3",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "type",
-							"value": "Hotel",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "desgen",
-							"value": "Old",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "image ",
-							"type": "file",
-							"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
-						},
-						{
-							"key": "service",
-							"value": "2",
-							"type": "text"
+							"name": "list by service",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-photos/?service_pk=4",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-photos",
+										""
+									],
+									"query": [
+										{
+											"key": "service_pk",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/services/service-discounts/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"services",
-						"service-discounts",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://127.0.0.1:8000/services/properties/ Copy 2",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+				{
+					"name": "Discount",
+					"item": [
 						{
-							"key": "name",
-							"value": "aa",
-							"type": "text"
-						},
-						{
-							"key": "description",
-							"value": "aa",
-							"type": "text"
-						},
-						{
-							"key": "refund_rate",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "upfront_rate",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "allow_points",
-							"value": "false",
-							"type": "text"
-						},
-						{
-							"key": "allow_review",
-							"value": "false",
-							"type": "text"
-						},
-						{
-							"key": "points_earning_rate",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "points_purchase_rate",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "discount",
-							"value": "33",
-							"type": "text"
-						},
-						{
-							"key": "star",
-							"value": "3",
-							"type": "text"
-						},
-						{
-							"key": "type",
-							"value": "Hotel",
-							"type": "text"
-						},
-						{
-							"key": "desgen",
-							"value": "Old",
-							"type": "text"
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
 						}
 					]
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/services/properties/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"services",
-						"properties",
-						""
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNTE0LCJpYXQiOjE3MjE5MjEzMTQsImp0aSI6IjAxNGMxZDU1MDgxZDQ0MTRiZDM2YTViOTJhYjVhYmQ4IiwidXNlcl9pZCI6M30.nsbojD5ZGIc3gb4JcLSnk1Z9IhrOszhWWlnW7mCVxpw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "rating",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "comment",
+											"value": "you are the best ",
+											"type": "text"
+										},
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-reviews/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-reviews",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTc4NTMwLCJpYXQiOjE3MjE5MTkzMzAsImp0aSI6IjM3ODlmMDdiMGE2YTRhODZhMTIwODZiNjZhNTgyMDIxIiwidXNlcl9pZCI6M30.9nS04Mg0JZdR_3dGWJmiXzY06HeiRSfUQWxPgS4k1O8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "rating",
+											"value": "3",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "comment",
+											"value": "idasfllvjoe df sdajf las",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-reviews/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-reviews",
+										"4",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "if user not the uesr reviewed",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTc4NTMwLCJpYXQiOjE3MjE5MTkzMzAsImp0aSI6IjM3ODlmMDdiMGE2YTRhODZhMTIwODZiNjZhNTgyMDIxIiwidXNlcl9pZCI6M30.9nS04Mg0JZdR_3dGWJmiXzY06HeiRSfUQWxPgS4k1O8",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/2/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												"2",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"No ServiceReview matches the given query.\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNjE4LCJpYXQiOjE3MjE5MjE0MTgsImp0aSI6ImE5Nzk2NzY1OTcxOTRjYWNiNTkyMTI0MTY3NTQ3Y2Y5IiwidXNlcl9pZCI6Mn0.S5VBoNw0eWS-ZwVMOUBqQMdvbnZb9ofYswSmx0DTf0M",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "rating",
+											"value": "3",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "comment",
+											"value": "idasfllvjoe df sdajf las",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-reviews/me/?service_id=2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-reviews",
+										"me",
+										""
+									],
+									"query": [
+										{
+											"key": "service_id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "list if usr is normal",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNjE4LCJpYXQiOjE3MjE5MjE0MTgsImp0aSI6ImE5Nzk2NzY1OTcxOTRjYWNiNTkyMTI0MTY3NTQ3Y2Y5IiwidXNlcl9pZCI6Mn0.S5VBoNw0eWS-ZwVMOUBqQMdvbnZb9ofYswSmx0DTf0M",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/?service_id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											],
+											"query": [
+												{
+													"key": "service_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"service\": [\n            {\n                \"id\": 3,\n                \"service\": 1,\n                \"rating\": 3,\n                \"user\": 2,\n                \"comment\": \"you are the best\"\n            }\n        ],\n        \"user_can_review\": 0\n    }\n}"
+								},
+								{
+									"name": "list for admin",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgxMDIzLCJpYXQiOjE3MjE5MjE4MjMsImp0aSI6ImUyMjZlMjk3NWNkYzRkMjQ5ZTgzMzA2NzgzMDY0YzFlIiwidXNlcl9pZCI6NH0.bLuGJzd50fqI3Knv-eTs3qgNYypCByYvLokQIWkC8CY",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 15:37:28 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "261"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 3,\n            \"service\": 1,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        },\n        {\n            \"id\": 5,\n            \"service\": 2,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        },\n        {\n            \"id\": 6,\n            \"service\": 2,\n            \"rating\": 3,\n            \"user\": 3,\n            \"comment\": \"you are the best\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "list for admin with service id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgxMDIzLCJpYXQiOjE3MjE5MjE4MjMsImp0aSI6ImUyMjZlMjk3NWNkYzRkMjQ5ZTgzMzA2NzgzMDY0YzFlIiwidXNlcl9pZCI6NH0.bLuGJzd50fqI3Knv-eTs3qgNYypCByYvLokQIWkC8CY",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/?service_id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											],
+											"query": [
+												{
+													"key": "service_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 15:40:31 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "121"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 3,\n            \"service\": 1,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "list for admin with user_id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgxMDIzLCJpYXQiOjE3MjE5MjE4MjMsImp0aSI6ImUyMjZlMjk3NWNkYzRkMjQ5ZTgzMzA2NzgzMDY0YzFlIiwidXNlcl9pZCI6NH0.bLuGJzd50fqI3Knv-eTs3qgNYypCByYvLokQIWkC8CY",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/?user_id=2",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											],
+											"query": [
+												{
+													"key": "user_id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 15:48:38 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "191"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 3,\n            \"service\": 1,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        },\n        {\n            \"id\": 5,\n            \"service\": 2,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "take user review in servic if there is",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNjE4LCJpYXQiOjE3MjE5MjE0MTgsImp0aSI6ImE5Nzk2NzY1OTcxOTRjYWNiNTkyMTI0MTY3NTQ3Y2Y5IiwidXNlcl9pZCI6Mn0.S5VBoNw0eWS-ZwVMOUBqQMdvbnZb9ofYswSmx0DTf0M",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/me/?service_id=3",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												"me",
+												""
+											],
+											"query": [
+												{
+													"key": "service_id",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 16:38:14 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "67"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"detail\": \"No review found for the specified service by the user.\"\n}"
+								}
+							]
+						}
 					]
+				},
+				{
+					"name": "Favourites",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTg1MDYwLCJpYXQiOjE3MjE5MjU4NjAsImp0aSI6ImM2NDMzOGFjNjE3ZjQ5YWU4YjI0NzZmYWQyY2JjNDUzIiwidXNlcl9pZCI6M30.2pusTg6PVY82ohf_SnfAo5diO5Y04gdajQWCf09SKlI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTg1MDYwLCJpYXQiOjE3MjE5MjU4NjAsImp0aSI6ImM2NDMzOGFjNjE3ZjQ5YWU4YjI0NzZmYWQyY2JjNDUzIiwidXNlcl9pZCI6M30.2pusTg6PVY82ohf_SnfAo5diO5Y04gdajQWCf09SKlI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/2/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTI4MDcwLCJpYXQiOjE3MjAyNjg4NzAsImp0aSI6ImY5ZTU0OTY2NTBkZDQ4NDNhNzc1NzkzOGI5ODJjYTQ0IiwidXNlcl9pZCI6NH0.pQNc9xU_QclAxT20ZgQLA6y_uTvlweZ6qDmHsQc9HJo",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-favorites/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-favorites",
+										""
+									],
+									"query": [
+										{
+											"key": "service_id",
+											"value": "4",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "list for admin",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-favorites/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-favorites",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
+								},
+								{
+									"name": "list for admin with user_id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-favorites/?user_id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-favorites",
+												""
+											],
+											"query": [
+												{
+													"key": "user_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        }\r\n    ]\r\n}"
+								},
+								{
+									"name": "list for admin with service_id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDM1NzkzLCJpYXQiOjE3MjAxNzY1OTMsImp0aSI6ImM2MDYzM2Q4YjBlZjQxNTc4ZTQwY2M3Nzg2ZDNjZmY4IiwidXNlcl9pZCI6NH0.RaISU3WofGBeUmRlrnucUGscHNR_Zf_M3Ydtxogumv8",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-favorites/?service_id=4",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-favorites",
+												""
+											],
+											"query": [
+												{
+													"key": "user_id",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "service_id",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"count\": 2,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 9,\r\n            \"service\": 4,\r\n            \"user\": 1,\r\n            \"created\": \"2024-07-05T11:46:56.017666+01:00\",\r\n            \"modified\": \"2024-07-05T11:46:56.017666+01:00\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
+								},
+								{
+									"name": "list if usr is normal",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTE4OTA1LCJpYXQiOjE3MjAyNTk3MDUsImp0aSI6IjkwYzhkODQ2MzZhZDQzZDc5MjZmZGM5YmIwYzRjZGQ5IiwidXNlcl9pZCI6NX0.jftGFztnpn3DSCKin0srvRvl6MdyiSen3I-nFEWJONo",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-favorites/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-favorites",
+												""
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"count\": 1,\r\n    \"next\": null,\r\n    \"previous\": null,\r\n    \"results\": [\r\n        {\r\n            \"id\": 11,\r\n            \"service\": 4,\r\n            \"user\": 5,\r\n            \"created\": \"2024-07-06T11:02:49.898936+01:00\",\r\n            \"modified\": \"2024-07-06T11:02:49.898936+01:00\"\r\n        }\r\n    ]\r\n}"
+								}
+							]
+						}
+					],
+					"description": "admin cant (create update delete) fav servie just can show teh list of favorate and can send service id or user id or **both** in parameter to return specifec\n\nuser cant update  \nin delete send service id with auth token"
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"auth": {

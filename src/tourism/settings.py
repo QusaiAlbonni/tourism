@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     'activities',
     'tags',
     'services',
-    # 'properties',
+    'properties',
     'events',
     'reservations'
 ]
@@ -241,6 +241,8 @@ AUTHENTICATION_BACKENDS = (
 
 GOOGLE_API_KEY = None
 
+# celery setting 
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_TIMEZONE = env('TIME_ZONE')
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'django-db'

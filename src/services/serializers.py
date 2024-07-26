@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.core.exceptions import ValidationError
 from .models import Service, ServicePhoto,ServiceFavorite,ServiceReview,ServiceDiscount
 from django.db import IntegrityError
+from app_auth.serializers import UserSerializer
 class ServicePhotoSerializer(serializers.ModelSerializer):
     service = serializers.PrimaryKeyRelatedField(
         queryset=Service.objects.all(),
@@ -14,7 +15,10 @@ class ServicePhotoSerializer(serializers.ModelSerializer):
         # read_only_fields
     def create(self, validated_data):
         service = validated_data.pop('service')
-        service_photo = ServicePhoto.objects.create(service=service, **validated_data)
+        try:
+            service_photo = ServicePhoto.objects.create(service=service, **validated_data)
+        except ValidationError as e:
+            raise serializers.ValidationError({'detail': str(e)})
         return service_photo
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -25,12 +29,14 @@ class ServiceSerializer(serializers.ModelSerializer):
     on_discount = serializers.ReadOnlyField()
     class Meta:
         model = Service
-        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate','points_gift', 'allow_points','allow_review','discount', 'photos','avg_rating','num_rating','discount','on_discount']
+        fields = ['id', 'name', 'description', 'refund_rate', 'upfront_rate','points_gift', 'allow_points','allow_review', 'photos','avg_rating','num_rating','discount','on_discount']
     def create(self, validated_data):
         photos_data = validated_data.pop('photos', [])
 
         if len(photos_data) < 2:
             raise serializers.ValidationError("At least two photos are required.")
+        if len(photos_data)>7:
+            raise serializers.ValidationError("At most 7 photos.")
 
         service = self.Meta.model.objects.create(**validated_data)
 
@@ -40,17 +46,16 @@ class ServiceSerializer(serializers.ModelSerializer):
 
         return service
 
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description', instance.description)
-        instance.refund_rate = validated_data.get('refund_rate', instance.refund_rate)
-        instance.upfront_rate = validated_data.get('upfront_rate', instance.upfront_rate)
-        instance.points_earning_rate = validated_data.get('points_earning_rate', instance.points_earning_rate)
-        instance.points_purchase_rate = validated_data.get('points_purchase_rate', instance.points_purchase_rate)
-        instance.allow_points = validated_data.get('allow_points', instance.allow_points)
-        instance.discount = validated_data.get('discount', instance.discount)
-        instance.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.name = validated_data.get('name', instance.name)
+    #     instance.description = validated_data.get('description', instance.description)
+    #     instance.refund_rate = validated_data.get('refund_rate', instance.refund_rate)
+    #     instance.upfront_rate = validated_data.get('upfront_rate', instance.upfront_rate)
+    #     instance.allow_points = validated_data.get('allow_points', instance.allow_points)
+    #     instance.allow_review = validated_data.get('allow_review', instance.allow_review)
+    #     instance.points_gift = validated_data.get('points_gift', instance.points_gift)
+    #     instance.save()
+    #     return instance
        
     
 class ServiceFavoriteSerializer(serializers.ModelSerializer):
@@ -69,11 +74,12 @@ class ServiceFavoriteSerializer(serializers.ModelSerializer):
     
   
 class ServiceReviewSerializer(serializers.ModelSerializer):
-    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    # user = UserSerializer()
+    user_name = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = ServiceReview
-        fields = ['id','service','rating', 'user', 'comment']
-        read_only_fields = ['user','created_at', 'updated_at']
+        fields = ['id','service','rating', 'user','user_name', 'comment','created']
+        read_only_fields = ['user','created', 'updated']
 
     def create(self, validated_data):
         user = self.context['request'].user
