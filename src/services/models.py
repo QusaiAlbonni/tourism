@@ -30,11 +30,11 @@ class Service(models.Model):
         related_name="reviewed_services"
         )
     refund_rate = models.DecimalField(
-        max_digits=3,
+        max_digits=4,
         decimal_places=1,
         validators=[
             MinValueValidator(Decimal('0.0')),
-            MaxValueValidator(Decimal('95.0'))
+            MaxValueValidator(Decimal('100.0'))
         ]
     )
     upfront_rate = models.DecimalField(

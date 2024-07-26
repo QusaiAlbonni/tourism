@@ -15,6 +15,8 @@ from address.models import AddressField
 from services.models import Service
 from .validators import DateLessThanToday
 from django.core.exceptions import ValidationError
+from reservations.models import TicketPurchase
+from reservations.services import refund_all_purchases
 User = get_user_model()
 
 
@@ -88,21 +90,30 @@ class GuideLiker(models.Model):
     
     
 class Activity(Service):
+    canceled = models.BooleanField(_("Canceled"), default=False)
     tags    = models.ManyToManyField(
         Tag,
         verbose_name=_("Tags"),
         through="ActivityTag",
         through_fields=("activity", "tag")
         )
+    crucial_field_modified = models.DateTimeField(auto_now=False, auto_now_add=True)
     class Meta:
         verbose_name = 'Activity'
         verbose_name_plural = 'Activities'
-        
+    @property
+    def type(self):
+        return self.get_type()
+    
     def get_type(self):
         if hasattr(self, "tour"):
             return "tour"
         else:
             return "listing"
+    def refund_all(self):
+        queryset = TicketPurchase.objects.filter(ticket__activity = self, canceled= False, scanned= False)
+        
+        refund_all_purchases(queryset, TicketPurchase)
     
     
 class Tour(Activity):
@@ -132,8 +143,19 @@ class Tour(Activity):
         ).exists():
             raise ValidationError(_("this guide is not available at the selected time period"))
         return super().clean()
+    
+    def takeoff_date_before_now(self):
+        return self.takeoff_date < now()
     class Meta:
         ordering = ['-modified']
+    
+    class SensitiveMeta:
+        # sensitive fields critical to the business
+        critical_fields = (
+            'duration',
+            'takeoff_date'
+        )
+        critical_update_datefield = 'crucial_field_modified'
     
 
 class Listing(Activity):
@@ -160,6 +182,14 @@ class Listing(Activity):
     class Meta:
         ordering = ['-modified']
     
+    class SensitiveMeta:
+        # sensitive fields critical to the business
+        critical_fields = (
+            'site',
+        )
+        critical_update_datefield = 'crucial_field_modified'
+        
+    
 
 class Ticket(models.Model):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE, related_name='tickets')
@@ -182,15 +212,28 @@ class Ticket(models.Model):
     )
     stock       = models.PositiveIntegerField(_("Stock"), validators=[MaxValueValidator(int(1e6)), MinValueValidator(int(1))], default=100)
     valid_until = models.DateField(validators=[DateLessThanToday(1,inclusive=True)])
+    canceled = models.BooleanField(_("Canceled"), default=False)
+    
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+    
+    crucial_field_modified = models.DateTimeField(auto_now=False, auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-modified']
+    class SensitiveMeta:
+        # sensitive fields critical to the business
+        critical_fields = (
+            'valid_until',
+        )
+        critical_update_datefield = 'crucial_field_modified'
     
     @property
     def is_valid(self)-> bool:
         acitvity_valid = True
         if hasattr(self.activity, "tour"):
             acitvity_valid = self.valid_until <= self.activity.tour.takeoff_date.date()
-        return bool((self.valid_until > datetime.datetime.now().date()) and acitvity_valid)
+        return bool((self.valid_until > datetime.datetime.now().date()) and acitvity_valid and not self.canceled)
     
     @property
     def points_discount_decimal(self):
@@ -198,9 +241,12 @@ class Ticket(models.Model):
     
     def get_activity_type(self):
         return self.activity.get_type()
-    class Meta:
-        ordering = ['-modified']
-
+   
+        
+    def refund_all(self):
+        queryset = TicketPurchase.objects.filter(canceled= False, scanned= False, ticket = self)
+        refund_all_purchases(queryset= queryset, model=TicketPurchase)
+    
 class ActivityTag(models.Model):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
     tag     = models.ForeignKey(Tag, verbose_name=_("Tag"), on_delete=models.CASCADE)
@@ -218,7 +264,16 @@ class TourSite(models.Model):
             models.UniqueConstraint(fields=['tour', 'order'], name='unique_tour_order'),
             models.UniqueConstraint(fields=['tour', 'site'], name='unique_tour_site')
         ]
-        ordering = ['-modified']
+        ordering = ['order']
+    class SensitiveMeta:
+        # sensitive fields critical to the business
+        critical_fields = (
+            'order',
+            'site'
+        )
+        critical_update_datefield = 'tour.crucial_field_modified'
+        date_field_model = 'tour'
+
     
 class Site(models.Model):
     photo   = AvatarField(_("Photo"), max_size=(1024, 1024),upload_to="uploads/sites")

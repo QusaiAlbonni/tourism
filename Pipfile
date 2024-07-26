@@ -62,6 +62,7 @@ gevent = "*"
 django-rosetta = "*"
 qrcode = "*"
 django-filter = "*"
+django-service-objects = "*"
 
 [dev-packages]
 

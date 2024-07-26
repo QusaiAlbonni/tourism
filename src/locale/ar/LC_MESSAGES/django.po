@@ -1,0 +1,324 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-25 01:12+0300\n"
+"PO-Revision-Date: 2024-07-25 21:00+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n"
+"%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 2.2\n"
+
+#: .\activities\models.py:25 .\activities\models.py:238 .\events\models.py:5 .\services\models.py:16
+msgid "Name"
+msgstr "الاسم"
+
+#: .\activities\models.py:26
+msgid "Guide's Bio"
+msgstr "السيرة الذاتية للمرشد"
+
+#: .\activities\models.py:27 .\profiles\models.py:24
+msgid "Avatar"
+msgstr "الصورة الشخصية"
+
+#: .\activities\models.py:28
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: .\activities\models.py:36
+msgid "Likers"
+msgstr "المعجبون"
+
+#: .\activities\models.py:92 .\reservations\models.py:33
+msgid "Canceled"
+msgstr "ملغى"
+
+#: .\activities\models.py:95
+msgid "Tags"
+msgstr "الوسوم"
+
+#: .\activities\models.py:114
+msgid "Takeoff date"
+msgstr "تاريخ الإنطلاق"
+
+#: .\activities\models.py:115
+msgid "Tour Duration"
+msgstr "مدة الجولة السياحية"
+
+#: .\activities\models.py:116
+msgid "Guide"
+msgstr "مرشد"
+
+#: .\activities\models.py:120
+msgid "Sites"
+msgstr "مواقع"
+
+#: .\activities\models.py:138
+msgid "this guide is not available at the selected time period"
+msgstr "ان المرشد السياحي المختار غير متوفر في هذه المدة الزمنية"
+
+#: .\activities\models.py:148
+msgid "Opens At Time"
+msgstr "وقت الافتتاح"
+
+#: .\activities\models.py:150 .\activities\models.py:224
+msgid "Site"
+msgstr "موقع"
+
+#: .\activities\models.py:151
+msgid "Link"
+msgstr "الرابط الالكتروني"
+
+#: .\activities\models.py:173 .\activities\models.py:217
+msgid "Activity"
+msgstr "النشاط السياحي"
+
+#: .\activities\models.py:174
+msgid "Name of the ticket"
+msgstr "الاسم"
+
+#: .\activities\models.py:175 .\activities\models.py:239 .\events\models.py:6 .\services\models.py:17
+msgid "Description"
+msgstr "الوصف"
+
+#: .\activities\models.py:191
+msgid "Stock"
+msgstr "المخزون"
+
+#: .\activities\models.py:218
+msgid "Tag"
+msgstr "العلامة"
+
+#: .\activities\models.py:223
+msgid "Tour"
+msgstr "جولة سياحية"
+
+#: .\activities\models.py:225
+msgid "Order"
+msgstr "الترتيب"
+
+#: .\activities\models.py:236
+msgid "Photo"
+msgstr "صورة"
+
+#: .\activities\serializers.py:68 .\activities\serializers.py:74
+msgid "Activity Does not exist."
+msgstr "النشاط السياحي غير موجود."
+
+#: .\activities\serializers.py:78
+msgid "the Valid until field must be at least a day earlier than the takeoff date."
+msgstr "يجب أن يكون الحقل \"صالح حتى\" قبل يوم واحد على الأقل من تاريخ الإنطلاق."
+
+#: .\activities\serializers.py:132 .\activities\serializers.py:141
+msgid "duplicate entry for the site"
+msgstr "إدخال مكرر للموقع"
+
+#: .\activities\serializers.py:134
+msgid "Tour does not exist."
+msgstr "الجولة السياحية غير موجودة."
+
+#: .\activities\serializers.py:172
+msgid "Takeoff date, duration, and book are required."
+msgstr "مطلوب تاريخ الإقلاع والمدة والحجز."
+
+#: .\activities\serializers.py:188
+msgid "The specified time range overlaps with an existing tour for this guide."
+msgstr "يتداخل النطاق الزمني المحدد مع جولة سياحية موجودة لهذا الدليل."
+
+#: .\activities\serializers.py:214
+msgid "The sum of opens_at and work_hours exceeds 24 hours."
+msgstr "مجموع ساعة الافتتاح وساعات العمل يتجاوز 24 ساعة."
+
+#: .\activities\validators.py:8
+msgid "Date cannot be in the past."
+msgstr "التاريخ لا يمكن أن يكون في الماضي."
+
+#: .\app_auth\admin.py:9
+msgid "Personal info"
+msgstr "المعلومات الشخصية"
+
+#: .\app_auth\admin.py:11
+msgid "Permissions"
+msgstr "الأذونات"
+
+#: .\app_auth\admin.py:23
+msgid "Important dates"
+msgstr "تواريخ مهمة"
+
+#: .\app_auth\models.py:30
+msgid "user"
+msgstr "المستخدم"
+
+#: .\app_auth\models.py:31
+msgid "users"
+msgstr "المستخدمون"
+
+#: .\app_auth\templates\activate\email.html:4
+#, python-format
+msgid "Account activation on %(site_name)s"
+msgstr "تفعيل الحساب على %(site_name)s"
+
+#: .\app_auth\templates\activate\email.html:16
+msgid "Account Activation"
+msgstr "تفعيل الحساب"
+
+#: .\app_auth\templates\reset_password_email.html:4
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "إعادة تعيين كلمة المرور على %(site_name)s"
+
+#: .\app_auth\templates\reset_password_email.html:8 .\app_auth\templates\reset_password_email.html:20
+#, python-format
+msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
+msgstr "أنت تتلقى هذا البريد الإلكتروني لأنك طلبت إعادة تعيين كلمة المرور لحساب المستخدم الخاص بك في %(site_name)s."
+
+#: .\app_auth\templates\reset_password_email.html:10 .\app_auth\templates\reset_password_email.html:22
+msgid "Please go to the following page and choose a new password:"
+msgstr "يرجى الانتقال إلى الصفحة التالية واختيار كلمة مرور جديدة:"
+
+#: .\app_auth\templates\reset_password_email.html:12 .\app_auth\templates\reset_password_email.html:24
+msgid "Your username, in case you've forgotten:"
+msgstr "اسم المستخدم الخاص بك، في حالة نسيانك:"
+
+#: .\app_auth\templates\reset_password_email.html:14 .\app_auth\templates\reset_password_email.html:26
+msgid "Thanks for using our site!"
+msgstr "شكرًا لاستخدام موقعنا!"
+
+#: .\app_auth\templates\reset_password_email.html:16 .\app_auth\templates\reset_password_email.html:28
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "فريق %(site_name)s"
+
+#: .\profiles\models.py:17 .\profiles\models.py:49 .\profiles\models.py:75 .\profiles\models.py:100
+msgid "User"
+msgstr "المستخدم"
+
+#: .\profiles\models.py:19
+msgid "Bio"
+msgstr "السيرة الذاتية"
+
+#: .\profiles\models.py:20
+msgid "Marital Status"
+msgstr "الحالة الاجتماعية"
+
+#: .\profiles\models.py:21
+msgid "Birth Date"
+msgstr "تاريخ الميلاد"
+
+#: .\profiles\models.py:22
+msgid "Number of Children"
+msgstr "عدد الأطفال"
+
+#: .\reservations\exceptions.py:7
+msgid "This item is not refundable."
+msgstr "هذا البند غير قابل للاسترداد."
+
+#: .\reservations\exceptions.py:24
+msgid "This item can't be canceled."
+msgstr "لا يمكن إلغاء هذا العنصر."
+
+#: .\reservations\models.py:30
+msgid "Owner"
+msgstr "المالك"
+
+#: .\reservations\models.py:32
+msgid "Scanned"
+msgstr "ممسوحة ضوئيًا"
+
+#: .\reservations\models.py:34
+msgid "Ticket scan date time"
+msgstr "وقت تاريخ فحص التذكرة"
+
+#: .\reservations\models.py:35
+msgid "Unique Identifier"
+msgstr "المعرف الفريد"
+
+#: .\reservations\models.py:39 .\reservations\models.py:209
+msgid "QR Code for uuid"
+msgstr "رمز الاستجابة السريعة لـ uuid"
+
+#: .\reservations\models.py:77 .\reservations\models.py:329 .\reservations\models.py:384
+msgid "User does not have payment information"
+msgstr "ليس لديك معلومات الدفع"
+
+#: .\reservations\models.py:116
+msgid "Impossible situation encountered."
+msgstr "تم مواجهة موقف مستحيل."
+
+#: .\reservations\models.py:154
+msgid "No payments found to refund."
+msgstr "لم يتم العثور على أي دفعات لاستردادها."
+
+#: .\reservations\models.py:208
+msgid "Ticket"
+msgstr "تذكرة"
+
+#: .\reservations\models.py:219
+msgid "Can scan resrvations"
+msgstr "يمكن مسح الحجز"
+
+#: .\reservations\models.py:249
+msgid "Invalid Reservation."
+msgstr "حجز غير صالح."
+
+#: .\reservations\models.py:257
+msgid "Ticket is expired"
+msgstr "إنتهت صلاحية التذكرة"
+
+#: .\reservations\models.py:265
+msgid "Activity no longer available"
+msgstr "النشاط لم يعد متاحًا"
+
+#: .\reservations\models.py:269
+msgid "Ticket is out of stock"
+msgstr "التذكرة غير متوفرة"
+
+#: .\reservations\models.py:332
+msgid "Insufficient funds"
+msgstr "الأموال غير كافية"
+
+#: .\reservations\models.py:350
+msgid "Points Amount"
+msgstr "مبلغ النقاط"
+
+#: .\reservations\models.py:357
+msgid "Insufficient points funds"
+msgstr "النقاط غير كافية"
+
+#: .\reservations\views.py:46
+msgid "Ticket does not exist."
+msgstr "التذكرة غير موجودة."
+
+#: .\reservations\views.py:52 .\reservations\views.py:64
+msgid "purchase object not found."
+msgstr "لم يتم العثور على المشتريات المحددة."
+
+#: .\services\models.py:50
+msgid "Gifted points"
+msgstr "النقاط الممنوحة"
+
+#: .\services\models.py:113
+msgid "Review Comment"
+msgstr "التعليق"
+
+#: .\services\models.py:120
+msgid "Reviews are not allowed for this service."
+msgstr "المراجعات غير مسموح بها لهذه الخدمة."
+
+#: .\templates\admin\base_site.html:3
+msgid "Pingoway site admin"
+msgstr "مدير موقع Pingoway"
+
+#: .\templates\admin\base_site.html:6
+msgid "Pingoway administration"
+msgstr "إدارة بينجواي"

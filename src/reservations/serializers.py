@@ -9,7 +9,7 @@ class TicketPurchaseSerializer(serializers.ModelSerializer):
     activity_id         = serializers.SerializerMethodField()
     class Meta:
         model = TicketPurchase
-        fields= ['use_points_discount','ticket_id','canceled', 'refunded','refundable', 'can_be_canceled', 'activity_id', 'activity_type', 'ticket', 'owner','qr_code', 'scanned', 'scan_date', 'uuid', 'created', 'modified']
+        fields= ['id','use_points_discount','ticket_id','canceled', 'refunded','refundable', 'can_be_canceled', 'activity_id', 'activity_type', 'ticket', 'owner','qr_code', 'scanned', 'scan_date', 'uuid', 'created', 'modified']
         read_only_fields = ['ticket', 'owner', 'scanned','refundable','qr_code', 'can_be_canceled', 'canceled', 'refunded', 'scan_date', 'uuid', 'created', 'modified']
     
     def create(self, validated_data):

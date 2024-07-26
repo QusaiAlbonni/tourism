@@ -156,16 +156,13 @@ class BaseReservation(models.Model):
         self.save()
             
         
-        
-        
-
 class TicketPurchase(BaseReservation):
-    ticket   = models.ForeignKey("activities.Ticket", verbose_name=_("Ticket"), on_delete=models.CASCADE)
+    ticket   = models.ForeignKey("activities.Ticket", verbose_name=_("Ticket"), on_delete=models.CASCADE, related_name='purchases')
     qr_code  = models.ImageField(_("QR Code for uuid"), upload_to='reservations/tickets/qr_codes/')
     
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
-    
+        
     class Meta:
         ordering = ['-created']
         permissions = (
@@ -189,6 +186,7 @@ class TicketPurchase(BaseReservation):
         ticket_activity_is_valid = True
         if hasattr(self.ticket.activity, "tour"):
             ticket_activity_is_valid = self.ticket.activity.tour.takeoff_date > timezone.now()
+            ticket_activity_is_valid = ticket_activity_is_valid and not self.ticket.activity.canceled
         return bool(ticket_activity_is_valid and ticket_is_valid and self.can_be_canceled)
         
     def clean(self) -> None:
@@ -212,6 +210,7 @@ class TicketPurchase(BaseReservation):
         ticket_activity_is_valid = True
         if hasattr(self.ticket.activity, "tour"):
             ticket_activity_is_valid = self.ticket.activity.tour.takeoff_date > timezone.now()
+        ticket_activity_is_valid = ticket_activity_is_valid and not self.ticket.activity.canceled
             
         if not ticket_activity_is_valid:
             self.validation_message['activity']= _("Activity no longer available")
@@ -219,6 +218,9 @@ class TicketPurchase(BaseReservation):
         ticket_stock_valid = self.ticket.stock >= 1
         if not ticket_stock_valid:
             self.validation_message['ticket'].append(_("Ticket is out of stock"))
+            
+        if not self.validation_message['ticket']:
+            self.validation_message.pop('ticket')
         
         return bool(ticket_is_valid and ticket_activity_is_valid and ticket_stock_valid)
     
@@ -239,8 +241,11 @@ class TicketPurchase(BaseReservation):
         return amount
     
     def check_refundable(self):
-        return super().check_refundable()
-    
+        return (
+            super().check_refundable() 
+            or (((not self.canceled) and (not self.scanned)) and (self.ticket.canceled or self.ticket.activity.canceled))
+            or (((not self.canceled) and (not self.scanned)) and ((self.created < self.ticket.crucial_field_modified) or (self.created < self.ticket.activity.crucial_field_modified)))
+        )
     @transaction.atomic()
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None, use_points_discount=False

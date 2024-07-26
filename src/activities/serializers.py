@@ -9,6 +9,7 @@ from rest_framework.exceptions import ValidationError
 from django.http import Http404
 import django.utils.timezone as timezone
 from django.utils.translation import gettext_lazy as _
+from services.serializers import ServicePhotoSerializer
 
 class GuideSerializer(serializers.ModelSerializer):
     liked = serializers.SerializerMethodField()
@@ -102,9 +103,13 @@ class SiteSerializer(serializers.ModelSerializer):
         return instance
     
 class ActivitySerializer(serializers.ModelSerializer):
+    photos = ServicePhotoSerializer(many=True,required=False)
     class Meta:
         model = Activity
-        fields= '__all__'
+        fields= ServiceSerializer.Meta.fields + [ 'type', ]
+        
+    def get_type(self, obj : Activity):
+        return obj.type
         
 
 class TourSiteSerializer(serializers.ModelSerializer):
