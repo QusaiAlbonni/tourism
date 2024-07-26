@@ -194,7 +194,7 @@ class ListingSerializer(ServiceSerializer):
     site_id = serializers.PrimaryKeyRelatedField(queryset=Site.objects.all(), write_only=True, source='site', allow_null=False)
     class Meta:
         model = Listing
-        fields = ServiceSerializer.Meta.fields +[ 'site',
+        fields = [field for field in ServiceSerializer.Meta.fields if field != 'upfront_rate'] + [ 'site',
                 'opens_at', 'work_hours', 'closes_at', 'tickets', 'site_id', 'website']
         read_only_fields = ['tickets']
     def create(self, validated_data):

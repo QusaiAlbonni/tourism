@@ -3,8 +3,8 @@
 		"_postman_id": "a743b378-167b-423a-9c5b-3319af1443e7",
 		"name": "django api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30954833",
-		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-a743b378-167b-423a-9c5b-3319af1443e7?action=share&source=collection_link&creator=30954833"
+		"_exporter_id": "31542329",
+		"_collection_link": "https://big-guys.postman.co/workspace/2-big-guys-Workspace~e4b3e10a-bff0-4aed-8707-448e0b42d7c6/collection/31542329-a743b378-167b-423a-9c5b-3319af1443e7?action=share&source=collection_link&creator=31542329"
 	},
 	"item": [
 		{
@@ -2278,6 +2278,30 @@
 										"description": "### POST /services/activities/tours/1/sites/\n\nThis endpoint adds a new site to the tour with ID 1.\n\n#### Request\n\n- URL\n    \n    - Type: `String`\n        \n    - Description: The URL for the POST request.\n        \n    - Example: `http://localhost:8000/services/activities/tours/1/sites/`\n        \n- Body (form-data)\n    \n    - `site_id` (text): ID of the site.\n        \n\n#### Response\n\nUpon successful creation, the response will be a JSON object with the following properties:\n\n- `id` (Number): The ID of the newly created site.\n    \n- `order` (Number): The order of the site in the tour.\n    \n- `site` (Object): Information about the site.\n    - `id` (Number): The ID of the site.\n        \n    - `name` (String): The name of the site.\n        \n    - `description` (String): The description of the site.\n        \n    - `photo` (String): The photo URL of the site.\n        \n    - `address` (Object): The address of the site.\n        - `id` (Number): The ID of the address.\n            \n        - `raw` (String): The raw address.\n            \n        - `street_number` (String): The street number of the address.\n            \n        - `route` (String): The route of the address.\n            \n        - `locality` (String): The locality of the address.\n            \n    - `created` (String): The creation date of the site.\n        \n    - `modified` (String): The modification date of the site.\n        \n- `tour` (String): The ID of the tour to which the site belongs.\n    \n\n#### JSON Schema\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": { \"type\": \"number\" },\n        \"order\": { \"type\": \"number\" },\n        \"site\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": { \"type\": \"number\" },\n                \"name\": { \"type\": \"string\" },\n                \"description\": { \"type\": \"string\" },\n                \"photo\": { \"type\": \"string\" },\n                \"address\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"id\": { \"type\": \"number\" },\n                        \"raw\": { \"type\": \"string\" },\n                        \"street_number\": { \"type\": \"string\" },\n                        \"route\": { \"type\": \"string\" },\n                        \"locality\": { \"type\": \"string\" }\n                    }\n                },\n                \"created\": { \"type\": \"string\" },\n                \"modified\": { \"type\": \"string\" }\n            }\n        },\n        \"tour\": { \"type\": \"number\" }\n    }\n}\n\n ```"
 									},
 									"response": []
+								},
+								{
+									"name": "delete",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/services/activities/tours/1/sites/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"activities",
+												"tours",
+												"1",
+												"sites",
+												"1"
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"description": "the list of sites for a tour"
@@ -2549,9 +2573,348 @@
 								"description": "### Create Activity Ticket\n\nThis API endpoint allows the creation of a ticket for a specific activity.\n\n#### Request Body Parameters\n\n- `name` (text, required): The name of the ticket.\n    \n- `description` (text, optional): A description of the ticket.\n    \n- `stock` (text, optional, default: 100): The initial stock of the ticket.\n    \n- `price_currency` (text, optional, default: USD): The currency in which the price is specified.\n    \n- `price` (text, required): The price of the ticket.\n    \n- `price_in_points` (text, required, min: 1): The amount of points required to purchase the ticket.\n    \n- `points_rate` (text, required, float between 1 and 100): Specifies the discount rate when purchasing with points.\n    \n- `valid_until` (text, required): The date until which the ticket can be purchased.\n    \n\n#### Response (201 - Created)\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n    \"activity_id\": \"\",\n    \"name\": \"\",\n    \"description\": \"\",\n    \"stock\": 0,\n    \"price_currency\": \"\",\n    \"price\": \"\",\n    \"price_in_points\": 0,\n    \"points_rate\": \"\",\n    \"valid_until\": \"\",\n    \"created\": \"\",\n    \"modified\": \"\"\n}\n\n ```\n\n- `activity_id` (string): The ID of the activity associated with the ticket.\n    \n- `name` (string): The name of the ticket.\n    \n- `description` (string): The description of the ticket.\n    \n- `stock` (number): The remaining stock of the ticket.\n    \n- `price_currency` (string): The currency of the ticket price.\n    \n- `price` (string): The price of the ticket.\n    \n- `price_in_points` (number): The points required to purchase the ticket.\n    \n- `points_rate` (string): The discount rate when purchasing with points.\n    \n- `valid_until` (string): The expiration date of the ticket.\n    \n- `created` (string): Timestamp of creation.\n    \n- `modified` (string): Timestamp of last modification."
 							},
 							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Grand Show",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "the grand show for the new york national park",
+											"description": "nullable",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "1200",
+											"description": "default 100",
+											"type": "text"
+										},
+										{
+											"key": "price_currency",
+											"value": "SYP",
+											"description": "default USD",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "12.99",
+											"type": "text"
+										},
+										{
+											"key": "points_discount",
+											"value": "100",
+											"description": "min 1",
+											"type": "text"
+										},
+										{
+											"key": "points_discount_price",
+											"value": "25",
+											"description": "float between 1 and 100 specify how much is the points discount of the price of the ticket by spending points specified in price_in_points",
+											"type": "text"
+										},
+										{
+											"key": "valid_until",
+											"value": "2025-06-29",
+											"description": "the ticket can be purchased up to the date specified in this field",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/2/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"2",
+										""
+									]
+								},
+								"description": "### Create Activity Ticket\n\nThis API endpoint allows the creation of a ticket for a specific activity.\n\n#### Request Body Parameters\n\n- `name` (text, required): The name of the ticket.\n    \n- `description` (text, optional): A description of the ticket.\n    \n- `stock` (text, optional, default: 100): The initial stock of the ticket.\n    \n- `price_currency` (text, optional, default: USD): The currency in which the price is specified.\n    \n- `price` (text, required): The price of the ticket.\n    \n- `price_in_points` (text, required, min: 1): The amount of points required to purchase the ticket.\n    \n- `points_rate` (text, required, float between 1 and 100): Specifies the discount rate when purchasing with points.\n    \n- `valid_until` (text, required): The date until which the ticket can be purchased.\n    \n\n#### Response (201 - Created)\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n    \"activity_id\": \"\",\n    \"name\": \"\",\n    \"description\": \"\",\n    \"stock\": 0,\n    \"price_currency\": \"\",\n    \"price\": \"\",\n    \"price_in_points\": 0,\n    \"points_rate\": \"\",\n    \"valid_until\": \"\",\n    \"created\": \"\",\n    \"modified\": \"\"\n}\n\n ```\n\n- `activity_id` (string): The ID of the activity associated with the ticket.\n    \n- `name` (string): The name of the ticket.\n    \n- `description` (string): The description of the ticket.\n    \n- `stock` (number): The remaining stock of the ticket.\n    \n- `price_currency` (string): The currency of the ticket price.\n    \n- `price` (string): The price of the ticket.\n    \n- `price_in_points` (number): The points required to purchase the ticket.\n    \n- `points_rate` (string): The discount rate when purchasing with points.\n    \n- `valid_until` (string): The expiration date of the ticket.\n    \n- `created` (string): Timestamp of creation.\n    \n- `modified` (string): Timestamp of last modification."
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refund_all",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/tickets/1/refund_all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"tickets",
+										"1",
+										"refund_all"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"description": "Tickets for services offered for an activity  \neach ticket represents an action a tourist can perform in the activity\n\ne.g: entrance to a concert, entrance to an event\n\nnote that activities IDs in these urls are the same as their type implementation :\n\ne.g: activity with id 1 maps to tour with id 1; site with id 1 does not exist\n\ne.g: activity with id 2 maps to site with id 2; tour with id 2 can never exist"
+				},
+				{
+					"name": "cancel",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "headerPrefix",
+									"value": "JWT",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/services/activities/1/cancel/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"activities",
+								"1",
+								"cancel",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "cancel",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "refund_all",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/services/activities/1/refund_all/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"activities",
+								"1",
+								"refund_all",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "cancel",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/services/activities/1/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"activities",
+								"1",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "cancel",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			],
 			"description": "the activities are a way for the user to interact with geographical locations called \\*_sites__\\*_these sites are an address with description and info about the place and theres two types of activities\n\n1. **listings:** an admin can choose to list a site for selling its activities with tickets\n    \n2. **tours:** an admin can choose to list a number of sites under a Tour with a guide that accompany the tourists the tour will have a number of sites that the company guarantees the tourists will come across during the tour\n    \n\n**Tickets**:\n\nTickets are a way to sell an activity service in either listings or tours examples could be:\n\nfor listings: entry ticket for a museum, movie theater etc\n\nfor tours: tour ticket, additional services during the trip",
@@ -3015,7 +3378,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjA5Mzg5LCJpYXQiOjE3MjEzNTAxODksImp0aSI6ImEyNjVhNDQ3M2U1YzRmMTJhZTgzMjMxYThiODUwOTIxIiwidXNlcl9pZCI6M30.mIQmdWd3lDRhWui8-TZNvtTiNBVpFbRiB4pAH9x0HwE",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
 								"type": "text"
 							}
 						],
@@ -3440,7 +3803,7 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Dreem Hotel4",
+											"value": "Dreem Hotel3",
 											"type": "text"
 										},
 										{
@@ -3792,6 +4155,10 @@
 				{
 					"name": "Rooms Tags",
 					"item": []
+				},
+				{
+					"name": "Rooms photo",
+					"item": []
 				}
 			]
 		},
@@ -3959,9 +4326,449 @@
 							"name": "create",
 							"request": {
 								"method": "POST",
-								"header": []
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "event",
+											"value": "",
+											"description": "can be null  this mean teh disc alowys true",
+											"type": "text"
+										},
+										{
+											"key": "percent",
+											"value": "22",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										""
+									]
+								}
 							},
 							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "event",
+											"value": "",
+											"description": "can be null  this mean teh disc alowys true",
+											"type": "text"
+										},
+										{
+											"key": "percent",
+											"value": "22",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partial update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "event",
+											"value": "",
+											"description": "can be null  this mean teh disc alowys true",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "percent",
+											"value": "23",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "list by service id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-discounts/?service_pk=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-discounts",
+												""
+											],
+											"query": [
+												{
+													"key": "service_pk",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Fri, 26 Jul 2024 03:16:07 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "583"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 4,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 12,\n            \"service\": null,\n            \"event\": null,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:08:16.725026Z\",\n            \"modified\": \"2024-07-26T03:08:16.725026Z\"\n        },\n        {\n            \"id\": 13,\n            \"service\": 1,\n            \"event\": null,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:08:40.857833Z\",\n            \"modified\": \"2024-07-26T03:08:40.857833Z\"\n        },\n        {\n            \"id\": 14,\n            \"service\": null,\n            \"event\": 1,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:11:05.975582Z\",\n            \"modified\": \"2024-07-26T03:11:05.975582Z\"\n        },\n        {\n            \"id\": 15,\n            \"service\": 1,\n            \"event\": 1,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:11:28.156097Z\",\n            \"modified\": \"2024-07-26T03:11:28.156097Z\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "list by event",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-discounts/?event=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-discounts",
+												""
+											],
+											"query": [
+												{
+													"key": "event",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Fri, 26 Jul 2024 03:21:18 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "314"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 14,\n            \"service\": null,\n            \"event\": 1,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:11:05.975582Z\",\n            \"modified\": \"2024-07-26T03:11:05.975582Z\"\n        },\n        {\n            \"id\": 15,\n            \"service\": 1,\n            \"event\": 1,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:11:28.156097Z\",\n            \"modified\": \"2024-07-26T03:11:28.156097Z\"\n        }\n    ]\n}"
+								}
+							]
 						}
 					]
 				},
