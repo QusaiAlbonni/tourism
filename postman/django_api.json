@@ -557,17 +557,14 @@
 									}
 								],
 								"url": {
-									"raw": "http://127.0.0.1:8000/profile/credit/delete",
+									"raw": "http://localhost:8000/profiles/credit/delete",
 									"protocol": "http",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"localhost"
 									],
 									"port": "8000",
 									"path": [
-										"profile",
+										"profiles",
 										"credit",
 										"delete"
 									]
@@ -699,34 +696,54 @@
 						{
 							"name": "retrive_wallet",
 							"protocolProfileBehavior": {
-								"disableBodyPruning": true
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
 							},
 							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [
 									{
 										"key": "Cache-Control",
 										"value": "no-cache",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "Postman-Token",
 										"value": "<calculated when request is sent>",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "Host",
 										"value": "<calculated when request is sent>",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "User-Agent",
 										"value": "PostmanRuntime/7.32.1",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "Accept",
-										"value": "*/*",
+										"value": "application/json",
 										"type": "text"
 									},
 									{
@@ -737,12 +754,14 @@
 									{
 										"key": "Connection",
 										"value": "keep-alive",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "Authorization",
 										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MjU0NTEwLCJpYXQiOjE3MTUxNjgxMTAsImp0aSI6IjU5MzNmZmVhMjFiYjQ4NGRhYTFkYmViOThkMGJlYThiIiwidXNlcl9pZCI6MX0.3Zf81Lrk1SumRASCWFKwDX6oh4KvGmxTX9gKIvXL35g",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -755,17 +774,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/profile/wallet/",
+									"raw": "http://localhost:8000/profiles/wallet/",
 									"protocol": "http",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"localhost"
 									],
 									"port": "8000",
 									"path": [
-										"profile",
+										"profiles",
 										"wallet",
 										""
 									]
@@ -4997,6 +5013,570 @@
 										{
 											"key": "service_id",
 											"value": "2"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "list if usr is normal",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNjE4LCJpYXQiOjE3MjE5MjE0MTgsImp0aSI6ImE5Nzk2NzY1OTcxOTRjYWNiNTkyMTI0MTY3NTQ3Y2Y5IiwidXNlcl9pZCI6Mn0.S5VBoNw0eWS-ZwVMOUBqQMdvbnZb9ofYswSmx0DTf0M",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/?service_id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											],
+											"query": [
+												{
+													"key": "service_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"service\": [\n            {\n                \"id\": 3,\n                \"service\": 1,\n                \"rating\": 3,\n                \"user\": 2,\n                \"comment\": \"you are the best\"\n            }\n        ],\n        \"user_can_review\": 0\n    }\n}"
+								},
+								{
+									"name": "list for admin",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgxMDIzLCJpYXQiOjE3MjE5MjE4MjMsImp0aSI6ImUyMjZlMjk3NWNkYzRkMjQ5ZTgzMzA2NzgzMDY0YzFlIiwidXNlcl9pZCI6NH0.bLuGJzd50fqI3Knv-eTs3qgNYypCByYvLokQIWkC8CY",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 15:37:28 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "261"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 3,\n            \"service\": 1,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        },\n        {\n            \"id\": 5,\n            \"service\": 2,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        },\n        {\n            \"id\": 6,\n            \"service\": 2,\n            \"rating\": 3,\n            \"user\": 3,\n            \"comment\": \"you are the best\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "list for admin with service id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgxMDIzLCJpYXQiOjE3MjE5MjE4MjMsImp0aSI6ImUyMjZlMjk3NWNkYzRkMjQ5ZTgzMzA2NzgzMDY0YzFlIiwidXNlcl9pZCI6NH0.bLuGJzd50fqI3Knv-eTs3qgNYypCByYvLokQIWkC8CY",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/?service_id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											],
+											"query": [
+												{
+													"key": "service_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 15:40:31 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "121"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 3,\n            \"service\": 1,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "list for admin with user_id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgxMDIzLCJpYXQiOjE3MjE5MjE4MjMsImp0aSI6ImUyMjZlMjk3NWNkYzRkMjQ5ZTgzMzA2NzgzMDY0YzFlIiwidXNlcl9pZCI6NH0.bLuGJzd50fqI3Knv-eTs3qgNYypCByYvLokQIWkC8CY",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/?user_id=2",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												""
+											],
+											"query": [
+												{
+													"key": "user_id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 15:48:38 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "191"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 3,\n            \"service\": 1,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        },\n        {\n            \"id\": 5,\n            \"service\": 2,\n            \"rating\": 3,\n            \"user\": 2,\n            \"comment\": \"you are the best\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "take user review in servic if there is",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNjE4LCJpYXQiOjE3MjE5MjE0MTgsImp0aSI6ImE5Nzk2NzY1OTcxOTRjYWNiNTkyMTI0MTY3NTQ3Y2Y5IiwidXNlcl9pZCI6Mn0.S5VBoNw0eWS-ZwVMOUBqQMdvbnZb9ofYswSmx0DTf0M",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rating",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "comment",
+													"value": "idasfllvjoe df sdajf las",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "service",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/service-reviews/me/?service_id=3",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"service-reviews",
+												"me",
+												""
+											],
+											"query": [
+												{
+													"key": "service_id",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 25 Jul 2024 16:38:14 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "67"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"detail\": \"No review found for the specified service by the user.\"\n}"
+								}
+							]
+						},
+						{
+							"name": "summary",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgwNjE4LCJpYXQiOjE3MjE5MjE0MTgsImp0aSI6ImE5Nzk2NzY1OTcxOTRjYWNiNTkyMTI0MTY3NTQ3Y2Y5IiwidXNlcl9pZCI6Mn0.S5VBoNw0eWS-ZwVMOUBqQMdvbnZb9ofYswSmx0DTf0M",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "rating",
+											"value": "3",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "comment",
+											"value": "idasfllvjoe df sdajf las",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-reviews/summary/?service_id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-reviews",
+										"summary",
+										""
+									],
+									"query": [
+										{
+											"key": "service_id",
+											"value": "1"
 										}
 									]
 								}
