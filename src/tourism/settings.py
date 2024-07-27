@@ -1,6 +1,7 @@
 from datetime import timedelta
 from pathlib import Path
 from environs import Env
+import google.generativeai as genai
 
 
 # Load environment variables from .env file
@@ -64,6 +65,7 @@ INSTALLED_APPS = [
     'rosetta',
     'django_filters',
     'django.contrib.postgres',
+    'service_objects',
     
     # pingoway apps
     'app_auth',
@@ -73,7 +75,8 @@ INSTALLED_APPS = [
     'services',
     'properties',
     'events',
-    'reservations'
+    'reservations',
+    'gemini',
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
@@ -259,3 +262,8 @@ USE_I18N = True
 
 # Directories where Django will look for translation files
 LOCALE_PATHS = (BASE_DIR / 'locale/', )
+
+
+genai.configure(api_key=env("GEMINI_API_KEY"))
+
+GEMINI_GENERATIVE_MODEL = env("GEMINI_GENERATIVE_MODEL")

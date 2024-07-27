@@ -116,7 +116,7 @@ class ServiceReview(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)],
         null=True
     )
-    comment = models.TextField(_("Review Comment"),validators=[validate_is_profane])
+    comment = models.TextField(_("Review Comment"),validators=[validate_is_profane], max_length= 1024)
 
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)

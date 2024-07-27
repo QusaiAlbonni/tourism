@@ -1,10 +1,3 @@
-# from rest_framework import viewsets
-# from .models import Service
-# from .serializers import ServiceSerializer
-
-# class ServiceViewSet(viewsets.ModelViewSet):
-#     queryset = Service.objects.all()
-#     serializer_class = ServiceSerializer
 
 from django.db import models
 from rest_framework.response import Response
@@ -30,6 +23,12 @@ from .models import ServicePhoto
 from .serializers import ServicePhotoSerializer
 from django.core.exceptions import ValidationError
 from rest_framework.exceptions import NotFound
+from .utils import get_reviews_prompt
+from gemini.services import GeminiGenerateContent
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+from django.http import Http404
+
 class ServicePhotoViewSet(viewsets.ModelViewSet):
     queryset = ServicePhoto.objects.all()
     permission_classes = [isAdminOrReadOnly]
@@ -203,6 +202,26 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
             raise NotFound("No review found for the specified service by the user.")
         serializer = self.get_serializer(review)
         return Response(serializer.data)
+    
+    @action(methods=["get"], detail=False)
+    def summary(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.custom_get_queryset(request))
+        service_id = request.query_params.get('service_id', None)
+        if service_id is None:
+            raise Http404()
+        service = Service.objects.get(pk = service_id)
+        lang = get_language()
+        if lang not in GeminiGenerateContent.locales:
+            lang = 'en'
+        prompt_dict = get_reviews_prompt(queryset, language=lang, service= service)
+        try:
+            result = GeminiGenerateContent.execute(inputs =prompt_dict)
+        except Exception as e:
+            raise e
+            return Response({'detail': str(e)}, status.HTTP_503_SERVICE_UNAVAILABLE)
+            
+        return Response({'result': result}, status.HTTP_200_OK)
+        
 
 class ServiceDiscountViewSet(viewsets.ModelViewSet):
     queryset = ServiceDiscount.objects.all()

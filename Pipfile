@@ -63,6 +63,9 @@ django-rosetta = "*"
 qrcode = "*"
 django-filter = "*"
 django-service-objects = "*"
+google-generativeai = "*"
+django-modeltranslation = "*"
+fcm-django = "*"
 
 [dev-packages]
 
