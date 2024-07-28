@@ -38,4 +38,4 @@ urlpatterns = [
 urlpatterns += [
         re_path(r'^rosetta/', include('rosetta.urls'))
     ]
-urlpatterns += staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
