@@ -2,6 +2,7 @@ from datetime import timedelta
 from pathlib import Path
 from environs import Env
 import google.generativeai as genai
+import dj_database_url
 
 
 # Load environment variables from .env file
@@ -122,17 +123,25 @@ WSGI_APPLICATION = 'tourism.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': env('DB_DATABASE'),
-        'NAME': env('DB_NAME'),
-        "USER": env('DB_USER'),
-        "HOST": env('DB_HOST'),
-        "PORT": env('DB_PORT'),
-        "PASSWORD": env('DB_PASSWORD')
-    }
-}
 
+DEFAULT_DATABASE = env('DEFAULT_DB_URL', default= None)
+
+
+if DEFAULT_DATABASE is None:
+    DATABASES = {
+        'default': {
+            'ENGINE': env('DB_DATABASE'),
+            'NAME': env('DB_NAME'),
+            "USER": env('DB_USER'),
+            "HOST": env('DB_HOST'),
+            "PORT": env('DB_PORT'),
+            "PASSWORD": env('DB_PASSWORD')
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(DEFAULT_DATABASE)
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

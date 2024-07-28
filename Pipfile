@@ -66,6 +66,7 @@ django-service-objects = "*"
 google-generativeai = "*"
 django-modeltranslation = "*"
 fcm-django = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
