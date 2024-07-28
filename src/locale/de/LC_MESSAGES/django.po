@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-13 18:20+0300\n"
+"POT-Creation-Date: 2024-07-28 17:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,163 +16,189 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\activities\models.py:24 .\activities\models.py:214 .\events\models.py:5
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\activities\models.py:26 .\activities\models.py:281 .\events\models.py:12
 #: .\services\models.py:16
 msgid "Name"
-msgstr ""
-
-#: .\activities\models.py:25
-msgid "Guide's Bio"
-msgstr ""
-
-#: .\activities\models.py:26 .\profiles\models.py:24
-msgid "Avatar"
-msgstr ""
+msgstr "Naam"
 
 #: .\activities\models.py:27
+msgid "Guide's Bio"
+msgstr "Biografie van de gids"
+
+#: .\activities\models.py:28 .\profiles\models.py:24
+msgid "Avatar"
+msgstr "Avatar"
+
+#: .\activities\models.py:29
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
-#: .\activities\models.py:35
+#: .\activities\models.py:37
 msgid "Likers"
-msgstr ""
+msgstr "Likers"
 
-#: .\activities\models.py:93
+#: .\activities\models.py:93 .\activities\models.py:215
+#: .\reservations\models.py:31
+msgid "Canceled"
+msgstr "Afgelast"
+
+#: .\activities\models.py:96
 msgid "Tags"
-msgstr ""
+msgstr "Labels"
 
-#: .\activities\models.py:102
+#: .\activities\models.py:120
 msgid "Takeoff date"
-msgstr ""
+msgstr "Startdatum"
 
-#: .\activities\models.py:103
+#: .\activities\models.py:121
 msgid "Tour Duration"
-msgstr ""
+msgstr "Duur van de rondleiding"
 
-#: .\activities\models.py:104
+#: .\activities\models.py:122
 msgid "Guide"
-msgstr ""
-
-#: .\activities\models.py:108
-msgid "Sites"
-msgstr ""
+msgstr "Gids"
 
 #: .\activities\models.py:126
+msgid "Sites"
+msgstr "Locaties"
+
+#: .\activities\models.py:144
 msgid "this guide is not available at the selected time period"
-msgstr ""
+msgstr "deze gids is niet beschikbaar in de geselecteerde periode"
 
-#: .\activities\models.py:133
+#: .\activities\models.py:162
 msgid "Opens At Time"
-msgstr ""
+msgstr "Opent om"
 
-#: .\activities\models.py:135 .\activities\models.py:200
+#: .\activities\models.py:164 .\activities\models.py:258
 msgid "Site"
-msgstr ""
+msgstr "Locatie"
 
-#: .\activities\models.py:136
+#: .\activities\models.py:165
 msgid "Link"
-msgstr ""
+msgstr "Koppeling"
 
-#: .\activities\models.py:158 .\activities\models.py:193
+#: .\activities\models.py:195 .\activities\models.py:251
 msgid "Activity"
-msgstr ""
+msgstr "Activiteit"
 
-#: .\activities\models.py:159
+#: .\activities\models.py:196
 msgid "Name of the ticket"
-msgstr ""
+msgstr "Naam van het ticket"
 
-#: .\activities\models.py:160 .\activities\models.py:215 .\events\models.py:6
-#: .\services\models.py:17
+#: .\activities\models.py:197 .\activities\models.py:282 .\events\models.py:13
+#: .\properties\models.py:44 .\services\models.py:17
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
-#: .\activities\models.py:176
+#: .\activities\models.py:213
 msgid "Stock"
-msgstr ""
+msgstr "Voorraad"
 
-#: .\activities\models.py:194
+#: .\activities\models.py:252
 msgid "Tag"
-msgstr ""
+msgstr "Label"
 
-#: .\activities\models.py:199
+#: .\activities\models.py:257
 msgid "Tour"
-msgstr ""
+msgstr "Rondleiding"
 
-#: .\activities\models.py:201
+#: .\activities\models.py:259
 msgid "Order"
-msgstr ""
+msgstr "Bestelling"
 
-#: .\activities\models.py:212
+#: .\activities\models.py:279
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
-#: .\activities\serializers.py:67 .\activities\serializers.py:73
+#: .\activities\serializers.py:68 .\activities\serializers.py:74
 msgid "Activity Does not exist."
-msgstr ""
+msgstr "Activiteit bestaat niet."
 
-#: .\activities\serializers.py:77
+#: .\activities\serializers.py:78
 msgid ""
 "the Valid until field must be at least a day earlier than the takeoff date."
-msgstr ""
+msgstr "het veld Geldig tot moet minimaal een dag eerder zijn dan de startdatum."
 
-#: .\activities\serializers.py:127 .\activities\serializers.py:136
+#: .\activities\serializers.py:132 .\activities\serializers.py:141
 msgid "duplicate entry for the site"
-msgstr ""
+msgstr "dubbele invoer voor de site"
 
-#: .\activities\serializers.py:129
+#: .\activities\serializers.py:134
 msgid "Tour does not exist."
-msgstr ""
+msgstr "Rondleiding bestaat niet."
 
-#: .\activities\serializers.py:167
+#: .\activities\serializers.py:172
 msgid "Takeoff date, duration, and book are required."
-msgstr ""
+msgstr "Startdatum, duur en boek zijn vereist."
 
-#: .\activities\serializers.py:183
+#: .\activities\serializers.py:188
 msgid "The specified time range overlaps with an existing tour for this guide."
-msgstr ""
+msgstr "Het opgegeven tijdsbereik overlapt met een bestaande tour voor deze gids."
 
-#: .\activities\serializers.py:209
+#: .\activities\serializers.py:217
 msgid "The sum of opens_at and work_hours exceeds 24 hours."
-msgstr ""
+msgstr "De som van opens_at en work_hours overschrijdt 24 uur."
 
 #: .\activities\validators.py:8
 msgid "Date cannot be in the past."
-msgstr ""
+msgstr "Datum mag niet in het verleden liggen."
 
-#: .\app_auth\admin.py:9
+#: .\activities\views.py:57
+msgid "already canceled"
+msgstr "al afgelast"
+
+#: .\activities\views.py:60 .\activities\views.py:121
+msgid "tour has already begun or concluded"
+msgstr "rondleiding is al begonnen of afgelopen"
+
+#: .\activities\views.py:75 .\activities\views.py:138
+msgid "cannot delete while some users have not been refunded"
+msgstr "kan niet verwijderen omdat sommige gebruikers geen terugbetaling hebben ontvangen"
+
+#: .\activities\views.py:171
+msgid "either the first id or second one or both was left blank"
+msgstr "de eerste id of de tweede, of beide, waren leeg gelaten"
+
+#: .\activities\views.py:175
+msgid "Not Found"
+msgstr "Niet gevonden"
+
+#: .\app_auth\admin.py:14
 msgid "Personal info"
-msgstr ""
+msgstr "Persoonlijke informatie"
 
-#: .\app_auth\admin.py:11
+#: .\app_auth\admin.py:16
 msgid "Permissions"
-msgstr ""
+msgstr "Toestemmingen"
 
-#: .\app_auth\admin.py:23
+#: .\app_auth\admin.py:28
 msgid "Important dates"
-msgstr ""
+msgstr "Belangrijke data"
 
 #: .\app_auth\models.py:30
 msgid "user"
-msgstr ""
+msgstr "gebruiker"
 
 #: .\app_auth\models.py:31
 msgid "users"
-msgstr ""
+msgstr "gebruikers"
 
 #: .\app_auth\templates\activate\email.html:4
 #, python-format
 msgid "Account activation on %(site_name)s"
-msgstr ""
+msgstr "Accountactivatie op %(site_name)s"
 
 #: .\app_auth\templates\activate\email.html:16
 msgid "Account Activation"
-msgstr ""
+msgstr "Accountactivatie"
 
 #: .\app_auth\templates\reset_password_email.html:4
 #, python-format
 msgid "Password reset on %(site_name)s"
-msgstr ""
+msgstr "Wachtwoord opnieuw instellen op %(site_name)s"
 
 #: .\app_auth\templates\reset_password_email.html:8
 #: .\app_auth\templates\reset_password_email.html:20
@@ -180,33 +206,48 @@ msgstr ""
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr ""
+msgstr "Je ontvangt deze e-mail omdat je een wachtwoordreset hebt aangevraagd voor je gebruikersaccount op %(site_name)s."
 
 #: .\app_auth\templates\reset_password_email.html:10
 #: .\app_auth\templates\reset_password_email.html:22
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Ga naar de volgende pagina en kies een nieuw wachtwoord:"
 
 #: .\app_auth\templates\reset_password_email.html:12
 #: .\app_auth\templates\reset_password_email.html:24
 msgid "Your username, in case you've forgotten:"
-msgstr ""
+msgstr "Je gebruikersnaam, voor het geval je het vergeten bent:"
 
 #: .\app_auth\templates\reset_password_email.html:14
 #: .\app_auth\templates\reset_password_email.html:26
 msgid "Thanks for using our site!"
-msgstr ""
+msgstr "Bedankt om onze website te gebruiken!"
 
 #: .\app_auth\templates\reset_password_email.html:16
 #: .\app_auth\templates\reset_password_email.html:28
 #, python-format
 msgid "The %(site_name)s team"
-msgstr ""
+msgstr "Het %(site_name)s-team"
+
+#: .\gemini\models.py:10
+msgid "Content made by Gemini"
+msgstr "Inhoud gemaakt door Gemini"
+
+#: .\gemini\models.py:11
+msgid "Prompt for the AI"
+msgstr "Vraag voor de AI"
+
+#: .\gemini\models.py:12
+msgid "Sensitivity of the ai"
+msgstr "Gevoeligheid van de ai"
+
+#: .\gemini\models.py:13
+msgid "The model of the AI"
+msgstr "Het model van de AI"
 
 #: .\profiles\models.py:17 .\profiles\models.py:49 .\profiles\models.py:75
-#: .\profiles\models.py:100
 msgid "User"
-msgstr ""
+msgstr "Gebruiker"
 
 #: .\profiles\models.py:19
 msgid "Bio"
@@ -214,76 +255,118 @@ msgstr ""
 
 #: .\profiles\models.py:20
 msgid "Marital Status"
-msgstr ""
+msgstr "Burgerlijke staat"
 
 #: .\profiles\models.py:21
 msgid "Birth Date"
-msgstr ""
+msgstr "Geboortedatum"
 
 #: .\profiles\models.py:22
 msgid "Number of Children"
-msgstr ""
+msgstr "Aantal kinderen"
 
-#: .\reservations\models.py:25
-msgid "Owner"
-msgstr ""
+#: .\reservations\exceptions.py:7
+msgid "This item is not refundable."
+msgstr "Dit artikel kan niet worden terugbetaald."
 
-#: .\reservations\models.py:27
-msgid "Scanned"
-msgstr ""
+#: .\reservations\exceptions.py:24
+msgid "This item can't be canceled."
+msgstr "Dit artikel kan niet worden geannuleerd."
 
 #: .\reservations\models.py:28
-msgid "Canceled"
-msgstr ""
-
-#: .\reservations\models.py:29
-msgid "Ticket scan date time"
-msgstr ""
+msgid "Owner"
+msgstr "Eigenaar"
 
 #: .\reservations\models.py:30
+msgid "Scanned"
+msgstr "Gescand"
+
+#: .\reservations\models.py:32
+msgid "Ticket scan date time"
+msgstr "Datum en tijd van ticketscan"
+
+#: .\reservations\models.py:33
 msgid "Unique Identifier"
-msgstr ""
+msgstr "Unieke identificatie"
 
-#: .\reservations\models.py:36 .\reservations\models.py:161
+#: .\reservations\models.py:37 .\reservations\models.py:161
+msgid "QR Code for uuid"
+msgstr "QR-code voor uuid"
+
+#: .\reservations\models.py:75 .\reservations\models.py:286
+#: .\reservations\models.py:341
 msgid "User does not have payment information"
-msgstr ""
+msgstr "Gebruiker heeft geen betalingsinformatie"
 
-#: .\reservations\models.py:70
+#: .\reservations\models.py:114
 msgid "Impossible situation encountered."
-msgstr ""
+msgstr "Onmogelijke situatie aangetroffen."
 
-#: .\reservations\models.py:86
+#: .\reservations\models.py:152
+msgid "No payments found to refund."
+msgstr "Geen betalingen gevonden voor terugbetaling."
+
+#: .\reservations\models.py:160
 msgid "Ticket"
-msgstr ""
+msgstr "Ticket"
 
-#: .\reservations\models.py:182
+#: .\reservations\models.py:169
+msgid "Can scan reservations"
+msgstr "Kan reserveringen scannen"
+
+#: .\reservations\models.py:200
+msgid "Invalid Reservation."
+msgstr "Ongeldige reservering."
+
+#: .\reservations\models.py:208
+msgid "Ticket is expired"
+msgstr "Ticket is verlopen"
+
+#: .\reservations\models.py:216
+msgid "Activity no longer available"
+msgstr "Activiteit niet langer beschikbaar"
+
+#: .\reservations\models.py:220
+msgid "Ticket is out of stock"
+msgstr "Ticket is niet op voorraad"
+
+#: .\reservations\models.py:289
+msgid "Insufficient funds"
+msgstr "Onvoldoende geld"
+
+#: .\reservations\models.py:307
 msgid "Points Amount"
-msgstr ""
+msgstr "Puntenbedrag"
 
-#: .\reservations\models.py:189
+#: .\reservations\models.py:314
 msgid "Insufficient points funds"
-msgstr ""
+msgstr "Onvoldoende puntenfonds"
 
-#: .\reservations\views.py:32
+#: .\reservations\views.py:46
 msgid "Ticket does not exist."
-msgstr ""
+msgstr "Ticket bestaat niet."
+
+#: .\reservations\views.py:52 .\reservations\views.py:64
+msgid "purchase object not found."
+msgstr "aankoopobject niet gevonden."
 
 #: .\services\models.py:50
 msgid "Gifted points"
-msgstr ""
+msgstr "geschonken punten"
 
-#: .\services\models.py:110
+#: .\services\models.py:119
 msgid "Review Comment"
-msgstr ""
+msgstr "Reviewcommentaar"
 
-#: .\services\models.py:117
+#: .\services\models.py:126
 msgid "Reviews are not allowed for this service."
-msgstr ""
+msgstr "Reviews zijn niet toegestaan ​​voor deze service."
 
 #: .\templates\admin\base_site.html:3
 msgid "Pingoway site admin"
-msgstr ""
+msgstr "Pingoway-sitebeheerder"
 
 #: .\templates\admin\base_site.html:6
 msgid "Pingoway administration"
-msgstr ""
+msgstr "Pingoway-administratie"
+

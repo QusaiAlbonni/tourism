@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-13 17:51+0300\n"
+"POT-Creation-Date: 2024-07-28 17:04+0300\n"
 "PO-Revision-Date: 2024-07-13 18:47+0300\n"
 "Last-Translator:   <me@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,126 +16,131 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 "X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: .\activities\models.py:24 .\activities\models.py:214 .\events\models.py:5
+#: .\activities\models.py:26 .\activities\models.py:281 .\events\models.py:12
 #: .\services\models.py:16
 msgid "Name"
 msgstr ""
 
-#: .\activities\models.py:25
+#: .\activities\models.py:27
 msgid "Guide's Bio"
 msgstr ""
 
-#: .\activities\models.py:26 .\profiles\models.py:24
+#: .\activities\models.py:28 .\profiles\models.py:24
 msgid "Avatar"
 msgstr ""
 
-#: .\activities\models.py:27
+#: .\activities\models.py:29
 msgid "Email"
 msgstr ""
 
-#: .\activities\models.py:35
+#: .\activities\models.py:37
 msgid "Likers"
 msgstr ""
 
-#: .\activities\models.py:93
+#: .\activities\models.py:93 .\activities\models.py:215
+#: .\reservations\models.py:31
+msgid "Canceled"
+msgstr ""
+
+#: .\activities\models.py:96
 msgid "Tags"
 msgstr ""
 
-#: .\activities\models.py:102
+#: .\activities\models.py:120
 msgid "Takeoff date"
 msgstr ""
 
-#: .\activities\models.py:103
+#: .\activities\models.py:121
 msgid "Tour Duration"
 msgstr ""
 
-#: .\activities\models.py:104
+#: .\activities\models.py:122
 msgid "Guide"
 msgstr ""
 
-#: .\activities\models.py:108
+#: .\activities\models.py:126
 msgid "Sites"
 msgstr ""
 
-#: .\activities\models.py:126
+#: .\activities\models.py:144
 msgid "this guide is not available at the selected time period"
 msgstr ""
 
-#: .\activities\models.py:133
+#: .\activities\models.py:162
 msgid "Opens At Time"
 msgstr ""
 
-#: .\activities\models.py:135 .\activities\models.py:200
+#: .\activities\models.py:164 .\activities\models.py:258
 msgid "Site"
 msgstr ""
 
-#: .\activities\models.py:136
+#: .\activities\models.py:165
 msgid "Link"
 msgstr ""
 
-#: .\activities\models.py:158 .\activities\models.py:193
+#: .\activities\models.py:195 .\activities\models.py:251
 msgid "Activity"
 msgstr ""
 
-#: .\activities\models.py:159
+#: .\activities\models.py:196
 msgid "Name of the ticket"
 msgstr ""
 
-#: .\activities\models.py:160 .\activities\models.py:215 .\events\models.py:6
-#: .\services\models.py:17
+#: .\activities\models.py:197 .\activities\models.py:282 .\events\models.py:13
+#: .\properties\models.py:44 .\services\models.py:17
 msgid "Description"
 msgstr ""
 
-#: .\activities\models.py:176
+#: .\activities\models.py:213
 msgid "Stock"
 msgstr ""
 
-#: .\activities\models.py:194
+#: .\activities\models.py:252
 msgid "Tag"
 msgstr ""
 
-#: .\activities\models.py:199
+#: .\activities\models.py:257
 msgid "Tour"
 msgstr ""
 
-#: .\activities\models.py:201
+#: .\activities\models.py:259
 msgid "Order"
 msgstr ""
 
-#: .\activities\models.py:212
+#: .\activities\models.py:279
 msgid "Photo"
 msgstr ""
 
-#: .\activities\serializers.py:67 .\activities\serializers.py:73
+#: .\activities\serializers.py:68 .\activities\serializers.py:74
 msgid "Activity Does not exist."
 msgstr ""
 
-#: .\activities\serializers.py:77
+#: .\activities\serializers.py:78
 msgid ""
 "the Valid until field must be at least a day earlier than the takeoff date."
 msgstr ""
 
-#: .\activities\serializers.py:127 .\activities\serializers.py:136
+#: .\activities\serializers.py:132 .\activities\serializers.py:141
 msgid "duplicate entry for the site"
 msgstr ""
 
-#: .\activities\serializers.py:129
+#: .\activities\serializers.py:134
 msgid "Tour does not exist."
 msgstr ""
 
-#: .\activities\serializers.py:167
+#: .\activities\serializers.py:172
 msgid "Takeoff date, duration, and book are required."
 msgstr ""
 
-#: .\activities\serializers.py:183
-msgid ""
-"The specified time range overlaps with an existing tour for this guide."
+#: .\activities\serializers.py:188
+msgid "The specified time range overlaps with an existing tour for this guide."
 msgstr ""
 
-#: .\activities\serializers.py:209
+#: .\activities\serializers.py:217
 msgid "The sum of opens_at and work_hours exceeds 24 hours."
 msgstr ""
 
@@ -143,15 +148,35 @@ msgstr ""
 msgid "Date cannot be in the past."
 msgstr ""
 
-#: .\app_auth\admin.py:9
+#: .\activities\views.py:57
+msgid "already canceled"
+msgstr ""
+
+#: .\activities\views.py:60 .\activities\views.py:121
+msgid "tour has already begun or concluded"
+msgstr ""
+
+#: .\activities\views.py:75 .\activities\views.py:138
+msgid "cannot delete while some users have not been refunded"
+msgstr ""
+
+#: .\activities\views.py:171
+msgid "either the first id or second one or both was left blank"
+msgstr ""
+
+#: .\activities\views.py:175
+msgid "Not Found"
+msgstr ""
+
+#: .\app_auth\admin.py:14
 msgid "Personal info"
 msgstr ""
 
-#: .\app_auth\admin.py:11
+#: .\app_auth\admin.py:16
 msgid "Permissions"
 msgstr ""
 
-#: .\app_auth\admin.py:23
+#: .\app_auth\admin.py:28
 msgid "Important dates"
 msgstr ""
 
@@ -206,8 +231,23 @@ msgstr ""
 msgid "The %(site_name)s team"
 msgstr ""
 
+#: .\gemini\models.py:10
+msgid "Content made by Gemini"
+msgstr ""
+
+#: .\gemini\models.py:11
+msgid "Prompt for the AI"
+msgstr ""
+
+#: .\gemini\models.py:12
+msgid "Sensitivity of the ai"
+msgstr ""
+
+#: .\gemini\models.py:13
+msgid "The model of the AI"
+msgstr ""
+
 #: .\profiles\models.py:17 .\profiles\models.py:49 .\profiles\models.py:75
-#: .\profiles\models.py:100
 msgid "User"
 msgstr ""
 
@@ -227,59 +267,102 @@ msgstr ""
 msgid "Number of Children"
 msgstr ""
 
-#: .\reservations\models.py:25
-msgid "Owner"
+#: .\reservations\exceptions.py:7
+msgid "This item is not refundable."
 msgstr ""
 
-#: .\reservations\models.py:27
-msgid "Scanned"
+#: .\reservations\exceptions.py:24
+msgid "This item can't be canceled."
 msgstr ""
 
 #: .\reservations\models.py:28
-msgid "Canceled"
-msgstr ""
-
-#: .\reservations\models.py:29
-msgid "Ticket scan date time"
+msgid "Owner"
 msgstr ""
 
 #: .\reservations\models.py:30
+msgid "Scanned"
+msgstr ""
+
+#: .\reservations\models.py:32
+msgid "Ticket scan date time"
+msgstr ""
+
+#: .\reservations\models.py:33
 msgid "Unique Identifier"
 msgstr ""
 
-#: .\reservations\models.py:36 .\reservations\models.py:161
+#: .\reservations\models.py:37 .\reservations\models.py:161
+msgid "QR Code for uuid"
+msgstr ""
+
+#: .\reservations\models.py:75 .\reservations\models.py:286
+#: .\reservations\models.py:341
 msgid "User does not have payment information"
 msgstr ""
 
-#: .\reservations\models.py:70
+#: .\reservations\models.py:114
 msgid "Impossible situation encountered."
 msgstr ""
 
-#: .\reservations\models.py:86
+#: .\reservations\models.py:152
+msgid "No payments found to refund."
+msgstr ""
+
+#: .\reservations\models.py:160
 msgid "Ticket"
 msgstr ""
 
-#: .\reservations\models.py:182
+#: .\reservations\models.py:169
+msgid "Can scan resrvations"
+msgstr ""
+
+#: .\reservations\models.py:200
+msgid "Invalid Reservation."
+msgstr ""
+
+#: .\reservations\models.py:208
+msgid "Ticket is expired"
+msgstr ""
+
+#: .\reservations\models.py:216
+msgid "Activity no longer available"
+msgstr ""
+
+#: .\reservations\models.py:220
+msgid "Ticket is out of stock"
+msgstr ""
+
+#: .\reservations\models.py:289
+#, fuzzy
+#| msgid "Insufficient points funds"
+msgid "Insufficient funds"
+msgstr "las nono"
+
+#: .\reservations\models.py:307
 msgid "Points Amount"
 msgstr ""
 
-#: .\reservations\models.py:189
+#: .\reservations\models.py:314
 msgid "Insufficient points funds"
 msgstr "las nono"
 
-#: .\reservations\views.py:32
+#: .\reservations\views.py:46
 msgid "Ticket does not exist."
+msgstr ""
+
+#: .\reservations\views.py:52 .\reservations\views.py:64
+msgid "purchase object not found."
 msgstr ""
 
 #: .\services\models.py:50
 msgid "Gifted points"
 msgstr ""
 
-#: .\services\models.py:110
+#: .\services\models.py:119
 msgid "Review Comment"
 msgstr ""
 
-#: .\services\models.py:117
+#: .\services\models.py:126
 msgid "Reviews are not allowed for this service."
 msgstr ""
 

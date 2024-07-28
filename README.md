@@ -14,6 +14,7 @@ pipenv install
 pipenv shell
 cd src
 py manage.py migrate
+py manage.py compilemessages
 py manage.py runserver
 ```
 

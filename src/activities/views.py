@@ -3,7 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.exceptions import ValidationError, NotFound
+from rest_framework.exceptions import ValidationError, NotFound, MethodNotAllowed
 from app_auth.permissions import isAdminOrReadOnly, CanManageActivitiesOrReadOnly
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
 from .serializers import GuideSerializer, SiteSerializer, TicketSerializer, ActivitySerializer, TourSerializer, TourSiteSerializer, ListingSerializer
@@ -105,11 +105,11 @@ class ActivityViewSet(viewsets.ModelViewSet):
         return queryset
     
     def create(self, request, *args, **kwargs):
-        raise Http404()
+        raise MethodNotAllowed()
     def update(self, request, *args, **kwargs):
-        raise Http404()
+        raise MethodNotAllowed()
     def partial_update(self, request, *args, **kwargs):
-        raise Http404()
+        raise MethodNotAllowed()
     
     @action(['post',], detail=True)
     def cancel(self, request, pk):

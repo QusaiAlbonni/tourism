@@ -166,7 +166,7 @@ class TicketPurchase(BaseReservation):
     class Meta:
         ordering = ['-created']
         permissions = (
-            ('scan_reservations', _('Can scan resrvations')),
+            ('scan_reservations', _('Can scan reservations')),
         )
         
     @property

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-27 03:05+0300\n"
+"POT-Creation-Date: 2024-07-28 17:52+0300\n"
 "PO-Revision-Date: 2024-07-27 03:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -140,7 +140,7 @@ msgstr "مطلوب تاريخ الإقلاع والمدة والحجز."
 msgid "The specified time range overlaps with an existing tour for this guide."
 msgstr "يتداخل النطاق الزمني المحدد مع جولة سياحية موجودة لهذا الدليل."
 
-#: .\activities\serializers.py:214
+#: .\activities\serializers.py:217
 msgid "The sum of opens_at and work_hours exceeds 24 hours."
 msgstr "مجموع ساعة الافتتاح وساعات العمل يتجاوز 24 ساعة."
 
@@ -160,11 +160,11 @@ msgstr "الجولة بدات او تمت بالفعل"
 msgid "cannot delete while some users have not been refunded"
 msgstr "لا بمكن الحذف مادام بعض المستخدمين لم يتم مكافاتهم"
 
-#: .\activities\views.py:170
+#: .\activities\views.py:171
 msgid "either the first id or second one or both was left blank"
 msgstr "احد المعرفان غير صحيح"
 
-#: .\activities\views.py:174
+#: .\activities\views.py:175
 msgid "Not Found"
 msgstr "غير موجود"
 
@@ -233,6 +233,22 @@ msgstr "شكرًا لاستخدام موقعنا!"
 msgid "The %(site_name)s team"
 msgstr "فريق %(site_name)s"
 
+#: .\gemini\models.py:10
+msgid "Content made by Gemini"
+msgstr "geminiمحتوى مصنوع من قبل "
+
+#: .\gemini\models.py:11
+msgid "Prompt for the AI"
+msgstr "الاوامر المعنية للذكاء الاصطناعي"
+
+#: .\gemini\models.py:12
+msgid "Sensitivity of the ai"
+msgstr "حساسية الذكاء"
+
+#: .\gemini\models.py:13
+msgid "The model of the AI"
+msgstr "الاصدار المستخدم للذكاء"
+
 #: .\profiles\models.py:17 .\profiles\models.py:49 .\profiles\models.py:75
 msgid "User"
 msgstr "المستخدم"
@@ -299,7 +315,9 @@ msgid "Ticket"
 msgstr "تذكرة"
 
 #: .\reservations\models.py:169
-msgid "Can scan resrvations"
+#, fuzzy
+#| msgid "Can scan resrvations"
+msgid "Can scan reservations"
 msgstr "يمكن مسح الحجز"
 
 #: .\reservations\models.py:200

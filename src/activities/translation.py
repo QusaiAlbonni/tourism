@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions, translator
-from .models import Listing, Tour, Activity
+from .models import Listing, Tour, Activity, Ticket
 
 @register(Activity)
 class ActivityTranslationOptions(TranslationOptions):
@@ -17,3 +17,6 @@ class TourTranslationOptions(TranslationOptions):
     
     
     
+@register(Ticket)
+class TicketTranslationOptions(TranslationOptions):
+    fields = ('name', 'description')
