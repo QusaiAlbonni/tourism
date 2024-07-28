@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django.contrib.postgres',
     'service_objects',
+    'modeltranslation',
     
     # pingoway apps
     'app_auth',
@@ -267,3 +268,9 @@ LOCALE_PATHS = (BASE_DIR / 'locale/', )
 genai.configure(api_key=env("GEMINI_API_KEY"))
 
 GEMINI_GENERATIVE_MODEL = env("GEMINI_GENERATIVE_MODEL")
+
+MODELTRANSLATION_LANGUAGES = ('en', 'nl', 'ar', 'es', 'fr')
+
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'nl')
+
+MODELTRANSLATION_AUTO_POPULATE = True
