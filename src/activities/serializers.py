@@ -187,6 +187,9 @@ class TourSerializer(ServiceSerializer):
         if overlapping_records.exists():
             raise serializers.ValidationError({"guide_id":_("The specified time range overlaps with an existing tour for this guide.")})
         return super().validate(data)
+    def update(self, instance, validated_data):
+        validated_data.pop('photos', None)
+        return super().update(instance, validated_data)
 
 class ListingSerializer(ServiceSerializer):
     tickets = TicketSerializer(read_only=True, many=True)
@@ -213,4 +216,7 @@ class ListingSerializer(ServiceSerializer):
         if closing_time.time() < opens_at:
             raise ValidationError(_("The sum of opens_at and work_hours exceeds 24 hours."))
         return super().validate(data)
+    def update(self, instance, validated_data):
+        validated_data.pop('photos', None)
+        return super().update(instance, validated_data)
         

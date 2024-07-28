@@ -217,7 +217,6 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
         try:
             result = GeminiGenerateContent.execute(inputs =prompt_dict)
         except Exception as e:
-            raise e
             return Response({'detail': str(e)}, status.HTTP_503_SERVICE_UNAVAILABLE)
             
         return Response({'result': result}, status.HTTP_200_OK)

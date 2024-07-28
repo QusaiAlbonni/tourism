@@ -71,9 +71,9 @@ INSTALLED_APPS = [
     # pingoway apps
     'app_auth',
     'profiles',
-    'activities',
     'tags',
     'services',
+    'activities',
     'properties',
     'events',
     'reservations',
