@@ -34,7 +34,7 @@ urlpatterns = [
     path('tags/', include('tags.urls')),
     path('events/', include('events.urls')),
     path('services/properties/',include('properties.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+]  + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 urlpatterns += [
         re_path(r'^rosetta/', include('rosetta.urls'))
     ]
