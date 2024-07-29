@@ -4,13 +4,15 @@ from .models import Activity
 
 class ActivityFilterSet(FilterSet):
     type = filters.CharFilter(method='filter_by_type')
+    
+    tour__takeoff_date = filters.DateTimeFilter()
 
     class Meta:
         model = Activity
         fields = {
-            'tour__takeoff_date': ['exact', 'gte', 'lte'],
-            'tour__duration': ['exact', 'gte', 'lte'],
-            'tickets__price': ['exact', 'gte', 'lte'],
+            'tour__takeoff_date': ['exact', 'range'],
+            'tour__duration': ['exact', 'range'],
+            'tickets__price': ['exact', 'range'],
         }
     
     

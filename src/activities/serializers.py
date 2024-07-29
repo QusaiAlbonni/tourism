@@ -1,6 +1,6 @@
 import datetime
 from rest_framework import serializers
-from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
+from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing, ActivityTag
 from services.serializers import ServiceSerializer
 from address.models import Address
 from django.db import IntegrityError
@@ -10,6 +10,9 @@ from django.http import Http404
 import django.utils.timezone as timezone
 from django.utils.translation import gettext_lazy as _
 from services.serializers import ServicePhotoSerializer
+from tags.serializers import TagSerializer
+from tags.models import Tag
+from django.shortcuts import get_object_or_404
 
 class GuideSerializer(serializers.ModelSerializer):
     liked = serializers.SerializerMethodField()
@@ -110,6 +113,38 @@ class ActivitySerializer(serializers.ModelSerializer):
         
     def get_type(self, obj : Activity):
         return obj.type
+    
+class ActivityTagSerializer(serializers.ModelSerializer):
+    tag = TagSerializer(read_only=True)
+    tag_id = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), write_only=True, source='tag', allow_null=False)
+    class Meta:
+        model = ActivityTag
+        fields = ['id','activity', 'tag', 'tag_id']
+        read_only_fields = ['activity', 'tag']
+        
+    def create(self, validated_data):
+        
+        validated_data['activity_id'] = self.context['activity_pk'] 
+        
+        get_object_or_404(Activity, pk= validated_data['activity_id'])
+              
+        try:
+            try:
+                activity_tag = super().create(validated_data)
+            except (ValueError, IntegrityError) as e:
+                raise ValidationError({"detail": str(e)})
+        except Activity.DoesNotExist as e:
+            raise Http404(_("Activity does not exist."))
+        return activity_tag
+    
+    def update(self, instance, validated_data):
+        get_object_or_404(Activity, pk= validated_data['activity_id'])
+        
+        try:
+            instance= super().update(instance, validated_data)
+        except (IntegrityError, ValueError) as e:
+            raise ValidationError({"detail": str(e)})
+        return instance
         
 
 class TourSiteSerializer(serializers.ModelSerializer):
@@ -154,14 +189,16 @@ class TourSerializer(ServiceSerializer):
     guide       = GuideSerializer(read_only=True)
     guide_id    = serializers.PrimaryKeyRelatedField(queryset=Guide.objects.all(), write_only=True, source='guide', allow_null=False)
     tickets     = TicketSerializer(read_only= True, many=True)
+    activity_tags        = ActivityTagSerializer(many=True, read_only=True)
     class Meta:
         model = Tour
-        fields = ServiceSerializer.Meta.fields + ['sites','tickets','guide_id','guide','takeoff_date','end_date', 'end_date', 'duration']
+        fields = ServiceSerializer.Meta.fields + ['activity_tags','sites','tickets','guide_id','guide','takeoff_date','end_date', 'end_date', 'duration']
         read_only_fields = ['created', 'modified', 'tickets', 'guide', 'upfront_rate']
     
     def create(self, validated_data):
         validated_data['upfront_rate'] = 100
         return super().create(validated_data)
+    
 
     def validate(self, data):
         takeoff_date = data.get('takeoff_date')
@@ -219,4 +256,7 @@ class ListingSerializer(ServiceSerializer):
     def update(self, instance, validated_data):
         validated_data.pop('photos', None)
         return super().update(instance, validated_data)
+    
+    
+
         

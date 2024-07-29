@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError, NotFound, MethodNotAllowed
 from app_auth.permissions import isAdminOrReadOnly, CanManageActivitiesOrReadOnly
 from .models import Guide, Activity, Site, Ticket, Tour, TourSite, Listing
-from .serializers import GuideSerializer, SiteSerializer, TicketSerializer, ActivitySerializer, TourSerializer, TourSiteSerializer, ListingSerializer
+from .serializers import GuideSerializer, SiteSerializer, TicketSerializer, ActivitySerializer, TourSerializer, TourSiteSerializer, ListingSerializer, ActivityTagSerializer, ActivityTag
 from django.db import transaction
 from django.utils.timezone import timedelta, now
 from rest_framework import filters
@@ -85,6 +85,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
     search_fields = [
                     '@name',
                     '@description',
+                    '@name_en',
+                    '@description_en',
                     '@tour__guide__name',
                     '@tickets__name',
                     '@tour__sites__name',
@@ -102,6 +104,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         if is_read_only_user(self.request.user, 'app_auth.manage_activities'):
             queryset = queryset.filter(canceled = False)
+            queryset = queryset.filter(Q(tour__isnull = True) | Q(tour__tour_sites__isnull = False))
         return queryset
     
     def create(self, request, *args, **kwargs):
@@ -193,6 +196,16 @@ class TourSiteViewSet(viewsets.ModelViewSet):
         serializer = TourSiteSerializer([first_attraction, second_attraction], many=True, read_only= True)
         return Response(serializer.data, status.HTTP_200_OK)
         
+        
+class ActivityTagViewSet(viewsets.ModelViewSet):
+    serializer_class  = ActivityTagSerializer
+    permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
+    def get_queryset(self):
+        return ActivityTag.objects.filter(activity= self.kwargs['activity_pk'])
+    def get_serializer_context(self):   
+        context = super().get_serializer_context()
+        context['activity_pk'] = self.kwargs['activity_pk']
+        return context
 class ListingViewSet(viewsets.ModelViewSet):
     serializer_class = ListingSerializer
     queryset = Listing.objects.all()

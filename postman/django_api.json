@@ -686,6 +686,14 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					],
 					"description": "types of card is :\n\nVisa\n\nMastercard\n\nAmerican Express"
@@ -2836,12 +2844,27 @@
 					]
 				},
 				{
-					"name": "refund_all",
+					"name": "search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
-						"method": "POST",
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/services/activities/1/refund_all/",
+							"raw": "http://localhost:8000/services/activities/?search=new york&tour__duration=&tickets__price=&tour__takeoff_date=2024-08-07T12:34:00&tour__duration__range=&tickets__price__range=&type=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2850,8 +2873,122 @@
 							"path": [
 								"services",
 								"activities",
-								"1",
-								"refund_all",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "new york",
+									"description": "main search text"
+								},
+								{
+									"key": "tour__duration",
+									"value": "",
+									"description": "exact"
+								},
+								{
+									"key": "tickets__price",
+									"value": "",
+									"description": "exact INCOMPLETE"
+								},
+								{
+									"key": "tour__takeoff_date",
+									"value": "2024-08-07T12:34:00",
+									"description": "exact"
+								},
+								{
+									"key": "tour__takeoff_date__range",
+									"value": "2024-01-01,2026-01-01",
+									"description": "range: before, after",
+									"disabled": true
+								},
+								{
+									"key": "tour__duration__range",
+									"value": "",
+									"description": "range: lower, upper"
+								},
+								{
+									"key": "tickets__price__range",
+									"value": "",
+									"description": "range: lower, upper INCOMPLETE"
+								},
+								{
+									"key": "type",
+									"value": ""
+								}
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve activities services. The request includes query parameters for searching activities, filtering by tour duration, tickets price, takeoff date, and type. The response will be in JSON format with a status code of 200.\n\n### Response\n\nThe response is a JSON object with the following schema:\n\n``` json\n{\n    \"count\": integer,\n    \"next\": string or null,\n    \"previous\": string or null,\n    \"results\": [\n        {\n            \"id\": integer,\n            \"name\": string,\n            \"description\": string,\n            \"refund_rate\": string,\n            \"upfront_rate\": string,\n            \"points_gift\": integer,\n            \"allow_points\": boolean,\n            \"allow_review\": boolean,\n            \"photos\": [\n                {\n                    \"id\": integer,\n                    \"image\": string\n                }\n            ],\n            \"avg_rating\": integer,\n            \"num_rating\": integer,\n            \"discount\": integer,\n            \"on_discount\": array,\n            \"type\": string\n        }\n    ]\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "cancel",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "tags",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "headerPrefix",
+									"value": "JWT",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/services/activities/5/tags/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"activities",
+								"5",
+								"tags",
 								""
 							]
 						}
@@ -2883,6 +3020,103 @@
 							"body": null
 						}
 					]
+				},
+				{
+					"name": "tags delete",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "headerPrefix",
+									"value": "JWT",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/services/activities/5/tags/2/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"activities",
+								"5",
+								"tags",
+								"2",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "cancel",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/services/activities/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"activities",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "refund_all",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/services/activities/1/refund_all/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"services",
+								"activities",
+								"1",
+								"refund_all",
+								""
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "delete",
@@ -4339,57 +4573,6 @@
 					"name": "Discount",
 					"item": [
 						{
-							"name": "create",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "service",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "event",
-											"value": "",
-											"description": "can be null  this mean teh disc alowys true",
-											"type": "text"
-										},
-										{
-											"key": "percent",
-											"value": "22",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-discounts/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-discounts",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "update",
 							"request": {
 								"method": "PUT",
@@ -4785,6 +4968,14 @@
 									"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 14,\n            \"service\": null,\n            \"event\": 1,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:11:05.975582Z\",\n            \"modified\": \"2024-07-26T03:11:05.975582Z\"\n        },\n        {\n            \"id\": 15,\n            \"service\": 1,\n            \"event\": 1,\n            \"percent\": \"22.0\",\n            \"created\": \"2024-07-26T03:11:28.156097Z\",\n            \"modified\": \"2024-07-26T03:11:28.156097Z\"\n        }\n    ]\n}"
 								}
 							]
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					]
 				},

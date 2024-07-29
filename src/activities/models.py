@@ -18,6 +18,7 @@ from django.core.exceptions import ValidationError
 from reservations.models import TicketPurchase
 from reservations.services import refund_all_purchases
 User = get_user_model()
+from tags.models import SupTag
 
 
 
@@ -247,11 +248,9 @@ class Ticket(models.Model):
         queryset = TicketPurchase.objects.filter(canceled= False, scanned= False, ticket = self)
         refund_all_purchases(queryset= queryset, model=TicketPurchase)
     
-class ActivityTag(models.Model):
-    activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE)
-    tag     = models.ForeignKey(Tag, verbose_name=_("Tag"), on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
-    modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+class ActivityTag(SupTag):
+    activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE, related_name='activity_tags')
+    allowed_category_type = 'Activity'
     
 class TourSite(models.Model):
     tour = models.ForeignKey("Tour", verbose_name=_("Tour"), on_delete=models.CASCADE, related_name='tour_sites')
