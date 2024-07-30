@@ -18,11 +18,4 @@ class GeminiResponse(models.Model):
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
-        self.model = version
-        temp = genai.GenerationConfig.temperature
-        genai.GenerationConfig.temperature = self.temperature
-        response= gemini.generate_content(self.prompt)
-        self.content = response.text
         return super().save(force_insert, force_update, using, update_fields)
-    def validate_temperature(self):
-        pass
