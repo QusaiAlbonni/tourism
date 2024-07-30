@@ -45,8 +45,8 @@ class Service(models.Model):
             MaxValueValidator(Decimal('100.0'))
         ]
     )
-    allow_points = models.BooleanField(null=False,default=False)
-    allow_review = models.BooleanField(null=False,default=False)
+    allow_points = models.BooleanField(null=False,default=True)
+    allow_review = models.BooleanField(null=False,default=True)
     points_gift = models.PositiveIntegerField(_("Gifted points"),
                                             validators=[MaxValueValidator(10000), MinValueValidator(1)]
                                         )

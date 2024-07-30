@@ -114,7 +114,7 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
-            if self.request.user.is_admin:
+            if (not self.request.user.is_anonymous) and self.request.user.is_admin:
                 return self.get_paginated_response(serializer.data)
             else:
                 reviews = serializer.data
@@ -125,7 +125,7 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
                         review['can_delete'] = 0
                 response_data ={
                 'reviews':reviews,
-                'user_can_review':1 if not queryset.filter(user=self.request.user).exists() else 0
+                'user_can_review':1 if not queryset.filter(user_id=self.request.user.id).exists() else 0
                 }
 
                 return self.get_paginated_response(response_data)
@@ -144,7 +144,8 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
     def custom_get_queryset(self,request,*args, **kwargs):
         user = request.query_params.get('user_id', None)
         service = request.query_params.get('service_id', None)
-        if self.request.user.is_admin:
+        get_object_or_404(Service, pk = service)
+        if (not self.request.user.is_anonymous) and self.request.user.is_admin:
             if user and service:
                 return self.queryset.filter(user=user,service=service)
             elif user:
@@ -190,7 +191,7 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
         except ValidationError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
-    @action(methods=["get"], detail=False)
+    @action(methods=["get"], detail=False, permission_classes= [IsAuthenticated])
     def me(self, request, *args, **kwargs):
         service_id = request.query_params.get('service_id', None)
         user = request.user
