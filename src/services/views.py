@@ -105,7 +105,7 @@ class ServiceFavoriteViewSet(viewsets.ModelViewSet):
         
 class ServiceReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceReviewSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = ServiceReview.objects.all()  
     
     def list(self, request, *args, **kwargs):
