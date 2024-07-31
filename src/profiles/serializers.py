@@ -6,6 +6,7 @@ from django.core.validators import MinLengthValidator
 from datetime import  timedelta
 from address.models import Address
 from .models import Profile
+from djmoney.contrib.exchange.models import Rate
 
 User = get_user_model()
 
@@ -95,3 +96,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance = self.context['request'].user.profile
         return super().update(instance, validated_data)
         
+
+class RateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rate
+        fields = ('id', 'currency', 'value')
+        
+    

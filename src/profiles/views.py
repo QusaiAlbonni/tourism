@@ -8,6 +8,8 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError, MethodNotAllowed, NotFound
 from .models import Profile, CreditCard,PointsWallet
 from address.models import Address
+from djmoney.contrib.exchange.models import Rate
+from .serializers import RateSerializer
 
 
 
@@ -137,3 +139,10 @@ class ProfileAddressView(mixins.RetrieveModelMixin,
     def patch(self, request, *args, **kwargs):
         self.get_object = self.get_instance
         return self.partial_update(request, *args, **kwargs)
+    
+class ExchangeRatesView(mixins.ListModelMixin, generics.GenericAPIView):
+    queryset = Rate.objects.all()
+    serializer_class= RateSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)

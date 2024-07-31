@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-28 17:52+0300\n"
+"POT-Creation-Date: 2024-07-31 02:09+0300\n"
 "PO-Revision-Date: 2024-07-27 03:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,128 +19,134 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 2.2\n"
 
-#: .\activities\models.py:26 .\activities\models.py:281 .\events\models.py:12
+#: .\activities\models.py:27 .\activities\models.py:280 .\events\models.py:12
 #: .\services\models.py:16
 msgid "Name"
 msgstr "الاسم"
 
-#: .\activities\models.py:27
+#: .\activities\models.py:28
 msgid "Guide's Bio"
 msgstr "السيرة الذاتية للمرشد"
 
-#: .\activities\models.py:28 .\profiles\models.py:24
+#: .\activities\models.py:29 .\profiles\models.py:24
 msgid "Avatar"
 msgstr "الصورة الشخصية"
 
-#: .\activities\models.py:29
+#: .\activities\models.py:30
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: .\activities\models.py:37
+#: .\activities\models.py:38
 msgid "Likers"
 msgstr "المعجبون"
 
-#: .\activities\models.py:93 .\activities\models.py:215
+#: .\activities\models.py:94 .\activities\models.py:216
 #: .\reservations\models.py:31
 msgid "Canceled"
 msgstr "ملغى"
 
-#: .\activities\models.py:96
+#: .\activities\models.py:97
 msgid "Tags"
 msgstr "الوسوم"
 
-#: .\activities\models.py:120
+#: .\activities\models.py:121
 msgid "Takeoff date"
 msgstr "تاريخ الإنطلاق"
 
-#: .\activities\models.py:121
+#: .\activities\models.py:122
 msgid "Tour Duration"
 msgstr "مدة الجولة السياحية"
 
-#: .\activities\models.py:122
+#: .\activities\models.py:123
 msgid "Guide"
 msgstr "مرشد"
 
-#: .\activities\models.py:126
+#: .\activities\models.py:127
 msgid "Sites"
 msgstr "مواقع"
 
-#: .\activities\models.py:144
+#: .\activities\models.py:145
 msgid "this guide is not available at the selected time period"
 msgstr "ان المرشد السياحي المختار غير متوفر في هذه المدة الزمنية"
 
-#: .\activities\models.py:162
+#: .\activities\models.py:163
 msgid "Opens At Time"
 msgstr "وقت الافتتاح"
 
-#: .\activities\models.py:164 .\activities\models.py:258
+#: .\activities\models.py:165 .\activities\models.py:257
 msgid "Site"
 msgstr "موقع"
 
-#: .\activities\models.py:165
+#: .\activities\models.py:166
 msgid "Link"
 msgstr "الرابط الالكتروني"
 
-#: .\activities\models.py:195 .\activities\models.py:251
+#: .\activities\models.py:196 .\activities\models.py:252
 msgid "Activity"
 msgstr "النشاط السياحي"
 
-#: .\activities\models.py:196
+#: .\activities\models.py:197
 msgid "Name of the ticket"
 msgstr "الاسم"
 
-#: .\activities\models.py:197 .\activities\models.py:282 .\events\models.py:13
+#: .\activities\models.py:198 .\activities\models.py:281 .\events\models.py:13
 #: .\properties\models.py:44 .\services\models.py:17
 msgid "Description"
 msgstr "الوصف"
 
-#: .\activities\models.py:213
+#: .\activities\models.py:214
 msgid "Stock"
 msgstr "المخزون"
 
-#: .\activities\models.py:252
-msgid "Tag"
-msgstr "العلامة"
-
-#: .\activities\models.py:257
+#: .\activities\models.py:256
 msgid "Tour"
 msgstr "جولة سياحية"
 
-#: .\activities\models.py:259
+#: .\activities\models.py:258
 msgid "Order"
 msgstr "الترتيب"
 
-#: .\activities\models.py:279
+#: .\activities\models.py:278
 msgid "Photo"
 msgstr "صورة"
 
-#: .\activities\serializers.py:68 .\activities\serializers.py:74
+#: .\activities\serializers.py:71 .\activities\serializers.py:77
 msgid "Activity Does not exist."
 msgstr "النشاط السياحي غير موجود."
 
-#: .\activities\serializers.py:78
+#: .\activities\serializers.py:81
+#, fuzzy
+#| msgid ""
+#| "the Valid until field must be at least a day earlier than the takeoff "
+#| "date."
 msgid ""
-"the Valid until field must be at least a day earlier than the takeoff date."
+"the Valid until field must be at least a day after than the takeoff date."
 msgstr ""
-"يجب أن يكون الحقل \"صالح حتى\" قبل يوم واحد على الأقل من تاريخ الإنطلاق."
+"يجب أن يكون الحقل \"صالح حتى\" بعد يوم واحد على الأقل من تاريخ الإنطلاق."
 
-#: .\activities\serializers.py:132 .\activities\serializers.py:141
+#: .\activities\serializers.py:137
+#, fuzzy
+#| msgid "Activity Does not exist."
+msgid "Activity does not exist."
+msgstr "النشاط السياحي غير موجود."
+
+#: .\activities\serializers.py:167 .\activities\serializers.py:176
 msgid "duplicate entry for the site"
 msgstr "إدخال مكرر للموقع"
 
-#: .\activities\serializers.py:134
+#: .\activities\serializers.py:169
 msgid "Tour does not exist."
 msgstr "الجولة السياحية غير موجودة."
 
-#: .\activities\serializers.py:172
+#: .\activities\serializers.py:209
 msgid "Takeoff date, duration, and book are required."
 msgstr "مطلوب تاريخ الإقلاع والمدة والحجز."
 
-#: .\activities\serializers.py:188
+#: .\activities\serializers.py:225
 msgid "The specified time range overlaps with an existing tour for this guide."
 msgstr "يتداخل النطاق الزمني المحدد مع جولة سياحية موجودة لهذا الدليل."
 
-#: .\activities\serializers.py:217
+#: .\activities\serializers.py:254
 msgid "The sum of opens_at and work_hours exceeds 24 hours."
 msgstr "مجموع ساعة الافتتاح وساعات العمل يتجاوز 24 ساعة."
 
@@ -152,19 +158,19 @@ msgstr "التاريخ لا يمكن أن يكون في الماضي."
 msgid "already canceled"
 msgstr "ملغا مسبقا"
 
-#: .\activities\views.py:60 .\activities\views.py:121
+#: .\activities\views.py:60 .\activities\views.py:124
 msgid "tour has already begun or concluded"
 msgstr "الجولة بدات او تمت بالفعل"
 
-#: .\activities\views.py:75 .\activities\views.py:138
+#: .\activities\views.py:75 .\activities\views.py:141
 msgid "cannot delete while some users have not been refunded"
 msgstr "لا بمكن الحذف مادام بعض المستخدمين لم يتم مكافاتهم"
 
-#: .\activities\views.py:171
+#: .\activities\views.py:174
 msgid "either the first id or second one or both was left blank"
 msgstr "احد المعرفان غير صحيح"
 
-#: .\activities\views.py:175
+#: .\activities\views.py:178
 msgid "Not Found"
 msgstr "غير موجود"
 
@@ -375,3 +381,6 @@ msgstr "مدير موقع Pingoway"
 #: .\templates\admin\base_site.html:6
 msgid "Pingoway administration"
 msgstr "إدارة بينجواي"
+
+#~ msgid "Tag"
+#~ msgstr "العلامة"

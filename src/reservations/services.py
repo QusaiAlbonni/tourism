@@ -8,6 +8,7 @@ from django.db.models.functions import Cast
 from djmoney.money import Money
 from decimal import Decimal
 from django.db import transaction
+from .tasks import send_refund_notifications_task
 
 @transaction.atomic()
 def refund_all_purchases(queryset, model):
@@ -43,6 +44,9 @@ def refund_all_purchases(queryset, model):
                 )
             refunds.append(refund)
     model.objects.bulk_update(purchases, ['canceled'])
-    Refund.objects.bulk_create(refunds)
+    refunds = Refund.objects.bulk_create(refunds)
+    
+    result = send_refund_notifications_task.delay([instance.id for instance in refunds])
+    print(result)
         
     

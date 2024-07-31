@@ -27,7 +27,6 @@ class TicketPurchaseViewSet(ModelViewSet):
         else:
             query = self.serializer_class.Meta.model.objects.all()
         user = self.request.user
-        print(user)
         if self.action == "list" and not (user.is_staff or user.is_admin or user.has_perm('app_auth.manage_activities')):
             query = query.filter(owner= user)
         return query

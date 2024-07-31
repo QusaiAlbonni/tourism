@@ -1,8 +1,11 @@
 from datetime import timedelta
+import os
 from pathlib import Path
 from environs import Env
 import google.generativeai as genai
 import dj_database_url
+from firebase_admin import initialize_app
+from firebase_admin import credentials
 
 
 # Load environment variables from .env file
@@ -25,7 +28,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app", "192.168.27.123", 'tourism-1cls.onrender.com']
+ALLOWED_HOSTS = ["10.0.2.2","127.0.0.1", "localhost", ".vercel.app", "192.168.27.123"]
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
 
 STATIC_URL = "static/"
@@ -44,14 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     
-    ##
+    # 3rd party
     'django_cleanup.apps.CleanupConfig',#for files cleanup for each db update
     'profanity',#for bad world filter 
-    # 3rd party
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    #'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'djoser',
     'social_django',
@@ -60,14 +62,14 @@ INSTALLED_APPS = [
     'djmoney.contrib.exchange',
     'address',
     'django_extensions',
-    #'debug_toolbar',
     'django_celery_beat',
     'django_celery_results',
-    'rosetta',
     'django_filters',
-    'django.contrib.postgres',
     'service_objects',
     'modeltranslation',
+    'fcm_django',
+    'notifications',
+    'silk',
     
     # pingoway apps
     'app_auth',
@@ -90,6 +92,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'silk.middleware.SilkyMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "social_django.middleware.SocialAuthExceptionMiddleware",
@@ -223,6 +226,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+STATIC_ROOT= BASE_DIR /'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -287,3 +291,8 @@ MODELTRANSLATION_AUTO_POPULATE = True
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
+
+
+cred = credentials.Certificate(env('FIREBASE_CREDS'))
+
+FIREBASE_APP = initialize_app(cred)

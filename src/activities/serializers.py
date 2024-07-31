@@ -76,9 +76,9 @@ class TicketSerializer(serializers.ModelSerializer):
         except Activity.DoesNotExist as e:
             raise Http404(_("Activity Does not exist."))
         if hasattr(activity, "tour"):
-            ticket_activity_is_valid = activity.tour.takeoff_date.date() > value
+            ticket_activity_is_valid = activity.tour.takeoff_date.date() < value
             if not ticket_activity_is_valid:
-                raise serializers.ValidationError(_("the Valid until field must be at least a day earlier than the takeoff date."))
+                raise serializers.ValidationError(_("the Valid until field must be at least a day after than the takeoff date."))
             return value
         else:
             return value

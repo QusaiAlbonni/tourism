@@ -67,6 +67,8 @@ google-generativeai = "*"
 django-modeltranslation = "*"
 fcm-django = "*"
 dj-database-url = "*"
+django-notifications-hq = "*"
+django-silk = "*"
 
 [dev-packages]
 

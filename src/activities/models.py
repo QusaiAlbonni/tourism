@@ -233,7 +233,7 @@ class Ticket(models.Model):
     def is_valid(self)-> bool:
         acitvity_valid = True
         if hasattr(self.activity, "tour"):
-            acitvity_valid = self.valid_until <= self.activity.tour.takeoff_date.date()
+            acitvity_valid = self.valid_until >= self.activity.tour.takeoff_date.date()
         return bool((self.valid_until > datetime.datetime.now().date()) and acitvity_valid and not self.canceled)
     
     @property

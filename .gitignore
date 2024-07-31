@@ -300,3 +300,5 @@ pip-selfcheck.json
 *.bak
 *.dat
 *.dir
+
+staticfiles
