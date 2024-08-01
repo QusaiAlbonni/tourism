@@ -30,7 +30,7 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('services/properties/',include('properties.urls')),
     path('fcm/', include(fcm_router.urls)),
-    path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
+    path('inbox/', include('inbox.urls')),
     path('exchange_rates/', ExchangeRatesView.as_view())
 ]  + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 urlpatterns += [

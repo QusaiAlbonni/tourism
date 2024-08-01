@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'events',
     'reservations',
     'gemini',
+    'inbox',
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
@@ -296,3 +297,5 @@ MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
 cred = credentials.Certificate(env('FIREBASE_CREDS'))
 
 FIREBASE_APP = initialize_app(cred)
+
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}

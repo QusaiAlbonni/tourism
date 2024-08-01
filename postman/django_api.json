@@ -3560,6 +3560,36 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "category with tag",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/tags/categories/by-type?type=Property",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tags",
+										"categories",
+										"by-type"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Property"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"description": "Car  \nProperty\n\nActivity\n\nSupProperty"
@@ -4053,12 +4083,12 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Dreem Hotel3",
+											"value": "Dreem Hotel",
 											"type": "text"
 										},
 										{
 											"key": "description",
-											"value": "teh best hotel in the world4",
+											"value": "the best hotel in the world",
 											"type": "text"
 										},
 										{
@@ -4320,7 +4350,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/services/properties/5/",
+									"raw": "http://127.0.0.1:8000/services/properties/1/",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -4332,7 +4362,7 @@
 									"path": [
 										"services",
 										"properties",
-										"5",
+										"1",
 										""
 									]
 								}
@@ -4392,11 +4422,772 @@
 				},
 				{
 					"name": "Rooms",
-					"item": []
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "property_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "first room",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Family",
+											"description": "Standard,Deluxe,Suite,Family",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "the best room in the world",
+											"type": "text"
+										},
+										{
+											"key": "number",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "400",
+											"type": "text"
+										},
+										{
+											"key": "multi_night_discount",
+											"value": "34",
+											"type": "text"
+										},
+										{
+											"key": "available_start_date",
+											"value": "2024-04-12",
+											"type": "text"
+										},
+										{
+											"key": "available_end_date",
+											"value": "2025-04-12",
+											"type": "text"
+										},
+										{
+											"key": "points_discount_price",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "points_discount",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "photos[0]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef108a7-04d9-4a80-94b6-c47454c7e816"
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85"
+										},
+										{
+											"key": "beds[0]number",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "beds[0]type",
+											"value": "King",
+											"type": "text"
+										},
+										{
+											"key": "beds[1]number",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "beds[1]type",
+											"value": "DoubleCheldren",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-properties/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-properties",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "property_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "first room",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Family",
+											"description": "Standard,Deluxe,Suite,Family",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "the best one the world",
+											"type": "text"
+										},
+										{
+											"key": "number",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "400",
+											"type": "text"
+										},
+										{
+											"key": "multi_night_discount",
+											"value": "34",
+											"type": "text"
+										},
+										{
+											"key": "available_start_date",
+											"value": "2024-04-12",
+											"type": "text"
+										},
+										{
+											"key": "available_end_date",
+											"value": "2025-04-12",
+											"type": "text"
+										},
+										{
+											"key": "points_discount_price",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "points_discount",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85",
+											"disabled": true
+										},
+										{
+											"key": "beds[0]number",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "beds[0]type",
+											"value": "King",
+											"type": "text"
+										},
+										{
+											"key": "beds[1]number",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "beds[1]type",
+											"value": "Cheldren",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-properties/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-properties",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partial update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "property_id",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "first room update",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Family",
+											"description": "Standard,Deluxe,Suite,Family",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "description",
+											"value": "the best one the world",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "number",
+											"value": "30",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "400",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "multi_night_discount",
+											"value": "34",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "available_start_date",
+											"value": "2024-04-12",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "available_end_date",
+											"value": "2025-04-12",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "points_discount_price",
+											"value": "12",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "points_discount",
+											"value": "12",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "photos[1]image",
+											"type": "file",
+											"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85",
+											"disabled": true
+										},
+										{
+											"key": "beds[0]number",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "beds[0]type",
+											"value": "King",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "beds[1]number",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "beds[1]type",
+											"value": "Cheldren",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-properties/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-properties",
+										"1",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "no partial update",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "property_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "name",
+													"value": "first room update",
+													"type": "text"
+												},
+												{
+													"key": "type",
+													"value": "Family",
+													"description": "Standard,Deluxe,Suite,Family",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "description",
+													"value": "the best one the world",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "number",
+													"value": "30",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "price",
+													"value": "400",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "multi_night_discount",
+													"value": "34",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "available_start_date",
+													"value": "2024-04-12",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "available_end_date",
+													"value": "2025-04-12",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "points_discount_price",
+													"value": "12",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "points_discount",
+													"value": "12",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "photos[1]image",
+													"type": "file",
+													"src": "postman-cloud:///1ef3626e-7f62-44a0-9d6f-75e5a8745c85",
+													"disabled": true
+												},
+												{
+													"key": "beds[0]number",
+													"value": "2",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "beds[0]type",
+													"value": "King",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "beds[1]number",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "beds[1]type",
+													"value": "Cheldren",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/properties/sup-properties/1/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"properties",
+												"sup-properties",
+												"1",
+												""
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jul 2024 16:09:36 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "54"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"detail\": \"there is no partial update to supproperty\"\n}"
+								}
+							]
+						},
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-properties/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-properties",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "list by property_id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/services/properties/sup-properties/?property_id=2",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"services",
+												"properties",
+												"sup-properties",
+												""
+											],
+											"query": [
+												{
+													"key": "property_id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jul 2024 16:14:12 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Accept-Language, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "Content-Language",
+											"value": "en"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1020"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 2,\n            \"property_id\": 2,\n            \"type\": \"Standard\",\n            \"name\": \"first room\",\n            \"description\": \"the best onein the workd\",\n            \"number\": 30,\n            \"price\": \"400.00\",\n            \"multi_night_discount\": \"34.0\",\n            \"available_start_date\": \"2024-04-12\",\n            \"available_end_date\": \"2025-04-12\",\n            \"points_discount_price\": 12,\n            \"points_discount\": \"12.0\",\n            \"points_discount_decimal\": 0.12,\n            \"adults_capacity\": 4,\n            \"children_capacity\": 0,\n            \"created\": \"2024-07-31T16:14:00.346432Z\",\n            \"modified\": \"2024-07-31T16:14:00.346432Z\",\n            \"beds\": [\n                {\n                    \"id\": 13,\n                    \"supproperty\": 2,\n                    \"type\": \"King\",\n                    \"number\": 2,\n                    \"capacity\": 4,\n                    \"created\": \"2024-07-31T16:14:00.415437Z\",\n                    \"modified\": \"2024-07-31T16:14:00.415437Z\"\n                }\n            ],\n            \"photos\": [\n                {\n                    \"id\": 3,\n                    \"image\": \"http://127.0.0.1:8000/media/uploads/service_photos/room_photos/logo_6DsZ6GV.png\",\n                    \"created\": \"2024-07-31T16:14:00.367441Z\",\n                    \"modified\": \"2024-07-31T16:14:00.367441Z\"\n                },\n                {\n                    \"id\": 4,\n                    \"image\": \"http://127.0.0.1:8000/media/uploads/service_photos/room_photos/testphoto_RuWF52R.jpg\",\n                    \"created\": \"2024-07-31T16:14:00.398436Z\",\n                    \"modified\": \"2024-07-31T16:14:00.398436Z\"\n                }\n            ]\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-properties/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-properties",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "there is many type of room in property\n\n- Standard\n    \n- Deluxe\n    \n- Suite\n    \n- Family\n    \n\nfor each room should have **two** photo at list and **one** bed\n\nand for each type we have extra Constraint like :\n\nif the room is suite should there is king bed in it\n\nand if the room is Family should there is one of (single,double,king) bed  \nand one of (Cheldren,doublecheldren)\n\n**update details:**\n\nwhen update the room should update with if teh beds because roomtype and bed issues"
 				},
 				{
 					"name": "Beds",
-					"item": []
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "supproperty",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Single",
+											"type": "text"
+										},
+										{
+											"key": "number",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-property-beds/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-property-beds",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "supproperty",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Single",
+											"type": "text"
+										},
+										{
+											"key": "number",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/properties/sup-property-beds/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"properties",
+										"sup-property-beds",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Hotel Tags",
@@ -4573,83 +5364,22 @@
 					"name": "Discount",
 					"item": [
 						{
-							"name": "update",
+							"name": "create",
 							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
-										"type": "text"
-									}
-								],
+								"method": "POST",
+								"header": [],
 								"body": {
 									"mode": "formdata",
 									"formdata": [
 										{
 											"key": "service",
-											"value": "2",
+											"value": "",
 											"type": "text"
 										},
 										{
 											"key": "event",
-											"value": "",
-											"description": "can be null  this mean teh disc alowys true",
+											"value": "1",
 											"type": "text"
-										},
-										{
-											"key": "percent",
-											"value": "22",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-discounts",
-										"1",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "partial update",
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "service",
-											"value": "2",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "event",
-											"value": "",
-											"description": "can be null  this mean teh disc alowys true",
-											"type": "text",
-											"disabled": true
 										},
 										{
 											"key": "percent",
@@ -4659,7 +5389,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"raw": "http://127.0.0.1:8000/services/service-discounts/",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -4671,80 +5401,6 @@
 									"path": [
 										"services",
 										"service-discounts",
-										"1",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-discounts",
-										"1",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "details",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"services",
-										"service-discounts",
-										"1",
 										""
 									]
 								}
@@ -4970,10 +5626,181 @@
 							]
 						},
 						{
-							"name": "create",
+							"name": "details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "event",
+											"value": "",
+											"description": "can be null  this mean teh disc alowys true",
+											"type": "text"
+										},
+										{
+											"key": "percent",
+											"value": "22",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partial update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "service",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "event",
+											"value": "",
+											"description": "can be null  this mean teh disc alowys true",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "percent",
+											"value": "23",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjE4OTk1LCJpYXQiOjE3MjE5NTk3OTUsImp0aSI6IjQzZTIzYjZiMTg2MTQxMDU4Y2M4ZmRhMDMxYTJjZjQyIiwidXNlcl9pZCI6Mn0.SbjQGXR86X1imlZLydF5WEK_B38VuTTtN3Zzm5sUH1Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/services/service-discounts/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"services",
+										"service-discounts",
+										"1",
+										""
+									]
+								}
 							},
 							"response": []
 						}
@@ -5153,6 +5980,9 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
 								"header": [
 									{
@@ -5717,6 +6547,9 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
 								"header": [
 									{
@@ -5749,7 +6582,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/services/service-reviews/summary/?service_id=1",
+									"raw": "http://127.0.0.1:8000/services/service-reviews/summary/?service_id=13",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -5767,7 +6600,7 @@
 									"query": [
 										{
 											"key": "service_id",
-											"value": "1"
+											"value": "13"
 										}
 									]
 								}
@@ -6560,6 +7393,277 @@
 						}
 					],
 					"description": "admin cant (create update delete) fav servie just can show teh list of favorate and can send service id or user id or **both** in parameter to return specifec\n\nuser cant update  \nin delete send service id with auth token"
+				}
+			]
+		},
+		{
+			"name": "notifications",
+			"item": [
+				{
+					"name": "inbox",
+					"item": [
+						{
+							"name": "list notifications",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/inbox/notifications",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"inbox",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "mark as unread",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/inbox/notifications/9/mark_as_unread/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"inbox",
+										"notifications",
+										"9",
+										"mark_as_unread",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "mark as read",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/inbox/notifications/9/mark_as_read/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"inbox",
+										"notifications",
+										"9",
+										"mark_as_read",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "mark all as read",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/inbox/notifications/mark_all_as_read/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"inbox",
+										"notifications",
+										"mark_all_as_read",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "mark all as unread",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/inbox/notifications/mark_all_as_unread/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"inbox",
+										"notifications",
+										"mark_all_as_unread",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "fcm",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "JWT",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "registration_id",
+											"value": "1w9idsja0jodpaaadacxxqpoqxcas",
+											"description": "gotten from Firebase",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "android",
+											"description": "options = android, web, ios",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/fcm/devices/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"fcm",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
