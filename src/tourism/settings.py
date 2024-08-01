@@ -6,6 +6,8 @@ import google.generativeai as genai
 import dj_database_url
 from firebase_admin import initialize_app
 from firebase_admin import credentials
+import base64
+import json
 
 
 # Load environment variables from .env file
@@ -294,7 +296,17 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
 
 
-cred = credentials.Certificate(env('FIREBASE_CREDS'))
+FIREBASE_CREDS_BASE64 = env('FIREBASE_CREDS_BASE64', None)
+
+if FIREBASE_CREDS_BASE64:
+    base64_decoded= base64.b64decode(FIREBASE_CREDS_BASE64).decode('ascii')
+    FIREBASE_CREDS_DICT = json.loads(base64_decoded)
+    creds = FIREBASE_CREDS_DICT
+else:
+    creds = env('FIREBASE_CREDS')
+
+
+cred = credentials.Certificate(creds)
 
 FIREBASE_APP = initialize_app(cred)
 
