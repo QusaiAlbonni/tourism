@@ -152,7 +152,8 @@ class TourViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         if is_read_only_user(self.request.user, 'app_auth.manage_activities'):
             queryset = queryset.filter(canceled = False)
-            queryset = queryset.filter(tour_sites__isnull = False)
+            queryset = queryset.filter(tour_sites__isnull = False).distinct()
+        print(queryset)
         return queryset
             
         
