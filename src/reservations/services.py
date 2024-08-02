@@ -46,6 +46,9 @@ def refund_all_purchases(queryset, model):
     model.objects.bulk_update(purchases, ['canceled'])
     refunds = Refund.objects.bulk_create(refunds)
     
-    send_refund_notifications_task.delay([instance.id for instance in refunds])
+    try:
+        send_refund_notifications_task.delay([instance.id for instance in refunds])
+    except Exception:
+        return
         
     
