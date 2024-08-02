@@ -43,6 +43,7 @@ STATICFILES_DIRS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -311,3 +312,9 @@ cred = credentials.Certificate(creds)
 FIREBASE_APP = initialize_app(cred)
 
 DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}
+
+JAZZMIN_SETTINGS = {
+    'user_avatar': 'get_avatar',
+    'changeform_format': 'collapsible',
+    "language_chooser": True,
+}

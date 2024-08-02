@@ -69,6 +69,8 @@ fcm-django = "*"
 dj-database-url = "*"
 django-notifications-hq = "*"
 django-silk = "*"
+django-grappelli = "*"
+django-jazzmin = "*"
 
 [dev-packages]
 

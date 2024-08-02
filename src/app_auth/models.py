@@ -34,4 +34,7 @@ class User(AbstractUser):
             ('manage_properties', 'Can manage properties'),
             ('manage_car_rental', 'Can manage Car Rental')
         )
+        
+    def get_avatar(user):
+        return user.profile.avatar.url
     

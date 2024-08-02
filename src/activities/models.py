@@ -81,6 +81,10 @@ class Guide(models.Model):
         
     def is_liked_by_user(self, user : AbstractUser) -> bool:
         return self.likers.filter(pk=user.pk).exists()
+    
+    def __str__(self):
+        return self.name
+    
 
 
 class GuideLiker(models.Model):
@@ -115,6 +119,8 @@ class Activity(Service):
         queryset = TicketPurchase.objects.filter(ticket__activity = self, canceled= False, scanned= False)
         
         refund_all_purchases(queryset, TicketPurchase)
+    def __str__(self):
+        return self.name
     
     
 class Tour(Activity):
@@ -157,6 +163,8 @@ class Tour(Activity):
             'takeoff_date'
         )
         critical_update_datefield = 'crucial_field_modified'
+    def __str__(self):
+        return self.name
     
 
 class Listing(Activity):
@@ -189,6 +197,8 @@ class Listing(Activity):
             'site',
         )
         critical_update_datefield = 'crucial_field_modified'
+    def __str__(self):
+        return self.name
         
     
 
@@ -247,6 +257,9 @@ class Ticket(models.Model):
     def refund_all(self):
         queryset = TicketPurchase.objects.filter(canceled= False, scanned= False, ticket = self)
         refund_all_purchases(queryset= queryset, model=TicketPurchase)
+        
+    def __str__(self):
+        return self.name
     
 class ActivityTag(SupTag):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE, related_name='activity_tags')
@@ -284,4 +297,7 @@ class Site(models.Model):
     
     class Meta:
         ordering = ['name']
+    
+    def __str__(self):
+        return self.name
         

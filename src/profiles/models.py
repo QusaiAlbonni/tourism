@@ -31,7 +31,7 @@ class Profile(models.Model):
     required_fields = ['user']
     
     def __str__(self) -> str:
-        return super().__str__()
+        return self.user.username + " profile"
 
 class CreditCard(models.Model):
     CARD_TYPES = (
@@ -67,6 +67,8 @@ class CreditCard(models.Model):
         self.save()
     def is_expired(self):
         return self.expiration_date < date.today()
+    def __str__(self) -> str:
+        return self.user.username + "credit card"
     
 class PointsWallet(models.Model):
 
@@ -95,6 +97,8 @@ class PointsWallet(models.Model):
     # user should have at lest three reserv to can pay by point
     def user_can(self):
         ...
+    def __str__(self) -> str:
+        return self.user.username + "Points Wallet"
 
 # class Setting(models.Model):
 #     ...

@@ -1,15 +1,61 @@
-from django.db.models.signals import pre_save, pre_delete
+import json
+from django.db.models.signals import pre_save, pre_delete, post_save
 from django.dispatch import receiver
 from .models import Ticket, Activity, Tour, Listing, TourSite
 from django.utils import timezone
 from tourism.utils import rgetattr, rsetattr
+from django_celery_beat.models import PeriodicTask, ClockedSchedule
+from . import tasks
+
+@receiver(post_save, sender=Tour)
+def register_notifications_for_tour_takeoff(sender, instance, **kwargs):
+    date = instance.takeoff_date - timezone.timedelta(days= 1)
+    now = False
+    if date < timezone.now():
+        now = True
+        
+    create_takeoff_task(instance, date, now)
+
+def create_takeoff_task(tour: Tour, task_date: timezone.datetime, now : bool = False):
+    if now:
+        tasks.send_tour_notifications_task.delay(tour.pk)
+        return
+    schedule, created = ClockedSchedule.objects.get_or_create(
+        clocked_time=task_date
+    )
+    PeriodicTask.objects.create(
+        clocked=schedule,
+        name='sending notifs to remind users of tour take off',
+        task='activities.tasks.send_tour_notifications_task',
+        kwargs=json.dumps({
+            'tour': tour.pk,
+        }),
+    )
+  
+
+
+
 
 @receiver(pre_save, sender=Ticket)    
 @receiver(pre_save, sender=Tour)
 @receiver(pre_save, sender=Listing)
 @receiver(pre_save, sender=TourSite)
 def trigger_on_update(sender, instance, **kwargs):
-    return on_crucial_field_update(sender, instance, **kwargs)
+    if not instance.pk:
+        return
+    fields = on_crucial_field_update(sender, instance, **kwargs)
+    
+    if (sender is Tour) and ('takeoff_date' in fields):
+        notif_task = PeriodicTask.objects.get(kwargs__tour= instance.pk)
+        notif_task.delete()
+        date = instance.takeoff_date - timezone.timedelta(days= 1)
+        now = False
+        if date < timezone.now():
+            now = True
+        create_takeoff_task(instance, date, now)
+        
+
+    return fields
 
 
 #delete should be called in a transaction.atomic context
@@ -46,7 +92,7 @@ def on_crucial_field_update(sender, instance, **kwargs):
     if updated_fields:
         rsetattr(instance, instance.SensitiveMeta.critical_update_datefield, timezone.now())
         
-    return
+    return updated_fields
     
     
 def changed_crucial_fields(instance, old_instance, fields):
