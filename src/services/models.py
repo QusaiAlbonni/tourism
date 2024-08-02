@@ -9,6 +9,7 @@ from django.db.models import Avg
 from profanity.validators import validate_is_profane
 from events.models import Event
 from django.db.models import Sum
+from django.db.models import Q
 
 User = get_user_model()
 
@@ -62,22 +63,35 @@ class Service(models.Model):
         return self.servicereview_set.count()
     @property
     def discount(self):
-        try:
-            total_discount = self.servicediscount_set.filter(
-                models.Q(event__isnull=True) | models.Q(event__on=True)
-            ).aggregate(total_percent=Sum('percent'))['total_percent']
-        except:
-            return 0
-        return min(total_discount or Decimal('0.0'), Decimal('79.0'))
+        discounts = ServiceDiscount.objects.filter(
+        Q(service=self) & Q(event__isnull=True) |
+        Q(service=self) & Q(event__activate=True) |
+        Q(service__isnull=True)
+        )
+
+        total_discount = 1
+        for discount in discounts:
+            total_discount *= (Decimal(1) - discount.percent / Decimal(100))
+
+        return (1 - total_discount)*100
+
+    
     @property
     def on_discount(self):
-        try:
-            discounts = self.servicediscount_set.filter(
-                models.Q(event__isnull=True) | models.Q(event__on=True)
-            ).values('percent', 'event__name', 'event__on')
-        except:
-            return list()
-        return list(discounts)
+        discounts = ServiceDiscount.objects.filter(
+            Q(service=self) & Q(event__isnull=True) |
+            Q(service=self) & Q(event__activate=True) |
+            Q(service__isnull=True)
+        )
+        return [self.discount_to_dict(discount) for discount in discounts]
+
+    def discount_to_dict(self, discount):
+        return {
+            "id": discount.id,
+            "percent": str(discount.percent),  # Convert Decimal to string for JSON serialization
+            "event": discount.event.name if discount.event else None,
+            "type": discount.type,
+        }
     @property
     def upfront_rate_decimal(self):
         return self.upfront_rate / Decimal(100)
@@ -131,8 +145,9 @@ class ServiceReview(models.Model):
         ]
 
 class ServiceDiscount(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='discounts')
-    event = models.ForeignKey(Event,on_delete=models.CASCADE,null=True)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, null=True,blank=True, related_name='discounts')
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True,blank=True, related_name='events')
+
     percent = models.DecimalField(
         max_digits=3,
         decimal_places=1,
@@ -141,8 +156,23 @@ class ServiceDiscount(models.Model):
             MaxValueValidator(Decimal('79.0'))
         ]
     )
+    
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
+
+    @property
+    def type(self):
+        service=None
+        event=None
+        if self.service is None:
+            service='all'
+        else:
+            service='specific'
+        if self.event is None:
+            event='null'
+        else:
+            event='specific'
+        return F'{service} service ,{event} event'
 
     class Meta:
         constraints = [
@@ -154,5 +184,19 @@ class ServiceDiscount(models.Model):
                 fields=['service'],
                 condition=models.Q(event__isnull=True),
                 name='unique_service_null_event'
+            ),
+            models.UniqueConstraint(
+                fields=['event'],
+                condition=models.Q(service__isnull=True),
+                name='unique_service_event_sd'
             )
         ]
+    
+    def clean(self):
+        if self.service is None and self.event is None:
+            if ServiceDiscount.objects.filter(service__isnull=True, event__isnull=True).exists():
+                raise ValidationError("A discount with both service and event set to null already exists.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()  
+        super().save(*args, **kwargs)

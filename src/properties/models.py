@@ -147,7 +147,11 @@ class SupPropertyPhoto(models.Model):
 class PropertyTag(SupTag):
     property = models.ForeignKey(Property,on_delete=models.CASCADE)
     allowed_category_type = 'Property'
+    class Meta:
+        unique_together = ('tag', 'property')
 
 class SupPropertyTag(SupTag):
     supproperty = models.ForeignKey(SupProperty,on_delete=models.CASCADE)
     allowed_category_type = 'SupProperty'
+    class Meta:
+        unique_together = ('tag', 'supproperty')

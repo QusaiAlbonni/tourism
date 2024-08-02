@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from .models import Service, ServicePhoto,ServiceFavorite,ServiceReview,ServiceDiscount
 from django.db import IntegrityError
 from app_auth.serializers import UserSerializer
+from events.models import Event
 class ServicePhotoSerializer(serializers.ModelSerializer):
     service = serializers.PrimaryKeyRelatedField(
         queryset=Service.objects.all(),
@@ -44,18 +45,7 @@ class ServiceSerializer(serializers.ModelSerializer):
             photo_data['service'] = service
             ServicePhotoSerializer(data=photo_data).create(photo_data)
 
-        return service
-
-    # def update(self, instance, validated_data):
-    #     instance.name = validated_data.get('name', instance.name)
-    #     instance.description = validated_data.get('description', instance.description)
-    #     instance.refund_rate = validated_data.get('refund_rate', instance.refund_rate)
-    #     instance.upfront_rate = validated_data.get('upfront_rate', instance.upfront_rate)
-    #     instance.allow_points = validated_data.get('allow_points', instance.allow_points)
-    #     instance.allow_review = validated_data.get('allow_review', instance.allow_review)
-    #     instance.points_gift = validated_data.get('points_gift', instance.points_gift)
-    #     instance.save()
-    #     return instance
+        return service 
        
     
 class ServiceFavoriteSerializer(serializers.ModelSerializer):
@@ -95,11 +85,15 @@ class ServiceReviewSerializer(serializers.ModelSerializer):
         return service_review
 
 class ServiceDiscountSerializer(serializers.ModelSerializer):
+    event = serializers.PrimaryKeyRelatedField(queryset=Event.objects.all(),required=False, allow_null=True)
+    type = serializers.ReadOnlyField()
     class Meta:
         model = ServiceDiscount
-        fields = ['id', 'service', 'event', 'percent', 'created', 'modified']
+        fields = ['id', 'service', 'event', 'percent','type', 'created', 'modified']
+
     def create(self, validated_data):
+           
            try:
                return super().create(validated_data)
-           except IntegrityError as e:
-               raise serializers.ValidationError({"detail": "Service with this event already exists or service with null event already exists."})
+           except Exception  as e:
+               raise serializers.ValidationError({"detail": str(e)})

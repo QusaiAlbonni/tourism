@@ -28,6 +28,7 @@ from gemini.services import GeminiGenerateContent
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.http import Http404
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ServicePhotoViewSet(viewsets.ModelViewSet):
     queryset = ServicePhoto.objects.all()
@@ -225,12 +226,13 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
 
 class ServiceDiscountViewSet(viewsets.ModelViewSet):
     queryset = ServiceDiscount.objects.all()
-    permission_classes = [isAdminOrReadOnly]
+    permission_classes = [IsAuthenticated,isAdminOrReadOnly]
     serializer_class = ServiceDiscountSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['event']
 
     def get_queryset(self):
        service_pk = self.request.query_params.get('service_pk')
-       
        if service_pk:
-           return self.queryset.filter(service_id=service_pk)
+          return self.queryset.filter(models.Q(service_id=service_pk) | models.Q(service__isnull=True))
        return self.queryset.all()

@@ -265,6 +265,9 @@ class ActivityTag(SupTag):
     activity= models.ForeignKey(Activity, verbose_name=_("Activity"), on_delete=models.CASCADE, related_name='activity_tags')
     allowed_category_type = 'Activity'
     
+    class Meta:
+        unique_together = ('tag', 'activity')
+    
 class TourSite(models.Model):
     tour = models.ForeignKey("Tour", verbose_name=_("Tour"), on_delete=models.CASCADE, related_name='tour_sites')
     site = models.ForeignKey("Site", verbose_name=_("Site"), on_delete=models.CASCADE, related_name='site_tours')
