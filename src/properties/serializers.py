@@ -146,14 +146,13 @@ class SupPropertySerializer(serializers.ModelSerializer):
     
     def update(self, instance, validated_data):
         beds_data = validated_data.pop('beds', [])
-        print(6666666)
         sup_property_type = validated_data.get('type', instance.type)
         self.validate_beds_for_type(sup_property_type, beds_data)
-
+        if len(beds_data) < 1:
+            raise serializers.ValidationError("At least one bed is required.")
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
-
         instance.beds.all().delete()
         for bed_data in beds_data :
             bed_data['supproperty'] = instance
@@ -199,6 +198,7 @@ class PropertySerializer(ServiceSerializer):
         instance.save()
 
         return instance
+
 class PropertyTagSerializer(serializers.ModelSerializer):
     # property = serializers.PrimaryKeyRelatedField(queryset=Property.objects.all())
 
