@@ -6,9 +6,12 @@ from django.utils import timezone
 from tourism.utils import rgetattr, rsetattr
 from django_celery_beat.models import PeriodicTask, ClockedSchedule
 from . import tasks
+from modeltranslation.utils import auto_populate
 
 @receiver(post_save, sender=Tour)
 def register_notifications_for_tour_takeoff(sender, instance, **kwargs):
+    if instance.pk:
+        return
     date = instance.takeoff_date - timezone.timedelta(days= 1)
     now = False
     if date < timezone.now():
@@ -25,7 +28,7 @@ def create_takeoff_task(tour: Tour, task_date: timezone.datetime, now : bool = F
     )
     PeriodicTask.objects.create(
         clocked=schedule,
-        name='sending notifs to remind users of tour take off',
+        name=f'sending notifs to remind users of tour take off {tour.pk}',
         task='activities.tasks.send_tour_notifications_task',
         kwargs=json.dumps({
             'tour': tour.pk,
@@ -46,10 +49,14 @@ def trigger_on_update(sender, instance, **kwargs):
     if not instance.pk:
         return
     fields = on_crucial_field_update(sender, instance, **kwargs)
-    
     if (sender is Tour) and ('takeoff_date' in fields):
-        notif_task = PeriodicTask.objects.get(kwargs__tour= instance.pk)
-        notif_task.delete()
+        try:
+            notif_task = PeriodicTask.objects.get(kwargs= json.dumps({
+                'tour': instance.pk,
+            }))
+            notif_task.delete()
+        except PeriodicTask.DoesNotExist as e:
+            pass
         date = instance.takeoff_date - timezone.timedelta(days= 1)
         now = False
         if date < timezone.now():
@@ -64,6 +71,9 @@ def trigger_on_update(sender, instance, **kwargs):
 @receiver(pre_delete, sender= TourSite)
 def trigger_on_delete(sender, instance, **kwargs):
     return on_crucial_field_delete(sender, instance, **kwargs)
+
+
+
     
     
     

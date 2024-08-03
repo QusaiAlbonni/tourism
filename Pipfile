@@ -71,6 +71,7 @@ django-notifications-hq = "*"
 django-silk = "*"
 django-grappelli = "*"
 django-jazzmin = "*"
+googletrans = "*"
 
 [dev-packages]
 

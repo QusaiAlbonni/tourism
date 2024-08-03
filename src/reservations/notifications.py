@@ -6,7 +6,6 @@ from notifications.signals import notify
 def send_refund_notification_bulk(refunds):
     users = []
     refunds = Refund.objects.filter(id__in= refunds)
-    print(refunds)
     for instance in refunds:
         notify.send(
             instance.reservation.first().owner,
