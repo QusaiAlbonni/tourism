@@ -141,7 +141,7 @@ class BaseReservation(models.Model):
             raise NonRefundableException()
         self.cancel()
         service = self.get_service()
-        total_payments = self.payments.aggregate(total_sum=models.Sum('amount'))['total_sum'] * service.refund_rate_decimal
+        total_payments = self.payments.aggregate(total_sum=models.Sum('amount'))['total_sum'] * self.get_refund_rate()
         currency = self.payments.first().amount.currency
         if total_payments:
             Refund.objects.create(
@@ -230,6 +230,15 @@ class TicketPurchase(BaseReservation):
     def get_full_price(self):
         return self.ticket.price
     
+    '''
+    return a decimal between 0.0 and 1.0
+    '''
+    def get_refund_rate(self):
+        if self.force_full_refund:
+            return Decimal('1.0')
+        else:
+            return self.get_service().refund_rate_decimal
+    
     def get_service(self):
         return self.ticket.activity
     
@@ -240,12 +249,14 @@ class TicketPurchase(BaseReservation):
     def apply_discounts(self, amount):
         return amount
     
-    def check_refundable(self):
+    def check_refundable(self) -> bool:
         return (
             super().check_refundable() 
             or (((not self.canceled) and (not self.scanned)) and (self.ticket.canceled or self.ticket.activity.canceled))
-            or (((not self.canceled) and (not self.scanned)) and ((self.created < self.ticket.crucial_field_modified) or (self.created < self.ticket.activity.crucial_field_modified)))
+            or (self.refundable_on_data_change())
         )
+    def refundable_on_data_change(self) -> bool:
+        return ((not self.canceled) and (not self.scanned)) and ((self.created < self.ticket.crucial_field_modified) or (self.created < self.ticket.activity.crucial_field_modified))
     @transaction.atomic()
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None, use_points_discount=False
@@ -264,6 +275,8 @@ class TicketPurchase(BaseReservation):
     
     @transaction.atomic()
     def refund(self):
+        if self.refundable_on_data_change():
+            self.force_full_refund = True
         return super().refund()
     
     
