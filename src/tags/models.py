@@ -21,7 +21,7 @@ class TagsCategory(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     contenttype = models.CharField(max_length=50)
-    category = models.ForeignKey("TagsCategory", on_delete=models.CASCADE)
+    category = models.ForeignKey("TagsCategory", on_delete=models.CASCADE, related_name='tags')
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable= False)
     modified= models.DateTimeField(auto_now=True, auto_now_add=False, editable= False)
     class Meta:

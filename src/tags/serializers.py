@@ -7,6 +7,7 @@ class TagsCategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'type', 'created', 'modified']
 
 class TagSerializer(serializers.ModelSerializer):
+    category = TagsCategorySerializer(read_only=True)
     class Meta:
         model = Tag
         fields = ['id', 'name', 'contenttype', 'category', 'created', 'modified']

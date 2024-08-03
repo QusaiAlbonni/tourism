@@ -11,7 +11,7 @@ import django.utils.timezone as timezone
 from django.utils.translation import gettext_lazy as _
 from services.serializers import ServicePhotoSerializer
 from tags.serializers import TagSerializer
-from tags.models import Tag
+from tags.models import Tag, TagsCategory
 from django.shortcuts import get_object_or_404
 
 class GuideSerializer(serializers.ModelSerializer):
@@ -256,7 +256,6 @@ class ListingSerializer(ServiceSerializer):
     def update(self, instance, validated_data):
         validated_data.pop('photos', None)
         return super().update(instance, validated_data)
-    
     
 
         
