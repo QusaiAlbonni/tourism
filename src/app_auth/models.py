@@ -36,5 +36,7 @@ class User(AbstractUser):
         )
         
     def get_avatar(user):
-        return user.profile.avatar.url
-    
+        try:
+            return user.profile.avatar.url
+        except ValueError as e:
+            return ""
