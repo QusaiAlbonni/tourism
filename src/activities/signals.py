@@ -30,6 +30,8 @@ def create_takeoff_task(tour: Tour, task_date: timezone.datetime, now : bool = F
         kwargs=json.dumps({
             'tour': tour.pk,
         }),
+        enabled=True,
+        one_off=True,
     )
   
 
