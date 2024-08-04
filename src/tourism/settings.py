@@ -8,6 +8,7 @@ from firebase_admin import initialize_app
 from firebase_admin import credentials
 import base64
 import json
+from googletrans import Translator
 
 
 # Load environment variables from .env file
@@ -44,6 +45,7 @@ STATICFILES_DIRS = [
 
 INSTALLED_APPS = [
     'jazzmin',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,7 +71,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_filters',
     'service_objects',
-    'modeltranslation',
+    
     'fcm_django',
     'notifications',
     'silk',
@@ -85,7 +87,7 @@ INSTALLED_APPS = [
     'reservations',
     'gemini',
     'inbox',
-    'translations',
+    'localizations',
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
@@ -319,3 +321,5 @@ JAZZMIN_SETTINGS = {
     'changeform_format': 'collapsible',
     "language_chooser": True,
 }
+
+google_translate = Translator()

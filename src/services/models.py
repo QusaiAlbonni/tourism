@@ -14,7 +14,7 @@ from django.db.models import Q
 User = get_user_model()
 
 class Service(models.Model):
-    name = models.CharField(_("Name"), max_length=50,unique=True)
+    name = models.CharField(_("Name"), max_length=50,unique=False)
     description = models.TextField(blank=True,verbose_name=_("Description"), null=True, max_length= 2048)
     favorited_by = models.ManyToManyField(
         User,
