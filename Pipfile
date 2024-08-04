@@ -72,6 +72,7 @@ django-silk = "*"
 django-grappelli = "*"
 django-jazzmin = "*"
 googletrans = "*"
+deep-translator = "*"
 
 [dev-packages]
 

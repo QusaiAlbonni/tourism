@@ -8,7 +8,7 @@ from firebase_admin import initialize_app
 from firebase_admin import credentials
 import base64
 import json
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 
 # Load environment variables from .env file
@@ -293,7 +293,7 @@ MODELTRANSLATION_LANGUAGES = ('en', 'nl', 'ar', 'es', 'fr')
 
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'nl')
 
-MODELTRANSLATION_AUTO_POPULATE = True
+MODELTRANSLATION_AUTO_POPULATE = False
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
@@ -322,4 +322,4 @@ JAZZMIN_SETTINGS = {
     "language_chooser": True,
 }
 
-google_translate = Translator()
+GOOGLE_TRANSLATE = GoogleTranslator

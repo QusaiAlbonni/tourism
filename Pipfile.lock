@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3a6019c339ede6ff85db60cea054f46e2c7eed37eead089cf117e999b7bfd0ab"
+            "sha256": "55eab9cdd7ccafd00eae974070ab02f997c09c07edfa650752cc3e3888247491"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -64,6 +64,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.15.0"
+        },
+        "beautifulsoup4": {
+            "hashes": [
+                "sha256:74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051",
+                "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"
+            ],
+            "markers": "python_full_version >= '3.6.0'",
+            "version": "==4.12.3"
         },
         "billiard": {
             "hashes": [
@@ -348,6 +356,15 @@
             "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==42.0.5"
+        },
+        "deep-translator": {
+            "hashes": [
+                "sha256:801260c69231138707ea88a0955e484db7d40e210c9e0ae0f77372ffda5f4bf5",
+                "sha256:d635df037e23fa35d12fd42dab72a0b55c9dd19e6292009ee7207e3f30b9e60a"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "version": "==1.11.4"
         },
         "defusedxml": {
             "hashes": [
@@ -914,7 +931,7 @@
                 "sha256:fd096eb7ffef17c456cfa587523c5f92321ae02427ff955bebe9e3c63bc9f0da",
                 "sha256:fe754d231288e1e64323cfad462fcee8f0288654c10bdf4f603a39ed923bef33"
             ],
-            "markers": "python_version >= '3.11' and platform_python_implementation == 'CPython'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.0.3"
         },
         "grpcio": {
@@ -1767,6 +1784,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==4.5.3"
+        },
+        "soupsieve": {
+            "hashes": [
+                "sha256:5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690",
+                "sha256:eaa337ff55a1579b6549dc679565eac1e3d000563bcb1c8ab0d0fefbc0c2cdc7"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==2.5"
         },
         "sqlparse": {
             "hashes": [

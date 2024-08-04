@@ -6,7 +6,6 @@ from django.utils import timezone
 from tourism.utils import rgetattr, rsetattr
 from django_celery_beat.models import PeriodicTask, ClockedSchedule
 from . import tasks
-from modeltranslation.utils import auto_populate
 
 @receiver(post_save, sender=Tour)
 def register_notifications_for_tour_takeoff(sender, instance, **kwargs):
