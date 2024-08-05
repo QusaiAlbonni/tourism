@@ -10,6 +10,7 @@ from .models import Profile, CreditCard,PointsWallet
 from address.models import Address
 from djmoney.contrib.exchange.models import Rate
 from .serializers import RateSerializer
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -35,7 +36,7 @@ class CreditCardRetrieveAPIView(generics.RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance is None:
-            return Response({'detail': 'This user does not have any credit card.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': _('This user does not have any credit card.')}, status=status.HTTP_404_NOT_FOUND)
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
@@ -53,7 +54,7 @@ class CreditCardDeleteView(generics.DestroyAPIView):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance is None:
-            return Response({'detail': 'This user does not have any credit card.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': _('This user does not have any credit card.')}, status=status.HTTP_404_NOT_FOUND)
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
     
@@ -118,7 +119,7 @@ class ProfileAddressView(mixins.RetrieveModelMixin,
     def create(self, request, *args, **kwargs):
         address = self.get_instance()
         if address:
-            raise ValidationError({'detail':'address already exists'})
+            raise ValidationError({'detail':_('address already exists')})
         return super().create(request, *args, **kwargs)
     
     
@@ -126,7 +127,7 @@ class ProfileAddressView(mixins.RetrieveModelMixin,
         self.get_object = self.get_instance
         address = self.get_instance()
         if address is None:
-            raise NotFound({'detail':'address does not exist'})
+            raise NotFound({'detail':_('address does not exist')})
         return self.retrieve(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):

@@ -74,7 +74,6 @@ class ServiceReviewSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         service = validated_data['service']
-        print(service)
         # s=Service.objects.all(service=service)
         if not service.allow_review:
             raise serializers.ValidationError("You cant review this service.")

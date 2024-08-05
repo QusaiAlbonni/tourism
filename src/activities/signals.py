@@ -47,7 +47,10 @@ def create_takeoff_task(tour: Tour, task_date: timezone.datetime, now : bool = F
 def trigger_on_update(sender, instance, **kwargs):
     if not instance.pk:
         return
-    fields = on_crucial_field_update(sender, instance, **kwargs)
+    fields: dict = on_crucial_field_update(sender, instance, **kwargs)
+    if len(fields):
+        
+        tasks.notify_users_on_crucial_update.delay(instance.pk)
     if (sender is Tour) and ('takeoff_date' in fields):
         try:
             notif_task = PeriodicTask.objects.get(kwargs= json.dumps({

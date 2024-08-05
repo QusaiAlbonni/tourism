@@ -16,7 +16,8 @@ from app_auth.utils import is_read_only_user
 from django.http import Http404
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-
+from django.db.models import Prefetch
+from silk.profiling.profiler import silk_profile
 
 
 class GuideViewSet(viewsets.ModelViewSet):
@@ -105,6 +106,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
         if is_read_only_user(self.request.user, 'app_auth.manage_activities'):
             queryset = queryset.filter(canceled = False)
             queryset = queryset.filter(Q(tour__isnull = True) | Q(tour__tour_sites__isnull = False))
+        queryset = queryset.prefetch_related('photos')
         return queryset
     
     def create(self, request, *args, **kwargs):
@@ -140,7 +142,9 @@ class ActivityViewSet(viewsets.ModelViewSet):
             if ticket.purchases.filter(refunds__isnull= False, canceled=False).exists():
                 raise ValidationError({'detail':_('cannot delete while some users have not been refunded')})
         return super().destroy(request, *args, **kwargs)
-    
+    def list(self, request, *args, **kwargs):
+        with silk_profile(name='View Blo'):
+            return super().list(request, *args, **kwargs)
     
 
 class TourViewSet(viewsets.ModelViewSet):
@@ -148,12 +152,16 @@ class TourViewSet(viewsets.ModelViewSet):
     queryset = Tour.objects.all()
     permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     
+    @silk_profile(name= 'Tour list')
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
     def get_queryset(self):
         queryset = self.queryset
         if is_read_only_user(self.request.user, 'app_auth.manage_activities'):
             queryset = queryset.filter(canceled = False)
             queryset = queryset.filter(tour_sites__isnull = False).distinct()
-        return queryset
+        return queryset.select_related('guide').prefetch_related('sites', 'tickets', 'activity_tags', 'photos')
             
         
     
@@ -161,7 +169,7 @@ class TourSiteViewSet(viewsets.ModelViewSet):
     serializer_class  = TourSiteSerializer
     permission_classes= [IsAuthenticatedOrReadOnly, CanManageActivitiesOrReadOnly]
     def get_queryset(self):
-        return TourSite.objects.filter(tour= self.kwargs['tour_pk'])
+        return TourSite.objects.filter(tour= self.kwargs['tour_pk']).select_related('site')
     def get_serializer_context(self):   
         context = super().get_serializer_context()
         context['tour_pk'] = self.kwargs['tour_pk']
@@ -215,5 +223,5 @@ class ListingViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         if is_read_only_user(self.request.user, 'app_auth.manage_activities'):
             queryset = queryset.filter(canceled = False)
-        return queryset
+        return queryset.select_related('site').prefetch_related('tickets', 'photos')
     

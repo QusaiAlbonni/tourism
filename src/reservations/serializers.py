@@ -22,7 +22,6 @@ class TicketPurchaseSerializer(serializers.ModelSerializer):
         try:
             instance = self.Meta.model(**validated_data)
             instance.save(use_points_discount=use_points_discount)
-            print("hewe")
         except DjangoValidationError as e:
             raise ValidationError(dict(e))
         return instance
