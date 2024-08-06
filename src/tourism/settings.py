@@ -71,7 +71,6 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_filters',
     'service_objects',
-    
     'fcm_django',
     'notifications',
     'silk',

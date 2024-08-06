@@ -181,6 +181,10 @@ class TicketPurchase(BaseReservation):
     def can_be_canceled(self):
         return self.check_revocable()
     
+    @property
+    def scanable(self):
+        return self.check_scanable()
+    
     def check_scanable(self):
         ticket_is_valid = self.ticket.is_valid
         ticket_activity_is_valid = True

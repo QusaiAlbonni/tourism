@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import TicketPurchase, PointsPayment, Payment
 from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework.serializers import ValidationError
+from activities.models import Ticket
 
 class TicketPurchaseSerializer(serializers.ModelSerializer):
     use_points_discount = serializers.BooleanField(write_only= True, required= True)
@@ -9,8 +10,8 @@ class TicketPurchaseSerializer(serializers.ModelSerializer):
     activity_id         = serializers.SerializerMethodField()
     class Meta:
         model = TicketPurchase
-        fields= ['id','use_points_discount','ticket_id','canceled', 'refunded','refundable', 'can_be_canceled', 'activity_id', 'activity_type', 'ticket', 'owner','qr_code', 'scanned', 'scan_date', 'uuid', 'created', 'modified']
-        read_only_fields = ['ticket', 'owner', 'scanned','refundable','qr_code', 'can_be_canceled', 'canceled', 'refunded', 'scan_date', 'uuid', 'created', 'modified']
+        fields= ['id','use_points_discount','ticket_id','canceled', 'refunded','refundable', 'can_be_canceled', 'activity_id', 'activity_type', 'ticket', 'owner','qr_code', 'scanned', 'scan_date', 'uuid', 'created', 'modified', 'scanable']
+        read_only_fields = ['ticket', 'owner', 'scanned','refundable','qr_code', 'can_be_canceled', 'canceled', 'refunded', 'scan_date', 'uuid', 'created', 'modified', 'scanable']
     
     def create(self, validated_data):
         ticket_pk = self.context.get('ticket_pk', None)
@@ -30,11 +31,13 @@ class TicketPurchaseSerializer(serializers.ModelSerializer):
     def get_activity_id(self, obj: TicketPurchase):
         return obj.ticket.activity.pk
     
-class ScanQRCodeSerializer(serializers.Serializer):
-    uuid = serializers.UUIDField()
+class ScanQRCodeSerializer(serializers.ModelSerializer):
+    uuid     = serializers.UUIDField()
+    ticket_id= serializers.PrimaryKeyRelatedField(queryset=Ticket.objects.all(), write_only=True, source='ticket', allow_null=False)
 
     class Meta:
         model = TicketPurchase
+        fields = ['uuid', 'ticket_id']
 
     def validate_uuid(self, value):
         try:

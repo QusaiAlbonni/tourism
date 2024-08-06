@@ -82,14 +82,18 @@ class QrReservationViewSet(GenericViewSet):
     permission_classes= [CanScanReservations] 
     def get_queryset(self):
         return ScanQRCodeSerializer.Meta.model.objects.all()
-    def get_object(self):
+    def get_object(self, ticket_id):
         uuid = self.kwargs['uuid']
-        return get_object_or_404(self.get_queryset().filter(uuid= uuid))
+        return get_object_or_404(self.get_queryset().filter(uuid= uuid, ticket__pk = ticket_id))
     @action(('post',), detail=False)
     def scan(self, request, *args, **kwargs):
-        serializer = ScanQRCodeSerializer(data={'uuid': self.kwargs['uuid']})
+        data= request.data
+        data['uuid'] = self.kwargs['uuid']
+        print(data)
+        serializer = ScanQRCodeSerializer(data= data)
         serializer.is_valid(raise_exception=True)
-        instance = self.get_object()
+        ticket_id = data['ticket_id']
+        instance = self.get_object(ticket_id)
         try:
             instance.clean_scan()
             instance.on_scan()
