@@ -48,3 +48,22 @@ def send_notifications_on_crucial_update(activity):
         )
     devices = FCMDevice.objects.filter(user_id__in= users)
     devices.send_message(message)
+    
+    
+def send_notification_on_cancellation(users, object):
+    users = User.objects.filter(pk__in= users)
+    for instance in users:
+        notify.send(
+            instance,
+            recipient=instance,
+            verb=f'Unfortunately {object.name} has been cancelled',
+            level= 'info',
+            public=False,
+            description= f"Unfortunately {object.name} you have purchased a ticket for has been cancelled you maybe eligable to fully refund your purchases"
+            )
+    
+    message = Message(
+            notification= Notification(title= f'Unfortunately {object.name} has been cancelled', body=f"Unfortunately {object.name} you have purchased a ticket for has been cancelled you maybe eligable to fully refund your purchases")
+        )
+    devices = FCMDevice.objects.filter(user_id__in= users)
+    devices.send_message(message)

@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'fcm_django',
     'notifications',
     'silk',
+    'drf_spectacular',
     
     # pingoway apps
     'app_auth',
@@ -188,6 +189,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 DJOSER = {
@@ -322,3 +324,10 @@ JAZZMIN_SETTINGS = {
 }
 
 GOOGLE_TRANSLATE = GoogleTranslator
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Pingoway api',
+    'DESCRIPTION': 'Pingoway is a progressive and modern tourism service system',
+    'VERSION': '1.0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
+}

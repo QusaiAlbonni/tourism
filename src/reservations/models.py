@@ -256,9 +256,12 @@ class TicketPurchase(BaseReservation):
     def check_refundable(self) -> bool:
         return (
             super().check_refundable() 
-            or (((not self.canceled) and (not self.scanned)) and (self.ticket.canceled or self.ticket.activity.canceled))
+            or (self.refundable_on_activity_cancellation())
             or (self.refundable_on_data_change())
         )
+        
+    def refundable_on_activity_cancellation(self):
+        return ((not self.canceled) and (not self.scanned)) and (self.ticket.canceled or self.ticket.activity.canceled) and (self.ticket.valid_until > timezone.datetime.now().date())
     def refundable_on_data_change(self) -> bool:
         return ((not self.canceled) and (not self.scanned)) and ((self.created < self.ticket.crucial_field_modified) or (self.created < self.ticket.activity.crucial_field_modified))
     @transaction.atomic()
@@ -279,7 +282,7 @@ class TicketPurchase(BaseReservation):
     
     @transaction.atomic()
     def refund(self):
-        if self.refundable_on_data_change():
+        if self.refundable_on_data_change() or self.refundable_on_activity_cancellation():
             self.force_full_refund = True
         return super().refund()
     

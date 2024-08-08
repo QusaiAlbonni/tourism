@@ -73,6 +73,8 @@ django-grappelli = "*"
 django-jazzmin = "*"
 googletrans = "*"
 deep-translator = "*"
+coreapi = "*"
+drf-spectacular = "*"
 
 [dev-packages]
 

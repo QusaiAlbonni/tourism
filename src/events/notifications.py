@@ -20,3 +20,19 @@ def notify_users_of_event(event: Event):
         )
     devices = FCMDevice.objects.filter(user_id__in= list(User.objects.all().get_queryset()))
     devices.send_message(message)
+    
+def notify_users_of_event_end(event: Event):
+    notify.send(
+        event,
+        recipient=User.objects.all().get_queryset(),
+        verb=f'the event {event.name} has ended',
+        level= 'info',
+        public=False,
+        description= f"{event.description}!"
+    )
+        
+    message = Message(
+            notification= Notification(title= f'the event {event.name} has ended!, hope you enjoyed it!', body=f"{event.description}!")
+        )
+    devices = FCMDevice.objects.filter(user_id__in= list(User.objects.all().get_queryset()))
+    devices.send_message(message)

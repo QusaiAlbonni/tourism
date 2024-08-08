@@ -11,6 +11,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 from rest_framework.routers import DefaultRouter
 from profiles.views import ExchangeRatesView
+from rest_framework.documentation import get_docs_view
 
 fcm_router = DefaultRouter()
 

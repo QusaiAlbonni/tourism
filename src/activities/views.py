@@ -18,7 +18,7 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Prefetch
 from silk.profiling.profiler import silk_profile
-
+from . import tasks
 
 class GuideViewSet(viewsets.ModelViewSet):
     serializer_class = GuideSerializer
@@ -61,6 +61,8 @@ class TicketViewSet(viewsets.ModelViewSet):
                 raise ValidationError({'detail':_('tour has already begun or concluded')})        
         obj.canceled = True
         obj.save()
+        
+        tasks.notify_users_of_cancellation_ticket.delay(obj.pk)
         return Response({'detail':'success'}, status.HTTP_200_OK)
 
     @action(['post',], True)
@@ -123,11 +125,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
             raise ValidationError({'detail':'already canceled'})
         if hasattr(obj, 'tour'):
             if obj.tour.takeoff_date_before_now():
-                raise ValidationError({'detail':_('tour has already begun or concluded')})
-            
+                raise ValidationError({'detail':_('tour has already begun or concluded')})            
 
         obj.canceled = True
         obj.save()
+        
+        tasks.notify_users_of_cancellation.delay(obj.pk)
         return Response({'detail':'success'}, status.HTTP_200_OK)
     @action(['post',], True)
     def refund_all(self, request, pk):
