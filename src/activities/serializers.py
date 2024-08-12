@@ -47,6 +47,7 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = [
             'id',
+            'formatted',
             'raw',
             'street_number',
             'route',
@@ -56,7 +57,10 @@ class AddressSerializer(serializers.ModelSerializer):
             'state_code',
             'country',
             'country_code',
+            'latitude',
+            'longitude',
         ]
+        read_only_fields= ['longitude', 'latitude']
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:

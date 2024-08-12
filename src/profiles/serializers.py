@@ -53,6 +53,7 @@ class ProfileAddressCreateSerializer(serializers.ModelSerializer):
         model = Address
         fields = [
             'raw',
+            'formatted',
             'street_number',
             'route',
             'locality',
@@ -61,6 +62,8 @@ class ProfileAddressCreateSerializer(serializers.ModelSerializer):
             'state_code',
             'country',
             'country_code',
+            'latitude',
+            'longitude',
         ]
     def create(self, validated_data):
         user = self.context['request'].user
