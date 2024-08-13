@@ -75,6 +75,7 @@ googletrans = "*"
 deep-translator = "*"
 coreapi = "*"
 drf-spectacular = "*"
+django-rest-firebase-auth = "*"
 
 [dev-packages]
 

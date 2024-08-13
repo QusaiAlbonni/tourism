@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'notifications',
     'silk',
     'drf_spectacular',
+
     
     # pingoway apps
     'app_auth',
@@ -185,6 +186,7 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        "app_auth.authentication.FirebaseAuthentication",
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
@@ -300,6 +302,10 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
 
+
+FIREBASE_AUTH = {
+    "SERVICE_ACCOUNT_KEY_FILE": env('FIREBASE_CREDS')
+}
 
 FIREBASE_CREDS_BASE64 = env('FIREBASE_CREDS_BASE64', None)
 
