@@ -15,6 +15,7 @@ from .exceptions import NonRefundableError, NonRefundableException, CantBeCancel
 from django.shortcuts import get_object_or_404
 from .permissions import CanScanReservations
 from django.db import transaction
+from . import tasks
 
 class TicketPurchaseViewSet(ModelViewSet):
     serializer_class = TicketPurchaseSerializer
@@ -40,7 +41,11 @@ class TicketPurchaseViewSet(ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         try:
-            return super().create(request, *args, **kwargs)
+            response= super().create(request, *args, **kwargs)
+            instance = TicketPurchase.objects.get(pk= response.data['id'])
+            tasks.send_gifted_points_notification_task.delay(instance.owner.pk, instance.get_service().points_gift)
+            return response
+
         except Ticket.DoesNotExist as e:
             raise Http404(_("Ticket does not exist."))
         
@@ -89,7 +94,6 @@ class QrReservationViewSet(GenericViewSet):
     def scan(self, request, *args, **kwargs):
         data= request.data
         data['uuid'] = self.kwargs['uuid']
-        print(data)
         serializer = ScanQRCodeSerializer(data= data)
         serializer.is_valid(raise_exception=True)
         ticket_id = data['ticket_id']
@@ -97,6 +101,7 @@ class QrReservationViewSet(GenericViewSet):
         try:
             instance.clean_scan()
             instance.on_scan()
+            tasks.send_successful_scanning_notification_task.delay(instance.pk)
         except DjValidationError as e:
             raise ValidationError(str(e))
         return Response({'detail':'success'}, status.HTTP_200_OK)

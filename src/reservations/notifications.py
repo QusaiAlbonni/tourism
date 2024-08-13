@@ -52,3 +52,33 @@ def send_purchase_success_notification(instance):
     )
     devices = FCMDevice.objects.filter(user = instance.owner)
     devices.send_message(message)
+    
+def send_gifted_points_notification(user, amount_gifted):
+    notify.send(
+        sender= user,
+        recipient= user,
+        verb=f'you have been gifted {amount_gifted} points!',
+        level= 'success',
+        public=False,
+        description= f"your you have been gifted the amount {amount_gifted} points! spend it wisely"
+        )
+    message = Message(
+        notification= Notification(title= f'you have been gifted {amount_gifted} points!', body=f"your you have been gifted the amount {amount_gifted} points! spend it wisely")
+    )
+    devices = FCMDevice.objects.filter(user = user)
+    devices.send_message(message)
+    
+def send_successful_scanning_notification(instance):
+    notify.send(
+        sender= instance.owner,
+        recipient=instance.owner,
+        verb='your ticket has been scanned!',
+        level= 'success',
+        public=False,
+        description= f"your purchase for {instance.ticket} for {instance.ticket.activity.name} has been scanned!"
+        )
+    message = Message(
+        notification= Notification(title= 'your ticket has been scanned!', body=f"your purchase for {instance.ticket} for {instance.ticket.activity.name} has been scanned!")
+    )
+    devices = FCMDevice.objects.filter(user = instance.owner)
+    devices.send_message(message)
