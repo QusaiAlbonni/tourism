@@ -76,6 +76,8 @@ deep-translator = "*"
 coreapi = "*"
 drf-spectacular = "*"
 django-rest-firebase-auth = "*"
+ipapi = "*"
+google-i18n-address = "*"
 
 [dev-packages]
 

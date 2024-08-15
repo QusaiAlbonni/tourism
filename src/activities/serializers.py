@@ -62,7 +62,7 @@ class AddressSerializer(serializers.ModelSerializer):
         ]
         read_only_fields= ['longitude', 'latitude']
 
-class TicketSerializer(serializers.ModelSerializer):
+class TicketSerializer(serializers.ModelSerializer, CurrencyConversionMixin):
     class Meta:
         model  = Ticket
         fields =['id','activity_id','name', 'description','stock','price_currency', 'price', 'points_discount_price', 'points_discount', 'valid_until', 'created', 'modified']
@@ -118,7 +118,7 @@ class ActivitySerializer(serializers.ModelSerializer):
     def get_type(self, obj : Activity):
         return obj.type
     
-class ActivityTagSerializer(CurrencyConversionMixin,serializers.ModelSerializer):
+class ActivityTagSerializer(serializers.ModelSerializer):
     tag = TagSerializer(read_only=True)
     tag_id = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), write_only=True, source='tag', allow_null=False)
     class Meta:

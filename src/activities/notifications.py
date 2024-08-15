@@ -17,7 +17,7 @@ def send_notifications_tour_takeoff(tour: Tour, humanized_date: str):
         notify.send(
             instance,
             recipient=instance,
-            verb=f'the tour you have purchased is starting soon',
+            verb=f'the tour {tour.name} is starting soon!',
             level= 'info',
             public=False,
             description= f"the tour you have purchased {tour.name} is starting in {humanized_date}!"
