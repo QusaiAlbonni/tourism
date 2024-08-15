@@ -15,10 +15,11 @@ class TicketPurchaseSerializer(serializers.ModelSerializer):
     payment             = serializers.SerializerMethodField()
     payment_currency    = serializers.SerializerMethodField()
     activity_name       = serializers.SerializerMethodField()
+    ticket_name         = serializers.SerializerMethodField()
     class Meta:
         model = TicketPurchase
-        fields= ['id','use_points_discount','ticket_id','canceled', 'refunded','refund_rate','payment','payment_currency', 'activity_name','refundable', 'can_be_canceled', 'activity_id', 'activity_type', 'ticket', 'owner','qr_code', 'scanned', 'scan_date', 'uuid', 'created', 'modified', 'scanable']
-        read_only_fields = ['ticket', 'owner', 'scanned','refundable','qr_code', 'can_be_canceled', 'canceled', 'refunded', 'scan_date', 'uuid', 'created', 'modified', 'scanable', 'refund_rate','payment', 'payment_currency', 'activity_name']
+        fields= ['id','use_points_discount','ticket_id','canceled', 'refunded','refund_rate','payment','payment_currency', 'activity_name', 'ticket_name','refundable', 'can_be_canceled', 'activity_id', 'activity_type', 'ticket', 'owner','qr_code', 'scanned', 'scan_date', 'uuid', 'created', 'modified', 'scanable']
+        read_only_fields = ['ticket', 'owner', 'scanned','refundable','qr_code', 'can_be_canceled', 'canceled', 'refunded', 'scan_date', 'uuid', 'created', 'modified', 'scanable', 'refund_rate','payment', 'payment_currency', 'activity_name', 'ticket_name']
     
     def create(self, validated_data):
         ticket_pk = self.context.get('ticket_pk', None)
@@ -48,6 +49,8 @@ class TicketPurchaseSerializer(serializers.ModelSerializer):
         return obj.payments.first().amount.currency.code
     def get_activity_name(self, obj: TicketPurchase):
         return obj.ticket.activity.name
+    def get_ticket_name(self, obj:TicketPurchase):
+        return obj.ticket.name
     
 class ScanQRCodeSerializer(serializers.ModelSerializer):
     uuid     = serializers.UUIDField()
