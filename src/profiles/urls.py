@@ -1,6 +1,6 @@
 from django.urls import path
 from django.urls import re_path, include
-from .views import CreditCardCreateView,CreditCardRetrieveAPIView,CreditCardDeleteView,PointsWalletRetrieveAPIView,ProfileAddressView, ProfileViewSet, ExchangeRatesView
+from .views import CreditCardCreateView,CreditCardRetrieveAPIView,CreditCardDeleteView,PointsWalletRetrieveAPIView,ProfileAddressView, ProfileViewSet, ExchangeRatesView,UserIPCurrencyView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -16,5 +16,6 @@ urlpatterns = [
     path('wallet/', include([
         path('', PointsWalletRetrieveAPIView.as_view(), name='credit-card-retrieve'),
     ])),
+    path('get_currency/', UserIPCurrencyView.as_view(), name='get_currency'),
 ]
 urlpatterns += router.urls

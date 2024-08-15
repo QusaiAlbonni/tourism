@@ -147,3 +147,34 @@ class ExchangeRatesView(mixins.ListModelMixin, generics.GenericAPIView):
     
     def get(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+import ipapi
+# myapp/views.py
+# myapp/views.py
+import requests
+from django.http import JsonResponse
+from django.views import View
+import json
+class UserIPCurrencyView(View):
+    def get(self, request, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        x_real_ip = request.META.get('HTTP_X_REAL_IP')
+
+        if x_forwarded_for:
+            print(1)
+            ip = x_forwarded_for.split(',')[0]
+        elif x_real_ip:
+            print(2)
+            ip = x_real_ip
+        else:
+            print(3)
+            ip = request.META.get('REMOTE_ADDR')
+
+        print(ip)
+        
+        # ip = '8.8.8.8'
+
+        ipapi.location()
+        location_data = ipapi.location(ip)
+        print(location_data)
+        return JsonResponse(location_data)

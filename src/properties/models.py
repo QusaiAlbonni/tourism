@@ -9,7 +9,6 @@ from djmoney.models.validators import MinMoneyValidator
 from decimal import Decimal
 from django.core.exceptions import ValidationError
 
-
 class Property(Service):
     PROPERTY_TYPE=[
        ('Hotel','Hotel'),
@@ -145,7 +144,7 @@ class SupPropertyPhoto(models.Model):
         super().delete(*args, **kwargs)
 
 class PropertyTag(SupTag):
-    property = models.ForeignKey(Property,on_delete=models.CASCADE)
+    property = models.ForeignKey(Property,verbose_name=_("Property"),on_delete=models.CASCADE,related_name='property_tags')
     allowed_category_type = 'Property'
     class Meta:
         unique_together = ('tag', 'property')

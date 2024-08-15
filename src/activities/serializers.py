@@ -13,7 +13,7 @@ from services.serializers import ServicePhotoSerializer
 from tags.serializers import TagSerializer
 from tags.models import Tag, TagsCategory
 from django.shortcuts import get_object_or_404
-
+from properties.mixins.currency_conversion import CurrencyConversionMixin
 class GuideSerializer(serializers.ModelSerializer):
     liked = serializers.SerializerMethodField()
     class Meta:
@@ -118,7 +118,7 @@ class ActivitySerializer(serializers.ModelSerializer):
     def get_type(self, obj : Activity):
         return obj.type
     
-class ActivityTagSerializer(serializers.ModelSerializer):
+class ActivityTagSerializer(CurrencyConversionMixin,serializers.ModelSerializer):
     tag = TagSerializer(read_only=True)
     tag_id = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), write_only=True, source='tag', allow_null=False)
     class Meta:

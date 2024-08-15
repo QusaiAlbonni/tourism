@@ -2,8 +2,11 @@ from rest_framework import serializers
 from .models import Property, SupProperty, SupPropertyBed, SupPropertyPhoto, PropertyTag, SupPropertyTag
 from address.models import Address
 from services.serializers import ServiceSerializer
-from django.http import JsonResponse
 from django.core.exceptions import ValidationError
+from .mixins.currency_conversion import CurrencyConversionMixin
+from decimal import Decimal
+from djmoney.contrib.exchange.models import convert_money
+
 
 class AddressSerializer(serializers.ModelSerializer):
     locality     = serializers.CharField(max_length=165, allow_blank=True, required=False)
@@ -88,7 +91,7 @@ class SupPropertyPhotoSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'detail': str(e)})
         return supproperty_photo
 
-class SupPropertySerializer(serializers.ModelSerializer):
+class SupPropertySerializer(CurrencyConversionMixin,serializers.ModelSerializer):
     adults_capacity = serializers.ReadOnlyField()
     children_capacity = serializers.ReadOnlyField()
     points_discount_decimal = serializers.ReadOnlyField()
@@ -106,6 +109,7 @@ class SupPropertySerializer(serializers.ModelSerializer):
             'description',
             'number',
             'price',
+            'price_currency',
             'multi_night_discount',
             'available_start_date',
             'available_end_date',
@@ -173,7 +177,7 @@ class SupPropertySerializer(serializers.ModelSerializer):
 
 class PropertySerializer(ServiceSerializer):
     address = AddressSerializer(required=True, allow_null= False)
-
+    supproperties = serializers.SerializerMethodField()
     class Meta:
         model = Property
         fields =ServiceSerializer.Meta.fields +  [
@@ -183,11 +187,48 @@ class PropertySerializer(ServiceSerializer):
             'address',
             'star',
             'type',
-            'desgen'
+            'desgen',
+            'supproperties'
         ]
         read_only_fields = [
             'id'
         ]
+
+    def get_supproperties(self, obj):
+        max_price = self.context.get('max_price')
+        min_price = self.context.get('min_price')
+        adults = self.context.get('adults_capacity')
+        children = self.context.get('children_capacity')
+        request = self.context.get('request')
+        target_currency = request.headers.get('Currency')
+
+        filtered_supproperties = []
+        if target_currency is None:
+            target_currency = 'USD'
+
+        if target_currency is not None:
+            supproperties = obj.supproperties.all()
+            
+            for sup_property in supproperties:
+                converted_price = convert_money(sup_property.price, target_currency)
+                service = sup_property.property_id 
+                discount = service.discount
+                print(discount)
+                converted_price.amount = converted_price.amount * (1 - discount / Decimal(100))
+                print(converted_price.amount)
+                if (
+                    (max_price is None or converted_price.amount < Decimal(max_price)) and
+                    (min_price is None or converted_price.amount > Decimal(min_price)) and
+                    (adults is None or( (adults <= sup_property.adults_capacity) and adults+children <=sup_property.adults_capacity+sup_property.children_capacity))
+                ):
+                    filtered_supproperties.append(sup_property)
+            
+
+
+        return SupPropertySerializer(filtered_supproperties, many=True, context=self.context).data
+
+
+
     def update(self, instance, validated_data):
         address_data = validated_data.pop('address', None)
         service_instance = super(PropertySerializer, self).update(instance, validated_data)
