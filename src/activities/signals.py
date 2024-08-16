@@ -20,7 +20,10 @@ def register_notifications_for_tour_takeoff(sender, instance, **kwargs):
 
 def create_takeoff_task(tour: Tour, task_date: timezone.datetime, now : bool = False):
     if now:
-        tasks.send_tour_notifications_task.delay(tour.pk)
+        try:
+            tasks.send_tour_notifications_task.delay(tour.pk)
+        except Exception:
+            return 
         return
     schedule, created = ClockedSchedule.objects.get_or_create(
         clocked_time=task_date
@@ -49,8 +52,10 @@ def trigger_on_update(sender, instance, **kwargs):
         return
     fields: dict = on_crucial_field_update(sender, instance, **kwargs)
     if len(fields):
-        
-        tasks.notify_users_on_crucial_update.delay(instance.pk)
+        try:
+            tasks.notify_users_on_crucial_update.delay(instance.pk)
+        except Exception:
+            pass
     if (sender is Tour) and ('takeoff_date' in fields):
         try:
             notif_task = PeriodicTask.objects.get(kwargs= json.dumps({

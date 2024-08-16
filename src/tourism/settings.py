@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     'gemini',
     'inbox',
     'localizations',
+    'user_statistics',
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')

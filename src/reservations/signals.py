@@ -12,6 +12,8 @@ def send_refund_notification(sender, instance, created, **kwargs):
     
 @receiver(post_save, sender= TicketPurchase)
 def notify_user_of_his_purchase(sender, instance, created, **kwargs):
+    if instance.pk:
+        return
     send_purchase_success_notification(instance)
     
     

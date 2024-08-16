@@ -62,7 +62,10 @@ class TicketViewSet(viewsets.ModelViewSet):
         obj.canceled = True
         obj.save()
         
-        tasks.notify_users_of_cancellation_ticket.delay(obj.pk)
+        try:
+            tasks.notify_users_of_cancellation_ticket.delay(obj.pk)
+        except Exception:
+            pass
         return Response({'detail':'success'}, status.HTTP_200_OK)
 
     @action(['post',], True)
@@ -129,8 +132,10 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
         obj.canceled = True
         obj.save()
-        
-        tasks.notify_users_of_cancellation.delay(obj.pk)
+        try:
+            tasks.notify_users_of_cancellation.delay(obj.pk)
+        except Exception:
+            pass
         return Response({'detail':'success'}, status.HTTP_200_OK)
     @action(['post',], True)
     def refund_all(self, request, pk):

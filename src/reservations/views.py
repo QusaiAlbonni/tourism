@@ -43,7 +43,10 @@ class TicketPurchaseViewSet(ModelViewSet):
         try:
             response= super().create(request, *args, **kwargs)
             instance = TicketPurchase.objects.get(pk= response.data['id'])
-            tasks.send_gifted_points_notification_task.delay(instance.owner.pk, instance.get_service().points_gift)
+            try:
+                tasks.send_gifted_points_notification_task.delay(instance.owner.pk, instance.get_service().points_gift)
+            except Exception:
+                pass
             return response
 
         except Ticket.DoesNotExist as e:
@@ -101,7 +104,10 @@ class QrReservationViewSet(GenericViewSet):
         try:
             instance.clean_scan()
             instance.on_scan()
-            tasks.send_successful_scanning_notification_task.delay(instance.pk)
+            try:
+                tasks.send_successful_scanning_notification_task.delay(instance.pk)
+            except Exception:
+                pass
         except DjValidationError as e:
             raise ValidationError(str(e))
         return Response({'detail':'success'}, status.HTTP_200_OK)

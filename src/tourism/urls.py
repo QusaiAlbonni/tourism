@@ -34,6 +34,7 @@ urlpatterns = [
     path('inbox/', include('inbox.urls')),
     path('exchange_rates/', ExchangeRatesView.as_view()),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('reports/', include('user_statistics.urls'))
 ]  + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 urlpatterns += [
         re_path(r'^rosetta/', include('rosetta.urls'))
