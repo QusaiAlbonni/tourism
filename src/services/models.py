@@ -73,7 +73,7 @@ class Service(models.Model):
         for discount in discounts:
             total_discount *= (Decimal(1) - discount.percent / Decimal(100))
 
-        return (1 - total_discount)*100
+        return Decimal((1 - total_discount)*100).quantize(Decimal('0.00'))
 
     
     @property

@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Guide, GuideLiker, Activity
+from .models import Guide, GuideLiker, Activity, Site
 from django.db.models import ManyToManyField, DateField
 # Register your models here.
 
 class GuideAdmin(admin.ModelAdmin):
-    fields=['name', 'bio', 'avatar']
+    fields=['name', 'bio', 'avatar', 'email']
     list_display= ('name', 'bio', 'likes')
     
 admin.site.register(Guide, GuideAdmin)
@@ -16,7 +16,7 @@ class GuideLikerAdmin(admin.ModelAdmin):
 admin.site.register(GuideLiker, GuideLikerAdmin)
 
 
-class ActivityAdmin(admin.ModelAdmin):
-    fields= [field.name for field in Activity._meta.get_fields() if not isinstance(field, ManyToManyField) and not isinstance(field, DateField)]
+class SiteAdmin(admin.ModelAdmin):
+    fields= ['name', 'photo', 'description']
     
-admin.site.register(Activity, ActivityAdmin)
+admin.site.register(Site, SiteAdmin)

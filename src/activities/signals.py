@@ -6,6 +6,7 @@ from django.utils import timezone
 from tourism.utils import rgetattr, rsetattr
 from django_celery_beat.models import PeriodicTask, ClockedSchedule
 from . import tasks
+from rest_framework.exceptions import ValidationError
 
 @receiver(post_save, sender=Tour)
 def register_notifications_for_tour_takeoff(sender, instance, **kwargs):
@@ -69,7 +70,14 @@ def trigger_on_update(sender, instance, **kwargs):
         if date < timezone.now():
             now = True
         create_takeoff_task(instance, date, now)
-        
+    if (sender is Ticket):
+        ticket = Ticket.objects.get(pk = instance.pk)
+        if instance.price.amount != ticket.price.amount:
+            now = timezone.now()
+            last = ticket.modified
+            threshold = now - timezone.timedelta(days=2)
+            if last > threshold:
+                raise ValidationError("You cannot update the price of a ticket more than once every two days")
 
     return fields
 

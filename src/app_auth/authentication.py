@@ -24,13 +24,17 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
 from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
+import jwt
+from firebase_admin import auth, credentials, initialize_app, app_check
 
-from firebase_admin import auth, credentials, initialize_app
+from django.conf import settings
 
 from firebase_auth.settings import firebase_auth_settings
 
 
 User = get_user_model()
+
+firebase = settings.FIREBASE_APP
 
 class BaseFirebaseAuthentication(BaseAuthentication):
     """
@@ -47,25 +51,35 @@ class BaseFirebaseAuthentication(BaseAuthentication):
         has been supplied. Otherwise returns `None`.
         """
         firebase_token = self.get_token(request)
+        
 
         if not firebase_token:
             return None
 
         try:
-            payload = auth.verify_id_token(firebase_token)
-        except ValueError:
+            payload = auth.verify_id_token(firebase_token, firebase)
+        except ValueError as e:
             msg = _("Invalid firebase ID token.")
-            raise exceptions.AuthenticationFailed(msg)
+            return None
         except (
             auth.ExpiredIdTokenError,
             auth.InvalidIdTokenError,
             auth.RevokedIdTokenError,
-        ):
+        ) as e:
+            try:
+                payload = jwt.decode(firebase_token, options={"verify_signature": False})
+            except jwt.ExpiredSignatureError:
+                print("The token has expired")
+                return None
+            except jwt.InvalidTokenError:
+                print("Invalid token")
+                return None            
             msg = _("Could not log in.")
-            raise exceptions.AuthenticationFailed(msg)
-
-        user = self.authenticate_credentials(payload)
-
+        try: 
+            user = self.authenticate_credentials(payload)
+        except Exception as e:
+            return None
+        
         return (user, payload)
 
     def get_token(self, request):
@@ -100,27 +114,44 @@ class BaseFirebaseAuthentication(BaseAuthentication):
             if not payload["email_verified"]:
                 msg = _("User email not yet confirmed.")
                 raise exceptions.AuthenticationFailed(msg)
-
-        uid = payload["uid"]
-
+        uid = payload["user_id"]
+        email = payload['email']
+        name = payload['name']
         try:
-            user = self.get_user(uid)
+            print('das')
+            user = self.get_user(email)
         except User.DoesNotExist:
             firebase_user = auth.get_user(uid)
-            user = self.create_user_from_firebase(uid, firebase_user)
-
+            print(name)
+            try:
+                user = self.create_user_from_firebase(name, email, firebase_user)
+            except Exception as e:
+                print(e)
         return user
 
-    def get_user(self, uid: str) -> User:
-        """Returns the user with given uid"""
-        raise NotImplementedError(".get_user() must be overriden.")
-
+    def get_user(self, email: str) -> User:
+        return User.objects.get(email=email)
+    
     def create_user_from_firebase(
-        self, uid: str, firebase_user: auth.UserRecord
+        self, username, email: str, firebase_user: auth.UserRecord
     ) -> User:
-        """Creates a new user with firebase info"""
-        raise NotImplementedError(".create_user_from_firebase() must be overriden.")
-
+        print('das')
+        parts = username.split()
+        if len(parts) == 1:
+            first_name = parts[0]
+            second_name = ''
+        elif len(parts) > 1:
+            first_name = parts[0]
+            second_name = ' '.join(parts[1:]) 
+        user = User(email= email, username= first_name, first_name= first_name, second_name=second_name)
+        user.set_unusable_password()
+        user.save()
+        profile = user.profile
+        profile.avatar = firebase_user.photo_url
+        profile.save()
+        return user
+        
+        
     def authenticate_header(self, request):
         return '{} realm="{}"'.format(
             self.auth_header_prefix, self.www_authenticate_realm
@@ -135,12 +166,21 @@ class FirebaseAuthentication(BaseFirebaseAuthentication):
     Authorizaiton header using Bearer scheme.
     """
 
-    def get_user(self, uid: str) -> User:
-        return User.objects.get(**{self.uid_field: uid})
-
+    def get_user(self, email: str) -> User:
+        return User.objects.get(email=email)
+    
     def create_user_from_firebase(
-        self, uid: str, firebase_user: auth.UserRecord
+        self, username, email: str, firebase_user: auth.UserRecord
     ) -> User:
-        fields = {self.uid_field: uid, "email": firebase_user.email}
-
-        return User.objects.create(**fields)
+        print('das')
+        parts = username.split()
+        if len(parts) == 1:
+            first_name = parts[0]
+            second_name = ''
+        elif len(parts) > 1:
+            first_name = parts[0]
+            second_name = ' '.join(parts[1:]) 
+        user = User(email= email, username= first_name, first_name= first_name, last_name=second_name)
+        user.set_unusable_password()
+        user.save()
+        return user

@@ -32,8 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', False)
 
 ALLOWED_HOSTS = ["*"]
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
-
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1', 'http://192.168.73.195', 'http://localhost:5173']
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
@@ -186,8 +185,8 @@ SIMPLE_JWT = {
 }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         "app_auth.authentication.FirebaseAuthentication",
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
@@ -198,7 +197,8 @@ REST_FRAMEWORK = {
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'LOGIN_FIELD':'email',
-    'SEND_ACTIVATION_EMAIL': True,
+    #'SEND_ACTIVATION_EMAIL': True,
+    'TOKEN_MODEL': None,
     'PASSWORD_RESET_CONFIRM_URL': 'auth/password/reset/confirm/{uid}/{token}',
     "ACTIVATION_URL": 'auth/activation/{uid}/{token}',
     'SERIALIZERS': {
@@ -338,3 +338,5 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+TOKEN_MODEL = None

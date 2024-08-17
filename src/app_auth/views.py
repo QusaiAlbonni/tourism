@@ -69,3 +69,11 @@ class UserViewSet(DjoserUserViewSet):
         if settings.DJOSER.get('HIDE_USERS', True) and self.action == "list" and not (user.is_staff or user.is_admin):
             queryset = queryset.filter(pk=user.pk)
         return queryset
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)

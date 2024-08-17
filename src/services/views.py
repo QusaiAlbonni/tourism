@@ -29,6 +29,7 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.exceptions import ValidationError as VE
 
 class ServicePhotoViewSet(viewsets.ModelViewSet):
     queryset = ServicePhoto.objects.all()
@@ -172,6 +173,10 @@ class ServiceReviewViewSet(viewsets.ModelViewSet):
             raise AdmincantFav()
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        service = Service.objects.get(pk = request.data.get('service'))
+        if hasattr(service, "activity"):
+            if not user.ticketpurchase_set.filter(ticket__activity= service.activity).count():
+                raise VE("you dont have a reservation to review this")
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

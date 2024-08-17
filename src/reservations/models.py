@@ -251,7 +251,7 @@ class TicketPurchase(BaseReservation):
             self.owner.pointswallet.increase_point(0, self.get_service().points_gift)
     
     def apply_discounts(self, amount):
-        return amount
+        return Decimal(amount - (amount * (self.get_service().discount / Decimal(100)))).quantize(Decimal('0.00'))
     
     def check_refundable(self) -> bool:
         return (

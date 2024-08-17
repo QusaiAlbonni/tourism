@@ -7,6 +7,7 @@ from datetime import  timedelta
 from address.models import Address
 from .models import Profile
 from djmoney.contrib.exchange.models import Rate
+from decimal import Decimal
 
 User = get_user_model()
 
@@ -27,6 +28,9 @@ class CreditCardSerializer(serializers.ModelSerializer):
         for validator in validators:
             validator(value)
         return value
+    def create(self, validated_data):
+        validated_data['balance'] = Decimal('5000')
+        return super().create(validated_data)
 
     
     
@@ -88,9 +92,10 @@ class ProfileAddressCreateSerializer(serializers.ModelSerializer):
         return address
     
 class ProfileSerializer(serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField()
     class Meta:
         model = Profile
-        fields = ['user', 'bio', 'marital_status', 'birth_date', 'num_kids', 'avatar']
+        fields = ['user', 'bio', 'marital_status', 'birth_date', 'num_kids', 'avatar', 'full_name']
     def create(self, validated_data):
         user = self.context['request'].user
         validated_data['user'] = user
@@ -98,7 +103,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance = self.context['request'].user.profile
         return super().update(instance, validated_data)
-        
+    def get_full_name(self, obj):
+        return obj.user.get_full_name()
 
 class RateSerializer(serializers.ModelSerializer):
     class Meta:

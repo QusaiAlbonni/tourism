@@ -154,7 +154,7 @@ class Tour(Activity):
     def takeoff_date_before_now(self):
         return self.takeoff_date < now()
     class Meta:
-        ordering = ['-modified']
+        ordering = ['modified']
     
     class SensitiveMeta:
         # sensitive fields critical to the business
@@ -189,7 +189,7 @@ class Listing(Activity):
             raise ValidationError("The sum of opens_at and work_hours exceeds 24 hours.")
         return super().clean()
     class Meta:
-        ordering = ['-modified']
+        ordering = ['modified']
     
     class SensitiveMeta:
         # sensitive fields critical to the business
@@ -231,7 +231,7 @@ class Ticket(models.Model):
     crucial_field_modified = models.DateTimeField(auto_now=False, auto_now_add=True)
     
     class Meta:
-        ordering = ['-modified']
+        ordering = ['modified']
     class SensitiveMeta:
         # sensitive fields critical to the business
         critical_fields = (
