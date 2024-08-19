@@ -82,13 +82,11 @@ INSTALLED_APPS = [
     'tags',
     'services',
     'activities',
-    'properties',
     'events',
     'reservations',
     'gemini',
     'inbox',
     'localizations',
-    'user_statistics',
 ]
 EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.OpenExchangeRatesBackend'
 OPEN_EXCHANGE_RATES_APP_ID=env('OPEN_EXCHANGE_KEY')
@@ -185,7 +183,6 @@ SIMPLE_JWT = {
 }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        "app_auth.authentication.FirebaseAuthentication",
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
@@ -334,7 +331,7 @@ GOOGLE_TRANSLATE = GoogleTranslator
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Pingoway api',
-    'DESCRIPTION': 'Pingoway is a progressive and modern tourism service system',
+    'DESCRIPTION': 'Pingoway is a modern tourism service system',
     'VERSION': '1.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
 }

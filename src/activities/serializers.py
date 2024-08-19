@@ -13,7 +13,6 @@ from services.serializers import ServicePhotoSerializer
 from tags.serializers import TagSerializer
 from tags.models import Tag, TagsCategory
 from django.shortcuts import get_object_or_404
-from properties.mixins.currency_conversion import CurrencyConversionMixin
 class GuideSerializer(serializers.ModelSerializer):
     liked = serializers.SerializerMethodField()
     class Meta:
@@ -62,7 +61,7 @@ class AddressSerializer(serializers.ModelSerializer):
         ]
         read_only_fields= ['longitude', 'latitude']
 
-class TicketSerializer(serializers.ModelSerializer, CurrencyConversionMixin):
+class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Ticket
         fields =['id','activity_id','name', 'description','stock','price_currency', 'price', 'points_discount_price', 'points_discount', 'valid_until', 'created', 'modified']
